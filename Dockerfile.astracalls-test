@@ -1,0 +1,11 @@
+FROM astraonline/astracalls:latest
+USER root
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends postgresql-15 postgresql-client-15 util-linux \
+    && (pg_dropcluster --stop 15 main || true) \
+    && rm -rf /var/lib/apt/lists/*
+COPY astracalls-test/start.sh /usr/local/bin/astracalls-test-start
+RUN chmod 755 /usr/local/bin/astracalls-test-start
+EXPOSE 8080
+ENTRYPOINT ["/usr/local/bin/astracalls-test-start"]
