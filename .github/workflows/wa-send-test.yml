@@ -1,0 +1,50 @@
+name: WhatsApp - teste controlado
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: wa-test-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  send-one-test:
+    if: >-
+      github.repository == 'NANDOBRTV/vitrine-criativa-web' &&
+      github.event.issue.user.login == 'NANDOBRTV' &&
+      github.event.issue.title == '[WA_TEST]' &&
+      vars.WA_TEST_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enviar somente modelo hello_world para número autorizado
+        id: send
+        env:
+          WA_ACCESS_TOKEN: ${{ secrets.WA_ACCESS_TOKEN }}
+          WA_PHONE_NUMBER_ID: ${{ secrets.WA_PHONE_NUMBER_ID }}
+          WA_TEST_RECIPIENT: ${{ secrets.WA_TEST_RECIPIENT }}
+          WA_GRAPH_API_VERSION: v26.0
+          WA_TEST_ENABLED: ${{ vars.WA_TEST_ENABLED }}
+        run: node wa-bridge/commands/send-test.mjs
+      - name: Registrar resultado sem dados pessoais
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ok = '${{ steps.send.outcome }}' === 'success';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: ok
+                ? '✅ A API da Meta aceitou o envio de UMA mensagem de teste. Confirme o recebimento no WhatsApp.'
+                : '⚠️ O teste não foi concluído. Veja o log do Actions sem divulgar tokens nem números.'
+            });
