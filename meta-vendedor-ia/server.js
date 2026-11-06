@@ -9,6 +9,7 @@ const http = require("node:http");
 const crypto = require("node:crypto");
 const outbound = require("./send-api");
 const mcpServer = require("./mcp");
+const inbox = require("./postgres-inbox");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -81,7 +82,7 @@ const server = http.createServer((req, res) => {
     }
     chunks.push(chunk);
   });
-  req.on("end", () => {
+  req.on("end", async () => {
     const body = Buffer.concat(chunks);
     const received = req.headers["x-hub-signature-256"];
     const expected = "sha256=" + crypto.createHmac("sha256", appSecret).update(body).digest("hex");
@@ -90,12 +91,14 @@ const server = http.createServer((req, res) => {
     }
     try {
       const event = JSON.parse(body.toString("utf8"));
-      // Event acknowledged only: we do not send messages or store customer data.
+      // Persist verified incoming messages before acknowledging Meta.
+      const received = await inbox.ingest(event);
       const entries = Array.isArray(event.entry) ? event.entry.length : 0;
-      console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries}));
+      console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries, received}));
       return reply(res, 200, "EVENT_RECEIVED");
-    } catch {
-      return reply(res, 400, "Invalid JSON");
+    } catch (error) {
+      console.error("Webhook processing failed", error?.name || "error");
+      return reply(res, 503, "Webhook processing unavailable");
     }
   });
   req.on("error", () => { if (!res.headersSent) reply(res, 400, "Request error"); });
