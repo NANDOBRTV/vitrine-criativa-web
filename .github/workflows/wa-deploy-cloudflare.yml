@@ -1,0 +1,81 @@
+name: WhatsApp - deploy Cloudflare Worker
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: wa-cloudflare-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.repository == 'NANDOBRTV/vitrine-criativa-web' &&
+      github.event.issue.user.login == 'NANDOBRTV' &&
+      github.event.issue.title == '[WA_DEPLOY]' &&
+      vars.WA_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências do atendente
+        working-directory: wa-bridge/worker
+        run: npm install --no-audit --no-fund
+      - name: Configurar ID do D1 sem gravar no Git
+        env:
+          CF_D1_DATABASE_ID: ${{ secrets.CF_D1_DATABASE_ID }}
+        run: node wa-bridge/worker/scripts/configure-wrangler.mjs
+      - name: Aplicar migrações do banco D1
+        working-directory: wa-bridge/worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run db:migrate
+      - name: Publicar Worker
+        working-directory: wa-bridge/worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run deploy
+      - name: Instalar credenciais Meta no Worker com entrada padrão
+        working-directory: wa-bridge/worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          META_WA_ENDPOINT: ${{ secrets.META_WA_ENDPOINT }}
+          META_WA_TOKEN: ${{ secrets.META_WA_TOKEN }}
+          META_WH_TOKEN: ${{ secrets.META_WH_TOKEN }}
+          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in META_WA_ENDPOINT META_WA_TOKEN META_WH_TOKEN META_APP_SECRET; do
+            value="${!key}"
+            if [[ -z "$value" ]]; then
+              echo "Variável obrigatória ausente: $key"
+              exit 1
+            fi
+            printf '%s' "$value" | npx wrangler secret put "$key" >/dev/null
+          done
+          echo "Credenciais instaladas no Worker, sem divulgar seus valores."
+      - name: Comunicar resultado sem divulgar segredos
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ok = '${{ job.status }}' === 'success';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: ok
+                ? '✅ Worker implantado no Cloudflare. Próximo passo: cadastrar o webhook no painel Meta.'
+                : '⚠️ O deploy do Worker falhou. Examine o Actions sem publicar credenciais.'
+            });
