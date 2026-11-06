@@ -32,3 +32,5 @@ jobs:
           node --check meta-vendedor-ia/server.test.cjs
       - name: Testar fluxos sem enviar mensagens reais
         run: node --test meta-vendedor-ia/server.test.cjs
+      - name: Validar status externo sem ler segredos
+        run: node meta-vendedor-ia/remote-check.cjs
