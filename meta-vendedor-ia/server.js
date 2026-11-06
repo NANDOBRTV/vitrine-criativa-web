@@ -8,6 +8,7 @@
 const http = require("node:http");
 const crypto = require("node:crypto");
 const outbound = require("./send-api");
+const mcpServer = require("./mcp");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -41,6 +42,8 @@ const server = http.createServer((req, res) => {
       outbound_integration_enabled: Boolean(process.env.VITRINE_SEND_API_KEY && process.env.VITRINE_SEND_API_KEY.length >= 24)
     }), "application/json; charset=utf-8");
   }
+
+  if (url.pathname === "/mcp") return mcpServer.mcp(req, res);
 
   if (req.method === "GET" && url.pathname === "/openapi.json") {
     return reply(res, 200, JSON.stringify(outbound.schema), "application/json; charset=utf-8");
