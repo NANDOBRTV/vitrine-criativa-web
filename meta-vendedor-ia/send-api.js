@@ -76,7 +76,7 @@ async function sendTemplate(req, res) {
   catch { return json(res, 400, {ok:false,error:"Invalid JSON"}); }
   if (!value || value.opt_in_confirmed !== true ||
       typeof value.to !== "string" || !/^[1-9][0-9]{7,14}$/.test(value.to) ||
-      typeof value.template_name !== "string" || !/^[a-z][a-z0-9_]{0,199}$/.test(value.template_name) ||
+      typeof value.template_name !== "string" || !/^[a-z0-9][a-z0-9_]{0,199}$/.test(value.template_name) ||
       (value.language_code !== undefined &&
       (typeof value.language_code !== "string" || !/^[a-z]{2,3}_[A-Z]{2}$/.test(value.language_code)))) {
     return json(res, 400, {ok:false,error:"Invalid input or contact consent not confirmed"});
