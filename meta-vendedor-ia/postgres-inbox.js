@@ -1,10 +1,10 @@
 "use strict";
-const {Pool}=require("pg");
+// Load the database driver only when database access is required.
 let pool,ready;
 function connection() {
  if (!process.env.DATABASE_URL) throw Error("DATABASE_URL is required");
- if (!pool) pool=new Pool({connectionString:process.env.DATABASE_URL,max:3,connectionTimeoutMillis:5000,
-   ssl:process.env.DATABASE_SSL==="require"?{rejectUnauthorized:true}:undefined});
+ if (!pool) { const {Pool}=require("pg"); pool=new Pool({connectionString:process.env.DATABASE_URL,max:3,connectionTimeoutMillis:5000,
+   ssl:process.env.DATABASE_SSL==="require"?{rejectUnauthorized:true}:undefined}); }
  return pool;
 }
 async function init() {
