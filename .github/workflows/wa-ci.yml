@@ -26,3 +26,13 @@ jobs:
       - run: node --test wa-bridge/commands/send-test.test.mjs
       - run: node --check wa-bridge/worker/src/index.js
       - run: node --check wa-bridge/worker/scripts/configure-wrangler.mjs
+      - name: Verificar se o pacote wa-agent realmente compila no Cloudflare
+        working-directory: wa-bridge/worker
+        run: npm install --no-audit --no-fund
+      - name: Compilar Worker sem conectar à Meta ou Cloudflare
+        working-directory: wa-bridge/worker
+        env:
+          CF_D1_DATABASE_ID: 00000000-0000-0000-0000-000000000001
+        run: |
+          node scripts/configure-wrangler.mjs
+          npx wrangler deploy --dry-run --outdir .wrangler/dry-run
