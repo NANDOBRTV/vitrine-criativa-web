@@ -1,0 +1,34 @@
+name: Vendedor IA - testes de seguranca
+
+on:
+  push:
+    paths:
+      - 'meta-vendedor-ia/**'
+      - '.github/workflows/vendedor-ia-ci.yml'
+  pull_request:
+    paths:
+      - 'meta-vendedor-ia/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verificar sintaxe
+        run: |
+          node --check meta-vendedor-ia/server.js
+          node --check meta-vendedor-ia/send-api.js
+          node --check meta-vendedor-ia/mcp.js
+          node --check meta-vendedor-ia/server.test.cjs
+      - name: Testar fluxos sem enviar mensagens reais
+        run: node --test meta-vendedor-ia/server.test.cjs
