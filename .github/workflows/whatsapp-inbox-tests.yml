@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install dependencies
+        run: npm install --omit=dev --no-audit --no-fund
       - name: Syntax checks
         run: |
           node --check meta-vendedor-ia/server.js
