@@ -11,6 +11,7 @@ const outbound = require("./send-api");
 const mcpServer = require("./mcp");
 const inbox = require("./postgres-inbox");
 const replyText = require("./send-text");
+const autoReply = require("./auto-reply");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -38,7 +39,7 @@ const server = http.createServer((req, res) => {
       service: "vitrine-vendedor-ia-webhook",
       whatsapp_verify_token_set: Boolean(process.env.WEBHOOK_VERIFY_TOKEN),
       app_signature_enabled: Boolean(process.env.META_APP_SECRET),
-      auto_reply_enabled: false,
+      auto_reply_enabled: process.env.VITRINE_AUTO_REPLY_ENABLED === "true" && Boolean(process.env.OPENAI_API_KEY),
       access_token_set: Boolean(process.env.META_WA_ACCESS_TOKEN),
       phone_number_id_set: Boolean(process.env.META_PHONE_NUMBER_ID),
       outbound_integration_enabled: Boolean(process.env.VITRINE_SEND_API_KEY && process.env.VITRINE_SEND_API_KEY.length >= 24)
@@ -115,7 +116,9 @@ const server = http.createServer((req, res) => {
       const received = await inbox.ingest(event);
       const entries = Array.isArray(event.entry) ? event.entry.length : 0;
       console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries, received}));
-      return reply(res, 200, "EVENT_RECEIVED");
+      reply(res, 200, "EVENT_RECEIVED");
+      if (received > 0) autoReply.handle(event).catch(() => console.error("AI_REPLY_HANDLER_FAILED"));
+      return;
     } catch (error) {
       console.error("Webhook processing failed", error?.name || "error");
       return reply(res, 503, "Webhook processing unavailable");
