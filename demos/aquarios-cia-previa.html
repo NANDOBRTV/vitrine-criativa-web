@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#062c35">
+<meta name="description" content="Prévia demonstrativa de catálogo digital para Aquários e Cia. Conceito visual, não é a loja oficial.">
+<title>Aquários e Cia · Prévia de catálogo | Vitrine Criativa Web</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--deep:#062c35;--ink:#11383f;--teal:#087e80;--aqua:#0dc8b4;--light:#effaf8;--line:#d4e9e5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f6fbfa;color:var(--ink)}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ffca74;outline-offset:3px}
+.wrap{width:min(1150px,calc(100% - 36px));margin:auto}
+.notice{background:#f8e8bb;color:#483a21;text-align:center;font-size:.8rem;padding:11px 18px;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:78px}
+.brand{font-weight:850;letter-spacing:-.045em;font-size:1.3rem;color:#fff}.brand em{font-style:normal;color:#85ece0}
+.nav a.cta{background:#e0fff8;color:#044940;border-radius:50px;padding:12px 17px;font-size:.82rem;font-weight:750}
+header{background:linear-gradient(155deg,#06343c 0%,#094f59 55%,#047b7d);color:white;overflow:hidden;position:relative}
+header:before{content:"";position:absolute;width:560px;height:560px;border:1px solid #ffffff20;border-radius:50%;right:-200px;top:80px;box-shadow:0 0 0 85px #ffffff07,0 0 0 180px #ffffff05;pointer-events:none}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px;padding:45px 0 65px;position:relative}
+.eyebrow{color:#8df8e3;font-size:.75rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+h1{font-size:clamp(2.4rem,7.5vw,5.4rem);line-height:1.04;letter-spacing:-.065em;margin:18px 0}
+.hero p{color:#cee8e5;line-height:1.7;max-width:530px;font-size:1.02rem}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:27px}
+.btn{background:#19ddbe;color:#043f3e;border-radius:12px;padding:14px 22px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0}
+.btn-outline{background:transparent;color:#fff;border:1px solid #ffffff85}
+.aquascape{height:335px;position:relative;display:grid;place-items:center;background:linear-gradient(180deg,#a6ffef29,#0c7d8940);border:1px solid #ffffff44;border-radius:28px;box-shadow:0 30px 80px #001a2870;isolation:isolate;overflow:hidden}
+.aquascape:after{content:"";position:absolute;inset:auto 0 0;height:50px;background:linear-gradient(0deg,#0d4a50,#073f47);z-index:-1}
+.aquascape .fish{font-size:100px;filter:drop-shadow(9px 13px 8px #032f4966);transform:rotate(-10deg)}
+.aquascape .plant{position:absolute;bottom:-24px;font-size:125px;left:0;opacity:.9}.aquascape .plant.right{left:auto;right:0;transform:scaleX(-1)}
+.aquascape .bubble{position:absolute;border:2px solid #c6fffdbb;border-radius:50%;width:22px;height:22px;right:25%;top:14%}.aquascape .bubble.b2{width:10px;height:10px;right:22%;top:27%}
+main{padding:65px 0 50px}h2{font-size:clamp(1.85rem,4.4vw,3rem);letter-spacing:-.045em;line-height:1.13;margin:7px 0 12px}
+.sub{color:#58767a;max-width:690px;line-height:1.65;margin:0 0 25px}
+.filters{display:flex;flex-wrap:wrap;gap:9px;margin:25px 0}.filter{border:1px solid #b3d1ca;background:white;border-radius:40px;padding:10px 17px;font-weight:720;color:#2f6868}
+.filter[aria-pressed="true"]{background:var(--deep);color:white;border-color:var(--deep)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:19px;overflow:hidden;background:white;box-shadow:0 14px 32px #003a3910}
+.picture{height:205px;display:grid;place-items:center;background:radial-gradient(ellipse at 65% 20%,var(--light),var(--base));position:relative}
+.picture span{font-size:84px;filter:drop-shadow(5px 12px 8px #052f3540)}
+.picture small{position:absolute;bottom:11px;left:14px;color:#195459;background:#ffffffba;padding:5px 10px;border-radius:30px;font-size:.65rem;font-weight:800;letter-spacing:.05em}
+.details{padding:22px}.details strong{font-size:1.15rem}.details p{font-size:.9rem;line-height:1.55;color:#668386;margin:8px 0 19px;min-height:50px}
+.details a{display:block;padding:11px 13px;text-align:center;border:1px solid #0e7c78;border-radius:10px;color:#086966;font-weight:800;font-size:.85rem}
+.details a:hover{background:#e7faf5}
+.empty{padding:35px;background:white;border-radius:14px;text-align:center}
+.pitch{margin:65px 0 0;background:linear-gradient(120deg,#0b555b,#073d45);color:white;border-radius:24px;padding:38px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.pitch h2{max-width:520px}.pitch p{color:#c7e3e0;line-height:1.55;max-width:570px}
+.pitch .btn{white-space:nowrap}
+footer{background:#062c35;color:#b4d4d1;padding:28px 0;font-size:.8rem;line-height:1.7}
+footer a{text-decoration:underline}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:25px 0 35px}.aquascape{height:240px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pitch{flex-direction:column;align-items:start}}
+@media(max-width:560px){.nav{min-height:69px}.brand{font-size:1.1rem}.nav a.cta{font-size:.74rem;padding:10px 12px}.grid{grid-template-columns:1fr}.picture{height:180px}.pitch{padding:25px}.actions .btn{flex:1}}
+</style>
+</head>
+<body>
+<div class="notice"><b>PRÉVIA DEMONSTRATIVA — NÃO É A LOJA OFICIAL.</b> Categorias, imagens e textos são ilustrativos. Disponibilidade, preços e fotos reais serão fornecidos e aprovados pela empresa.</div>
+<header>
+<div class="wrap"><nav class="nav"><a href="#inicio" class="brand">🐠 Aquários <em>&amp; Cia</em></a><a class="cta" href="#categorias">Explorar catálogo ↓</a></nav>
+<section class="hero" id="inicio"><div><div class="eyebrow">Seu universo aquático em um só lugar</div><h1>Tudo para um aquário cheio de vida.</h1><p>Uma experiência simples para encontrar categorias de produtos e chamar a equipe pelo WhatsApp. Assim pode funcionar a vitrine digital da Aquários e Cia.</p>
+<div class="actions"><a href="#categorias" class="btn">Ver categorias ↓</a><a class="btn btn-outline" href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20os%20produtos%20da%20loja." target="_blank" rel="noopener noreferrer">Conversar com a loja ↗</a></div></div>
+<div class="aquascape" role="img" aria-label="Ilustração de um peixe e plantas aquáticas"><span class="plant" aria-hidden="true">🌿</span><span class="fish" aria-hidden="true">🐠</span><span class="plant right" aria-hidden="true">🌿</span><span class="bubble"></span><span class="bubble b2"></span></div></section></div>
+</header>
+<main class="wrap">
+<section id="categorias">
+<div class="eyebrow" style="color:#0b7d76">Catálogo ilustrativo</div><h2>Categorias que o cliente encontra rápido.</h2><p class="sub">Um exemplo de organização do catálogo. As seis categorias abaixo representam ideias visuais — não um inventário real da Aquários e Cia. Ao aprovar o projeto, entram os produtos, fotos, descrições e preços autorizados.</p>
+<div class="filters" role="group" aria-label="Filtrar categorias">
+<button type="button" class="filter" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="filter" data-filter="aquarios" aria-pressed="false">Aquários</button><button type="button" class="filter" data-filter="alimentacao" aria-pressed="false">Alimentação</button><button type="button" class="filter" data-filter="acessorios" aria-pressed="false">Acessórios</button>
+</div>
+<div class="grid" id="itens">
+<article class="card" data-category="aquarios"><div class="picture" style="--light:#d7fffa;--base:#80cfc9"><span aria-hidden="true">🐠</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Aquários</strong><p>Área para apresentar modelos e dimensões disponíveis, com fotos reais.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20aqu%C3%A1rios%20dispon%C3%ADveis." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+<article class="card" data-category="aquarios"><div class="picture" style="--light:#d9f8e9;--base:#91c4b0"><span aria-hidden="true">🌱</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Decoração aquática</strong><p>Espaço ilustrativo para ornamentos e decoração de aquários.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20sobre%20decora%C3%A7%C3%A3o%20para%20aqu%C3%A1rios." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+<article class="card" data-category="alimentacao"><div class="picture" style="--light:#fff5db;--base:#e1b96b"><span aria-hidden="true">🥣</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Alimentação</strong><p>Área para exibir rações, marcas e opções fornecidas pela loja.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20consultar%20op%C3%A7%C3%B5es%20de%20alimenta%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+<article class="card" data-category="acessorios"><div class="picture" style="--light:#e2f6ff;--base:#93bed9"><span aria-hidden="true">💧</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Filtragem e manutenção</strong><p>Organização de itens de filtragem, reposição e manutenção.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20sobre%20itens%20de%20filtragem%20e%20manuten%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+<article class="card" data-category="acessorios"><div class="picture" style="--light:#f5e8ff;--base:#c6a3d6"><span aria-hidden="true">💡</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Iluminação e acessórios</strong><p>Produtos e peças apresentados em cards fáceis de comparar.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20acess%C3%B3rios%20dispon%C3%ADveis." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+<article class="card" data-category="alimentacao"><div class="picture" style="--light:#ecffe2;--base:#a6d19d"><span aria-hidden="true">🪴</span><small>EXEMPLO VISUAL</small></div><div class="details"><strong>Cuidados e bem-estar</strong><p>Categoria demonstrativa para organizar itens de cuidados.</p><a href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Gostaria%20de%20consultar%20itens%20de%20cuidados%20dispon%C3%ADveis." target="_blank" rel="noopener noreferrer">Perguntar no WhatsApp ↗</a></div></article>
+</div><div class="empty" id="empty" hidden>Não há itens nessa seleção.</div>
+</section>
+<section class="pitch"><div><div class="eyebrow">Sua loja, sua identidade</div><h2>O cliente vê, escolhe e chama no WhatsApp.</h2><p>Esta prévia é uma proposta de aparência e navegação. A versão real usará identidade visual, categorias, fotos e informações da própria empresa, após confirmação do escopo.</p></div><a class="btn" href="https://wa.me/558299854828?text=Ol%C3%A1%21%20Vim%20pela%20pr%C3%A9via%20do%20cat%C3%A1logo." target="_blank" rel="noopener noreferrer">Falar com a loja ↗</a></section>
+</main>
+<footer><div class="wrap">Demonstração visual criada por <a href="https://nandobrtv.github.io/vitrine-criativa-web/oferta.html" target="_blank" rel="noopener noreferrer">Vitrine Criativa Web</a> para apresentação comercial à Aquários e Cia. Este conteúdo não representa estoque, disponibilidade, preços, parceria formal ou site oficial. Não há compras nem pagamentos nesta prévia.</div></footer>
+<script>
+const filters=[...document.querySelectorAll('.filter')], cards=[...document.querySelectorAll('.card')];
+filters.forEach(button=>button.addEventListener('click',()=>{
+const v=button.dataset.filter;
+filters.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+let count=0;cards.forEach(c=>{const show=v==='todos'||c.dataset.category===v;c.hidden=!show;if(show)count++});
+document.getElementById('empty').hidden=count>0;
+}));
+</script>
+</body></html>
