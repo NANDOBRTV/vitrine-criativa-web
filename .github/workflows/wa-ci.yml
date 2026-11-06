@@ -1,0 +1,28 @@
+name: WhatsApp bridge - tests
+on:
+  push:
+    branches:
+      - feature/whatsapp-cloud-github-bridge
+    paths:
+      - 'wa-bridge/**'
+      - '.github/workflows/wa-ci.yml'
+  pull_request:
+    paths:
+      - 'wa-bridge/**'
+      - '.github/workflows/wa-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test wa-bridge/commands/send-test.test.mjs
+      - run: node --check wa-bridge/worker/src/index.js
+      - run: node --check wa-bridge/worker/scripts/configure-wrangler.mjs
