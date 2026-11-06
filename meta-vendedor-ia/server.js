@@ -9,6 +9,7 @@ const http = require("node:http");
 const crypto = require("node:crypto");
 const outbound = require("./send-api");
 const mcpServer = require("./mcp");
+const inbox = require("./inbox");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -90,9 +91,10 @@ const server = http.createServer((req, res) => {
     }
     try {
       const event = JSON.parse(body.toString("utf8"));
-      // Event acknowledged only: we do not send messages or store customer data.
+      // Store verified incoming messages in a bounded volatile inbox only.
+      const received = inbox.ingest(event);
       const entries = Array.isArray(event.entry) ? event.entry.length : 0;
-      console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries}));
+      console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries, received}));
       return reply(res, 200, "EVENT_RECEIVED");
     } catch {
       return reply(res, 400, "Invalid JSON");
