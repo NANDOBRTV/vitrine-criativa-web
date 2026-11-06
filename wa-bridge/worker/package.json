@@ -9,7 +9,7 @@
     "db:migrate": "wrangler d1 migrations apply vitrine-wa-db --remote --migrations-dir node_modules/@emerleite/wa-agent/migrations"
   },
   "dependencies": {
-    "@emerleite/wa-agent": "0.20.0",
+    "@emerleite/wa-agent": "0.19.1",
     "hono": "^4.4.4"
   },
   "devDependencies": {
