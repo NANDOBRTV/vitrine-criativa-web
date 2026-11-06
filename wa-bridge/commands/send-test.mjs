@@ -2,17 +2,19 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export function readConfig(env = process.env) {
-  const required = ['WA_ACCESS_TOKEN', 'WA_PHONE_NUMBER_ID', 'WA_TEST_RECIPIENT'];
+  const required = ['META_WA_TOKEN', 'META_WA_ENDPOINT', 'WA_TEST_RECIPIENT'];
   const missing = required.filter(key => !env[key]?.trim());
   if (missing.length) throw new Error('Credenciais de teste não configuradas no GitHub: ' + missing.join(', '));
   if (env.WA_TEST_ENABLED !== 'true') throw new Error('Teste desativado: configure WA_TEST_ENABLED=true nas Variables do repositório.');
-  const version = env.WA_GRAPH_API_VERSION || 'v26.0';
-  if (!/^v\d+\.\d+$/.test(version)) throw new Error('Versão inválida da Graph API.');
-  const phoneId = env.WA_PHONE_NUMBER_ID.trim();
+  const endpoint = new URL(env.META_WA_ENDPOINT);
+  if (endpoint.origin !== 'https://graph.facebook.com') throw new Error('Endpoint Meta inválido.');
+  const match = endpoint.pathname.match(/^\/(v\d+\.\d+)\/(\d+)\/?$/);
+  if (!match) throw new Error('META_WA_ENDPOINT deve terminar em /vNN.N/PHONE_NUMBER_ID.');
+  const [, version, phoneId] = match;
   const recipient = env.WA_TEST_RECIPIENT.replace(/\D/g, '');
   if (!/^\d{5,30}$/.test(phoneId)) throw new Error('Phone number ID inválido.');
   if (!/^\d{10,15}$/.test(recipient)) throw new Error('Número de teste inválido.');
-  return { token: env.WA_ACCESS_TOKEN, phoneId, recipient, version };
+  return { token: env.META_WA_TOKEN, phoneId, recipient, version };
 }
 
 export async function sendHelloWorld(config, http = fetch) {
