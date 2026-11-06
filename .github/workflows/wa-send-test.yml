@@ -28,10 +28,9 @@ jobs:
       - name: Enviar somente modelo hello_world para número autorizado
         id: send
         env:
-          WA_ACCESS_TOKEN: ${{ secrets.WA_ACCESS_TOKEN }}
-          WA_PHONE_NUMBER_ID: ${{ secrets.WA_PHONE_NUMBER_ID }}
+          META_WA_TOKEN: ${{ secrets.META_WA_TOKEN }}
+          META_WA_ENDPOINT: ${{ secrets.META_WA_ENDPOINT }}
           WA_TEST_RECIPIENT: ${{ secrets.WA_TEST_RECIPIENT }}
-          WA_GRAPH_API_VERSION: v26.0
           WA_TEST_ENABLED: ${{ vars.WA_TEST_ENABLED }}
         run: node wa-bridge/commands/send-test.mjs
       - name: Registrar resultado sem dados pessoais
