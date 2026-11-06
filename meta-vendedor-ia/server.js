@@ -10,6 +10,7 @@ const crypto = require("node:crypto");
 const outbound = require("./send-api");
 const mcpServer = require("./mcp");
 const inbox = require("./postgres-inbox");
+const replyText = require("./send-text");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -62,6 +63,7 @@ const server = http.createServer((req, res) => {
       reply(res, 200, JSON.stringify(result), "application/json; charset=utf-8")
     ).catch(() => reply(res, 503, JSON.stringify({error:"Inbox unavailable"}), "application/json; charset=utf-8"));
   }
+  if (req.method === "POST" && url.pathname === "/api/whatsapp/send-text") return replyText.sendText(req,res);
   if (url.pathname === "/mcp") return mcpServer.mcp(req, res);
 
   if (req.method === "GET" && url.pathname === "/openapi.json") {
