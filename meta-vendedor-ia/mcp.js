@@ -2,7 +2,7 @@
 /** Stateless minimal MCP Streamable HTTP server for the Vitrine WhatsApp connector. */
 const {sendTemplate} = require("./send-api");
 const crypto = require("node:crypto");
-const inbox = require("./inbox");
+const inbox = require("./postgres-inbox");
 
 function authorized(req) {
   const key = process.env.VITRINE_SEND_API_KEY;
@@ -33,7 +33,7 @@ const tool = {
 const inboxTool = {
   name:"list_received_whatsapp_messages",
   title:"Consultar mensagens recebidas no WhatsApp",
-  description:"Lista mensagens recebidas após a implantação desta versão. Armazenamento temporário em memória: mensagens se perdem ao reiniciar o serviço. Data e horários em UTC.",
+  description:"Lista mensagens recebidas após a implantação, armazenadas em PostgreSQL. Data e horários em UTC.",
   inputSchema:{type:"object",additionalProperties:false,properties:{
     date:{type:"string",description:"Data UTC YYYY-MM-DD (opcional)"},
     limit:{type:"integer",minimum:1,maximum:100}
@@ -63,7 +63,7 @@ async function mcp(req,res) {
     if (msg.method==="tools/list") return write(res,200,{...base,result:{tools:[tool,inboxTool]}});
     if (msg.method==="tools/call" && msg.params?.name===inboxTool.name) {
       try {
-        const result=inbox.list(msg.params?.arguments || {});
+        const result=await inbox.list(msg.params?.arguments || {});
         return write(res,200,{...base,result:{content:[{type:"text",text:JSON.stringify(result)}]}});
       } catch {
         return write(res,200,{...base,result:{content:[{type:"text",text:"Invalid inbox query"}],isError:true}});
