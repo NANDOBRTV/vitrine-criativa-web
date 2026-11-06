@@ -22,9 +22,10 @@ function parse(event) {
  const records=[];
  for(const entry of event.entry||[]) for(const change of entry.changes||[]) {
   for(const m of change.value?.messages||[]) {
-   if(!m.id || !m.from) continue;
+   const sender=m.from || m.from_user_id || change.value?.contacts?.find(c=>c.wa_id===m.from || c.user_id===m.from_user_id)?.user_id;
+   if(!m.id || !sender) continue;
    const time=Number(m.timestamp);
-   records.push({id:String(m.id).slice(0,160),from:String(m.from).slice(0,32),
+   records.push({id:String(m.id).slice(0,160),from:String(sender).slice(0,128),
     timestamp:Number.isFinite(time)&&time>0?new Date(time*1000):new Date(),
     type:String(m.type||"unknown").slice(0,32),
     text:m.type==="text"?String(m.text?.body||"").slice(0,4096):null});
