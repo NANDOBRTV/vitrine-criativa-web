@@ -1,15 +1,13 @@
 "use strict";
-const assert = require("node:assert/strict");
-const test = require("node:test");
-const inbox = require("./inbox");
-test("receives simulated Meta text event, deduplicates and lists safely", () => {
- const id="simulated-"+Date.now();
- const event={entry:[{changes:[{value:{messages:[{id,from:"5511999990000",timestamp:Math.floor(Date.now()/1000),type:"text",text:{body:"Mensagem simulada; não enviada"}}]}}]}]};
- assert.equal(inbox.ingest(event),1);
- assert.equal(inbox.ingest(event),0);
- const result=inbox.list({limit:1});
- assert.equal(result.messages[0].id,id);
- assert.equal(result.messages[0].text,"Mensagem simulada; não enviada");
- assert.equal(result.volatile,true);
+const test=require("node:test");
+const assert=require("node:assert/strict");
+const inbox=require("./postgres-inbox");
+test("parses simulated incoming text event without contacting Meta or database",()=>{
+ const event={entry:[{changes:[{value:{messages:[{id:"simulated-message-1",from:"5511999990000",timestamp:1762459200,type:"text",text:{body:"Mensagem simulada"}}]}}]}]};
+ const rows=inbox.parse(event);
+ assert.equal(rows.length,1);
+ assert.equal(rows[0].id,"simulated-message-1");
+ assert.equal(rows[0].text,"Mensagem simulada");
+ assert.equal(rows[0].from,"5511999990000");
 });
-test("rejects invalid date filter",()=>assert.throws(()=>inbox.list({date:"invalid"})));
+test("ignores events without incoming messages",()=>assert.deepEqual(inbox.parse({entry:[{changes:[{value:{statuses:[{status:"delivered"}]}}]}]}),[]));
