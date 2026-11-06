@@ -47,8 +47,8 @@ async function list({date,limit=30}={}) {
  const n=Math.max(1,Math.min(100,Number(limit)||30));
  if(date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw Error("Invalid date");
  const q=date?
-  ["SELECT id,sender AS from,received_at,message_type AS type,body AS text FROM whatsapp_vitrine.inbound_messages WHERE received_at >= $1::date AND received_at < ($1::date + interval '1 day') ORDER BY received_at DESC LIMIT $2",[date,n]]:
-  ["SELECT id,sender AS from,received_at,message_type AS type,body AS text FROM whatsapp_vitrine.inbound_messages ORDER BY received_at DESC LIMIT $1",[n]];
+  ["SELECT id,sender AS sender,received_at,message_type AS type,body AS text FROM whatsapp_vitrine.inbound_messages WHERE received_at >= $1::date AND received_at < ($1::date + interval '1 day') ORDER BY received_at DESC LIMIT $2",[date,n]]:
+  ["SELECT id,sender AS sender,received_at,message_type AS type,body AS text FROM whatsapp_vitrine.inbound_messages ORDER BY received_at DESC LIMIT $1",[n]];
  const r=await connection().query(...q);
  return {timezone:"UTC",persistent:true,messages:r.rows};
 }
