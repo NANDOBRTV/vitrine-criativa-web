@@ -44,6 +44,24 @@ const server = http.createServer((req, res) => {
     }), "application/json; charset=utf-8");
   }
 
+  if (req.method === "GET" && url.pathname === "/chat") {
+    const fs = require("node:fs");
+    const file = require("node:path").join(__dirname, "chat.html");
+    return reply(res, 200, fs.readFileSync(file, "utf8"), "text/html; charset=utf-8");
+  }
+  if (url.pathname === "/api/whatsapp/inbox") {
+    if (req.method !== "GET") return reply(res, 405, "Method not allowed");
+    const secret = process.env.VITRINE_SEND_API_KEY || "";
+    const auth = String(req.headers.authorization || "");
+    if (secret.length < 24 || !auth.startsWith("Bearer ") || !fixedEquals(auth.slice(7), secret)) {
+      return reply(res, 401, JSON.stringify({error:"Unauthorized"}), "application/json; charset=utf-8");
+    }
+    const limit = url.searchParams.get("limit") || "30";
+    const date = url.searchParams.get("date") || undefined;
+    return inbox.list({limit,date}).then(result =>
+      reply(res, 200, JSON.stringify(result), "application/json; charset=utf-8")
+    ).catch(() => reply(res, 503, JSON.stringify({error:"Inbox unavailable"}), "application/json; charset=utf-8"));
+  }
   if (url.pathname === "/mcp") return mcpServer.mcp(req, res);
 
   if (req.method === "GET" && url.pathname === "/openapi.json") {
