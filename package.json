@@ -1,0 +1,12 @@
+{
+  "name": "vitrine-vendedor-ia-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend dependencies for WhatsApp MCP integration",
+  "scripts": {
+    "test:whatsapp": "node --test meta-vendedor-ia/inbox.test.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
