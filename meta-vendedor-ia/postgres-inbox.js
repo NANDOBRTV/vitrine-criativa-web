@@ -53,4 +53,9 @@ async function list({date,limit=30}={}) {
  const r=await connection().query(...q);
  return {timezone:"UTC",persistent:true,messages:r.rows};
 }
-module.exports={init,ingest,list,parse};
+async function recentInbound(sender) {
+ await init();
+ const r=await connection().query("SELECT received_at FROM whatsapp_vitrine.inbound_messages WHERE sender=$1 ORDER BY received_at DESC LIMIT 1",[sender]);
+ return r.rows[0]?.received_at || null;
+}
+module.exports={init,ingest,list,parse,recentInbound};
