@@ -18,7 +18,7 @@ async function runOneShotTest() {
   if (!id || !to || !template) return;
   if (!/^[a-zA-Z0-9_-]{12,80}$/.test(id) ||
       !/^[1-9][0-9]{7,14}$/.test(to) ||
-      !/^[a-z][a-z0-9_]{0,199}$/.test(template) ||
+      !/^[a-z0-9][a-z0-9_]{0,199}$/.test(template) ||
       !/^[a-z]{2,3}_[A-Z]{2}$/.test(language)) {
     console.error("ONE_SHOT_TEST_INVALID_CONFIG"); return;
   }
