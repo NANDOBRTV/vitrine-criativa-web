@@ -7,6 +7,7 @@
  */
 const http = require("node:http");
 const crypto = require("node:crypto");
+const outbound = require("./send-api");
 const port = Number(process.env.PORT || 3000);
 const route = "/webhooks/whatsapp";
 
@@ -34,8 +35,18 @@ const server = http.createServer((req, res) => {
       service: "vitrine-vendedor-ia-webhook",
       whatsapp_verify_token_set: Boolean(process.env.WEBHOOK_VERIFY_TOKEN),
       app_signature_enabled: Boolean(process.env.META_APP_SECRET),
-      auto_reply_enabled: false
+      auto_reply_enabled: false,
+      access_token_set: Boolean(process.env.META_WA_ACCESS_TOKEN),
+      phone_number_id_set: Boolean(process.env.META_PHONE_NUMBER_ID),
+      outbound_integration_enabled: Boolean(process.env.VITRINE_SEND_API_KEY && process.env.VITRINE_SEND_API_KEY.length >= 24)
     }), "application/json; charset=utf-8");
+  }
+
+  if (req.method === "GET" && url.pathname === "/openapi.json") {
+    return reply(res, 200, JSON.stringify(outbound.schema), "application/json; charset=utf-8");
+  }
+  if (req.method === "POST" && url.pathname === outbound.PATH) {
+    return outbound.sendTemplate(req, res);
   }
 
   if (url.pathname !== route) return reply(res, 404, "Not found");
