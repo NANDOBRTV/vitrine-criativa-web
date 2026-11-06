@@ -1,0 +1,92 @@
+"use strict";
+
+/**
+ * Vitrine Criativa Web — Meta WhatsApp Cloud API webhook receiver.
+ * Isolated from the existing Peach integration. NO auto-sending, forwarding, storing, or logging message bodies.
+ * Production message processing MUST wait for APP_SECRET to be configured and authorized.
+ */
+const http = require("node:http");
+const crypto = require("node:crypto");
+const port = Number(process.env.PORT || 3000);
+const route = "/webhooks/whatsapp";
+
+function fixedEquals(a, b) {
+  const x = Buffer.from(String(a || ""), "utf8");
+  const y = Buffer.from(String(b || ""), "utf8");
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
+}
+
+function reply(res, status, data, contentType = "text/plain; charset=utf-8") {
+  res.writeHead(status, {
+    "Content-Type": contentType,
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff"
+  });
+  res.end(data);
+}
+
+const server = http.createServer((req, res) => {
+  const url = new URL(req.url || "/", "http://localhost");
+
+  if (req.method === "GET" && url.pathname === "/health") {
+    return reply(res, 200, JSON.stringify({
+      ok: true,
+      service: "vitrine-vendedor-ia-webhook",
+      whatsapp_verify_token_set: Boolean(process.env.WEBHOOK_VERIFY_TOKEN),
+      app_signature_enabled: Boolean(process.env.META_APP_SECRET),
+      auto_reply_enabled: false
+    }), "application/json; charset=utf-8");
+  }
+
+  if (url.pathname !== route) return reply(res, 404, "Not found");
+
+  if (req.method === "GET") {
+    const expected = process.env.WEBHOOK_VERIFY_TOKEN;
+    const mode = url.searchParams.get("hub.mode");
+    const receivedToken = url.searchParams.get("hub.verify_token");
+    const challenge = url.searchParams.get("hub.challenge");
+    if (expected && mode === "subscribe" && fixedEquals(receivedToken, expected) &&
+        challenge !== null && /^\d{1,24}$/.test(challenge)) {
+      return reply(res, 200, challenge);
+    }
+    return reply(res, 403, "Verification failed");
+  }
+
+  if (req.method !== "POST") return reply(res, 405, "Method not allowed");
+
+  const appSecret = process.env.META_APP_SECRET;
+  if (!appSecret) return reply(res, 503, "Webhook signatures are not configured");
+
+  let size = 0;
+  const chunks = [];
+  req.on("data", chunk => {
+    size += chunk.length;
+    if (size > 1024 * 1024) {
+      req.destroy();
+      return;
+    }
+    chunks.push(chunk);
+  });
+  req.on("end", () => {
+    const body = Buffer.concat(chunks);
+    const received = req.headers["x-hub-signature-256"];
+    const expected = "sha256=" + crypto.createHmac("sha256", appSecret).update(body).digest("hex");
+    if (!received || !fixedEquals(received, expected)) {
+      return reply(res, 401, "Invalid signature");
+    }
+    try {
+      const event = JSON.parse(body.toString("utf8"));
+      // Event acknowledged only: we do not send messages or store customer data.
+      const entries = Array.isArray(event.entry) ? event.entry.length : 0;
+      console.log("Valid webhook received", JSON.stringify({type: event.object || "unknown", entries}));
+      return reply(res, 200, "EVENT_RECEIVED");
+    } catch {
+      return reply(res, 400, "Invalid JSON");
+    }
+  });
+  req.on("error", () => { if (!res.headersSent) reply(res, 400, "Request error"); });
+});
+
+server.listen(port, "0.0.0.0", () => {
+  console.log("Meta webhook receiver listening", JSON.stringify({port, route}));
+});
