@@ -106,4 +106,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, "0.0.0.0", () => {
   console.log("Meta webhook receiver listening", JSON.stringify({port, route}));
+  // An explicit, isolated, one-attempt test runs only if dedicated env vars exist.
+  require("./one-shot-test").runOneShotTest().catch(()=>console.error("ONE_SHOT_TEST_FAILED"));
 });
