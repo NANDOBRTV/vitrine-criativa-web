@@ -75,6 +75,46 @@ function page(name){
  if(name==='connection'||name==='assistant'||name==='security')loadSettings().catch(e=>toast(e.message,true));
 }
 function readable(value){return value?'Ativo':'Pendente';}
+function canSendAudioToWhatsApp(){
+ return Boolean(summary?.durable&&summary?.metaReady&&summary?.voiceReady&&currentContact
+  &&!String(currentContact.wa_id||'').startsWith('0000'));
+}
+function updateAudioButton(){
+ const button=$('sendAudio'),hint=$('audioHint');
+ if(!button||!hint)return;
+ if(canSendAudioToWhatsApp()){
+  button.textContent='🎙 Enviar áudio';
+  button.title='Gerar e enviar áudio real pelo WhatsApp Business';
+  hint.textContent='Envio de voz pela Meta. O contato precisa ter iniciado a conversa há menos de 24 horas e a IA precisa estar configurada.';
+ }else{
+  button.textContent='🔊 Ouvir áudio';
+  button.title='Ouvir o texto usando a voz do seu celular, sem enviar mensagens';
+  hint.textContent='Prévia local: o celular lê o texto, mas não envia WhatsApp. Para enviar áudio real, configure Meta, banco permanente e chave OpenAI API.';
+ }
+}
+function previewLocalAudio(text){
+ const words=String(text||'').trim();
+ if(!words)return toast('Escreva uma mensagem para ouvir no celular.',true);
+ if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)){
+  return toast('A leitura de voz não está disponível neste navegador. Experimente abrir no Chrome do Android.',true);
+ }
+ try{
+  window.speechSynthesis.cancel();
+  const utterance=new SpeechSynthesisUtterance(words.slice(0,1100));
+  utterance.lang='pt-BR';
+  utterance.rate=0.95;
+  utterance.pitch=1;
+  const installed=window.speechSynthesis.getVoices();
+  const pt=installed.find(v=>v.lang.toLowerCase()==='pt-br')||installed.find(v=>v.lang.toLowerCase().startsWith('pt'));
+  if(pt)utterance.voice=pt;
+  utterance.onstart=()=>toast('Reproduzindo prévia no celular. Nenhuma mensagem foi enviada.');
+  utterance.onerror=()=>toast('A voz do celular não conseguiu reproduzir o texto. Confira a voz de leitura nas configurações do Android.',true);
+  window.nzCurrentSpeech=utterance;
+  window.speechSynthesis.speak(utterance);
+ }catch{
+  toast('Falha ao iniciar a prévia de voz neste navegador.',true);
+ }
+}
 async function refreshStats(){
  summary=await api('/api/status');
  $('statContacts').textContent=summary.contacts;
@@ -88,6 +128,7 @@ async function refreshStats(){
  $('metaBanner').textContent=summary.metaReady?'Credenciais da Meta cadastradas; ainda é necessário validar um webhook real.':'Aguardando credenciais oficiais da Meta para este NandoZap.';
  $('prodNotice').textContent=summary.durable?'Banco com persistência habilitada. Valide a Meta antes de iniciar envios.':'Armazenamento temporário: envios reais e automações estão bloqueados até existir um banco persistente.';
  $('storageDetails').textContent=summary.durable?'Armazenamento durável habilitado.':'Armazenamento provisório. Seus dados de teste podem desaparecer após reinício da nuvem.';
+ updateAudioButton();
 }
 async function loadSettings(){
  settings=await api('/api/settings');
@@ -129,6 +170,7 @@ async function loadChats(){
 }
 async function selectChat(c){
  currentContact=c;
+ updateAudioButton();
  for(const node of $('contactList').children)node.classList.toggle('selected',node.textContent.includes(c.name));
  $('chatTitle').textContent=c.name+' • '+c.wa_id+(c.paused?' • Atendimento pausado':'');
  $('pauseContact').textContent=c.paused?'Reativar IA':'Pausar IA';
@@ -160,22 +202,34 @@ async function sendReply(){
 }
 async function sendAudio(){
  if(!currentContact)return toast('Selecione um contato.',true);
- const value=$('replyInput').value.trim();if(!value)return toast('Digite o texto a ser falado.',true);
+ const value=$('replyInput').value.trim();
+ if(!value)return toast('Digite primeiro a mensagem que deseja ouvir.',true);
  if(value.length>1100)return toast('O áudio aceita até 1100 caracteres.',true);
+ if(!canSendAudioToWhatsApp()){
+  previewLocalAudio(value);
+  return;
+ }
  $('sendAudio').disabled=true;
  try{
   await api('/api/send-audio','POST',{contactId:currentContact.id,text:value});
-  $('replyInput').value='';toast('Áudio enviado para a Meta; entrega depende do WhatsApp.');await selectChat(currentContact);
+  $('replyInput').value='';
+  toast('Áudio aceito pela Meta; a entrega depende do WhatsApp.');
+  await selectChat(currentContact);
  }catch(e){toast(e.message,true);}
  finally{$('sendAudio').disabled=false;}
 }
 async function previewVoice(){
+ const sample='Olá! Sou a assistente virtual do NandoZap IA. Posso ajudar com suas dúvidas e pedidos.';
+ if(!settings?.openaiApiKeySet){
+  previewLocalAudio(sample);
+  return;
+ }
  const node=$('previewVoice');node.disabled=true;
  try{
   const res=await fetch('/api/preview-voice',{
    method:'POST',cache:'no-store',credentials:'same-origin',
    headers:{'content-type':'application/json','x-nz-action':'admin'},
-   body:JSON.stringify({text:'Olá! Sou a assistente virtual do NandoZap IA. Posso ajudar com suas dúvidas e pedidos.',voiceName:$('voiceName').value})
+   body:JSON.stringify({text:sample,voiceName:$('voiceName').value})
   });
   if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(data.error||'Não foi possível gerar a voz.');}
   const data=await res.blob();
