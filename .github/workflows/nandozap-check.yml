@@ -1,0 +1,20 @@
+name: NandoZap IA - Testes independentes
+on:
+  push:
+    branches: [nandozap-standalone]
+    paths:
+      - 'nandozap-independent/**'
+      - '.github/workflows/nandozap-check.yml'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Verificar sintaxe
+        run: node --check nandozap-independent/server.mjs && node --check nandozap-independent/public/app.js
+      - name: Testar autenticação, banco, MCP e proteção da Meta
+        run: node nandozap-independent/test.mjs
