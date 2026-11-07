@@ -57,7 +57,7 @@ const statusOf=()=>({metaReady:Boolean(config.metaAppSecret&&config.metaAccessTo
  durable, mcpReady:Boolean(db.prepare("SELECT value FROM kv WHERE key='mcp_hash'").get()),
  businessName:config.businessName});
 function send(res,status,obj,headers={}){
- res.writeHead(status,{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff','referrer-policy':'no-referrer',...headers});
+ res.writeHead(status,{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff','referrer-policy':'no-referrer','x-frame-options':'DENY','strict-transport-security':'max-age=31536000; includeSubDomains',...headers});
  res.end(JSON.stringify(obj));
 }
 const ok=(res,obj)=>send(res,200,obj);
@@ -165,6 +165,7 @@ async function maybeAutoReply(contactId,text){
  }catch{audit('auto_reply_failed','contact:'+contactId);}
 }
 async function metaWebhook(req,res,url){
+ if(!durable)return send(res,503,{error:'Armazenamento permanente é obrigatório antes de ativar a integração oficial.'});
  if(req.method==='GET'){
   const mode=url.searchParams.get('hub.mode'),token=url.searchParams.get('hub.verify_token'),challenge=url.searchParams.get('hub.challenge');
   if(mode==='subscribe'&&token&&constant(token,config.metaVerifyToken)&&/^[0-9]{1,24}$/.test(challenge||'')){
@@ -295,6 +296,7 @@ const httpServer=http.createServer(async(req,res)=>{
    }
    if(['off','rules','ai'].includes(data.autoMode)){
     if(data.autoMode!=='off'&&!durable)return send(res,409,{error:'Não é seguro ativar automações sem armazenamento persistente.'});
+    if(data.autoMode!=='off'&&!statusOf().metaReady)return send(res,409,{error:'Conecte a Meta antes de ativar respostas automáticas.'});
     if(data.autoMode==='ai'&&!config.openaiApiKey)return send(res,409,{error:'A chave de API da IA é obrigatória.'});
     config.autoMode=data.autoMode;
    }
