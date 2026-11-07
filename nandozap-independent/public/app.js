@@ -98,18 +98,24 @@ function makeChatRow(c){
  row.onclick=()=>selectChat(c);
  return row;
 }
+function renderChatList(){
+ const list=$('contactList');list.replaceChildren();
+ const query=$('chatSearch').value.trim().toLocaleLowerCase('pt-BR');
+ const results=allChats.filter(c=>(c.name||'').toLocaleLowerCase('pt-BR').includes(query));
+ if(!results.length){const empty=document.createElement('div');empty.className='card';empty.textContent='Nenhuma conversa encontrada.';list.append(empty);}
+ else for(const c of results)list.append(makeChatRow(c));
+}
 async function loadChats(){
  const response=await api('/api/chats');
  allChats=response.chats||[];
- const list=$('contactList');list.replaceChildren();
- if(!allChats.length){const empty=document.createElement('div');empty.className='card';empty.textContent='Nenhuma conversa. Você pode criar uma demonstração na Visão geral.';list.append(empty);}
- else for(const c of allChats)list.append(makeChatRow(c));
+ renderChatList();
  if(currentContact){const updated=allChats.find(c=>c.id===currentContact.id);if(updated)await selectChat(updated);else currentContact=null;}
 }
 async function selectChat(c){
  currentContact=c;
  for(const node of $('contactList').children)node.classList.toggle('selected',node.textContent.includes(c.name));
  $('chatTitle').textContent=c.name+' • '+c.wa_id+(c.paused?' • Atendimento pausado':'');
+ $('pauseContact').textContent=c.paused?'Reativar IA':'Pausar IA';
  const response=await api('/api/messages?contact_id='+encodeURIComponent(c.id));
  const list=$('messages');list.replaceChildren();
  const messages=response.messages||[];
@@ -136,6 +142,35 @@ async function sendReply(){
  }catch(e){toast(e.message,true)}
  finally{$('sendReply').disabled=false;}
 }
+async function changePause(){
+ if(!currentContact)return toast('Selecione um contato.',true);
+ try{
+  await api('/api/pause','POST',{contactId:currentContact.id,paused:!currentContact.paused});
+  toast(currentContact.paused?'Atendimento reativado.':'IA pausada para este contato.');
+  await loadChats();
+ }catch(e){toast(e.message,true);}
+}
+async function editCurrentContact(){
+ if(!currentContact)return toast('Selecione um contato.',true);
+ try{
+  const details=await api('/api/contact-details?contact_id='+encodeURIComponent(currentContact.id));
+  const name=prompt('Nome do contato:',details.contact.name);
+  if(name===null)return;
+  const note=prompt('Observações sobre o contato (até 600 caracteres):',details.note||'');
+  if(note===null)return;
+  await api('/api/contact-details','POST',{contactId:currentContact.id,name,note});
+  toast('Contato atualizado.');await loadChats();
+ }catch(e){toast(e.message,true);}
+}
+async function deleteCurrentContact(){
+ if(!currentContact)return toast('Selecione um contato.',true);
+ if(!confirm('Apagar permanentemente este contato e todas as mensagens? Esta ação não pode ser desfeita.'))return;
+ try{
+  await api('/api/delete-contact','POST',{contactId:currentContact.id});
+  toast('Contato e histórico excluídos.');currentContact=null;$('chatTitle').textContent='Selecione uma conversa';
+  $('messages').replaceChildren();await loadChats();await refreshStats();
+ }catch(e){toast(e.message,true);}
+}
 async function createDemo(){
  try{await api('/api/demo','POST',{});toast('Conversa demonstrativa criada, sem enviar WhatsApp.');await loadChats();await refreshStats();page('inbox');}
  catch(e){toast(e.message,true)}
@@ -160,6 +195,10 @@ $('login').addEventListener('click',()=>doLogin($('password').value));
 $('password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin(e.target.value);});
 $('logout').addEventListener('click',async()=>{await api('/api/logout','POST',{}).catch(()=>{});showLogin();});
 $('refreshChats').addEventListener('click',()=>loadChats().catch(e=>toast(e.message,true)));
+$('chatSearch').addEventListener('input',renderChatList);
+$('pauseContact').addEventListener('click',changePause);
+$('editContact').addEventListener('click',editCurrentContact);
+$('deleteContact').addEventListener('click',deleteCurrentContact);
 $('sendReply').addEventListener('click',sendReply);
 $('replyInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendReply();}});
 $('testDemo').addEventListener('click',createDemo);
