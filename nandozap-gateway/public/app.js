@@ -24,8 +24,10 @@ async function check(){
   byId('start').textContent=data.connected?'WhatsApp conectado':data.phase==='idle'||data.phase==='error'||data.phase==='logged-out'?'Iniciar conexão':'Conexão em andamento';
   if(data.qr){byId('qrImage').src=data.qr;show('qrImage',true);show('qrWait',false);}
   else {show('qrImage',false);show('qrWait',true);}
-  if(data.pairCode&&!lastCode){lastCode=data.pairCode;byId('code').textContent=data.pairCode.match(/.{1,4}/g)?.join('-')||data.pairCode;show('codeBox',true);}
-  if(data.connected){lastCode='';show('codeBox',false);}
+  if(data.pairCode){lastCode=data.pairCode;byId('code').textContent=data.pairCode.match(/.{1,4}/g)?.join('-')||data.pairCode;show('codeBox',true);}
+  if(!data.pairIssuedAt || data.connected){lastCode='';show('codeBox',false);}
+  if(data.lastCloseCode===401){alertError('Vínculo recusado pelo WhatsApp (401). Confira o número; se repetir, pare de tentar e use a conexão oficial.');}
+  if(data.lastCloseCode===408){alertError('Código expirado ou sessão sem resposta (408). Peça um novo código apenas uma vez.');}
  }catch(e){statusLine.textContent='Falha ao consultar';alertError(e.message);}
 }
 async function boot(){
