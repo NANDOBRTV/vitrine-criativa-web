@@ -42,7 +42,7 @@ function decrypt(raw){
 const defaultConfig={
  businessName:'NandoZap IA',systemPrompt:'Você é um atendente comercial educado. Responda somente perguntas relacionadas à empresa. Não prometa preços, entregas ou descontos que não foram confirmados. Se o cliente quiser falar com uma pessoa, peça para aguardar o atendimento humano.',
  autoMode:'off',metaAppSecret:'',metaVerifyToken:process.env.NZ_META_VERIFY_TOKEN||crypto.randomBytes(24).toString('hex'),
- metaAccessToken:'',metaPhoneId:'',openaiApiKey:'',graphVersion
+ metaAccessToken:'',metaPhoneId:'',openaiApiKey:'',voiceMode:'off',voiceName:'marin',graphVersion
 };
 let config;
 const stored=db.prepare("SELECT value FROM kv WHERE key='config'").get();
@@ -53,7 +53,7 @@ function saveConfig(){
 }
 if(!stored)saveConfig();
 const audit=(kind,info='')=>db.prepare('INSERT INTO audit(kind,info,at) VALUES(?,?,?)').run(kind,String(info).slice(0,150),now());
-const statusOf=()=>({metaReady:Boolean(config.metaAppSecret&&config.metaAccessToken&&config.metaPhoneId),autoMode:config.autoMode,
+const statusOf=()=>({metaReady:Boolean(config.metaAppSecret&&config.metaAccessToken&&config.metaPhoneId),autoMode:config.autoMode,voiceMode:config.voiceMode,voiceName:config.voiceName,
  durable, mcpReady:Boolean(db.prepare("SELECT value FROM kv WHERE key='mcp_hash'").get()),
  businessName:config.businessName});
 function send(res,status,obj,headers={}){
@@ -126,6 +126,139 @@ async function sendWhatsApp(contactId,text){
  audit('outbound_sent','contact:'+c.id);
  return {accepted:true,messageId};
 }
+
+const voices=new Set(['alloy','ash','ballad','coral','echo','fable','nova','onyx','sage','shimmer','verse','marin','cedar']);
+let previewLastAt=0;
+const metaBase=()=> 'https://graph.facebook.com/'+encodeURIComponent(config.graphVersion)+'/';
+function requireVoiceKey(){
+ if(!config.openaiApiKey)throw Object.assign(new Error('Configure a chave de API da OpenAI para gerar ou transcrever áudio.'),{status:409});
+}
+function eligibleContact(id){
+ if(!durable)throw Object.assign(new Error('Envio de áudio bloqueado até existir armazenamento permanente.'),{status:503});
+ if(!statusOf().metaReady)throw Object.assign(new Error('Conecte primeiro a API oficial da Meta.'),{status:409});
+ const c=contactById(Number(id));
+ if(!c)throw Object.assign(new Error('Contato não encontrado.'),{status:404});
+ if(c.opt_out)throw Object.assign(new Error('O contato optou por não receber mensagens.'),{status:403});
+ if(!c.last_inbound_at||Date.now()-Date.parse(c.last_inbound_at)>=86400000)
+   throw Object.assign(new Error('Janela de atendimento de 24 horas encerrada. É necessário um template aprovado.'),{status:409});
+ return c;
+}
+async function boundedBytes(response,max=16*1024*1024){
+ const len=Number(response.headers.get('content-length')||'0');
+ if(len>max)throw new Error('Áudio ultrapassou limite de tamanho');
+ const reader=response.body?.getReader();
+ if(!reader)throw new Error('Resposta de áudio vazia');
+ const chunks=[];let length=0;
+ for(;;){
+  const {value,done}=await reader.read();if(done)break;
+  length+=value.byteLength;
+  if(length>max){reader.cancel().catch(()=>{});throw new Error('Áudio ultrapassou limite de tamanho');}
+  chunks.push(Buffer.from(value));
+ }
+ if(!length)throw new Error('Áudio vazio');
+ return Buffer.concat(chunks,length);
+}
+async function synthesizeVoice(text){
+ requireVoiceKey();
+ const message=String(text||'').trim();
+ if(message.length<1||message.length>1100)throw Object.assign(new Error('A resposta de áudio precisa ter entre 1 e 1100 caracteres.'),{status:400});
+ const sentence='Aviso: áudio gerado por inteligência artificial. '+message;
+ const response=await fetch('https://api.openai.com/v1/audio/speech',{
+  method:'POST',signal:AbortSignal.timeout(30000),
+  headers:{'authorization':'Bearer '+config.openaiApiKey,'content-type':'application/json'},
+  body:JSON.stringify({model:process.env.NZ_TTS_MODEL||'gpt-4o-mini-tts',
+    voice:voices.has(config.voiceName)?config.voiceName:'marin',
+    input:sentence,response_format:'mp3',speed:1,
+    instructions:'Fale em português do Brasil, com dicção clara, ritmo natural e atendimento profissional. Nunca finja ser uma pessoa.'})
+ });
+ if(!response.ok){audit('voice_generation_failed','http '+response.status);throw Object.assign(new Error('Falha na geração de áudio pela API.'),{status:502});}
+ return boundedBytes(response);
+}
+async function sendWhatsAppAudio(contactId,text){
+ const c=eligibleContact(contactId);requireVoiceKey();
+ const mp3=await synthesizeVoice(text);
+ const form=new FormData();
+ form.set('messaging_product','whatsapp');
+ form.set('type','audio/mpeg');
+ form.set('file',new Blob([mp3],{type:'audio/mpeg'}),'nandozap-resposta.mp3');
+ const upload=await fetch(metaBase()+encodeURIComponent(config.metaPhoneId)+'/media',{
+  method:'POST',signal:AbortSignal.timeout(25000),
+  headers:{'authorization':'Bearer '+config.metaAccessToken},body:form
+ });
+ const data=await upload.json().catch(()=>({}));
+ if(!upload.ok||!data.id){audit('voice_upload_failed','http '+upload.status);throw Object.assign(new Error('A Meta recusou o arquivo de áudio.'),{status:502});}
+ const response=await fetch(metaBase()+encodeURIComponent(config.metaPhoneId)+'/messages',{
+  method:'POST',signal:AbortSignal.timeout(15000),
+  headers:{'authorization':'Bearer '+config.metaAccessToken,'content-type':'application/json'},
+  body:JSON.stringify({messaging_product:'whatsapp',to:c.wa_id,type:'audio',audio:{id:String(data.id)}})
+ });
+ const payload=await response.json().catch(()=>({}));
+ if(!response.ok){audit('voice_send_failed','http '+response.status);throw Object.assign(new Error('A Meta recusou o envio do áudio.'),{status:502});}
+ const providerId=String(payload.messages?.[0]?.id||'');
+ addMessage(c.id,providerId||null,'out','audio','🔊 Voz de IA: '+String(text).slice(0,1100),now(),'accepted');
+ audit('voice_sent','contact:'+c.id);return {accepted:true,messageId:providerId,format:'audio/mpeg'};
+}
+function allowedMetaMediaHost(url){
+ try{const u=new URL(url);
+  return u.protocol==='https:'&&/^(?:[a-z0-9-]+\.)*(?:fbcdn\.net|fbsbx\.com)$/.test(u.hostname);
+ }catch{return false;}
+}
+async function metaDownload(url){
+ let current=url;
+ for(let redirect=0;redirect<3;redirect++){
+  if(!allowedMetaMediaHost(current))throw new Error('Endereço de mídia não autorizado');
+  const response=await fetch(current,{
+   headers:{'authorization':'Bearer '+config.metaAccessToken},
+   redirect:'manual',signal:AbortSignal.timeout(16000)
+  });
+  if(response.status>=300&&response.status<400){
+   const next=response.headers.get('location');
+   if(!next)throw new Error('Redirecionamento sem endereço');
+   current=new URL(next,current).toString();continue;
+  }
+  if(!response.ok)throw new Error('Não foi possível baixar o áudio autorizado');
+  return boundedBytes(response);
+ }
+ throw new Error('Redirecionamento excessivo no áudio');
+}
+async function transcribeVoiceFromMeta(mediaId){
+ requireVoiceKey();
+ if(!/^\d{6,40}$/.test(String(mediaId)))throw new Error('ID de áudio inválido');
+ const details=await fetch(metaBase()+encodeURIComponent(String(mediaId)),{
+  headers:{'authorization':'Bearer '+config.metaAccessToken},signal:AbortSignal.timeout(12000)
+ });
+ if(!details.ok)throw new Error('A Meta não disponibilizou os detalhes do áudio');
+ const info=await details.json();
+ if(!info.url||!allowedMetaMediaHost(info.url))throw new Error('Origem de áudio inválida');
+ const buffer=await metaDownload(info.url);
+ const type=String(info.mime_type||'audio/ogg').toLowerCase();
+ const ext=type.includes('mpeg')?'mp3':type.includes('mp4')?'m4a':type.includes('aac')?'aac':'ogg';
+ const form=new FormData();
+ form.set('model','gpt-4o-mini-transcribe');form.set('language','pt');
+ form.set('file',new Blob([buffer],{type:type.split(';')[0]}),'mensagem.'+ext);
+ const response=await fetch('https://api.openai.com/v1/audio/transcriptions',{
+  method:'POST',headers:{'authorization':'Bearer '+config.openaiApiKey},
+  body:form,signal:AbortSignal.timeout(30000)
+ });
+ if(!response.ok)throw new Error('Serviço de transcrição indisponível');
+ const payload=await response.json();
+ return String(payload.text||'').trim().slice(0,3000);
+}
+async function processIncomingVoice(contactId,providerId,mediaId){
+ try{
+  const transcript=await transcribeVoiceFromMeta(mediaId);
+  if(!transcript)return;
+  db.prepare('UPDATE messages SET body=? WHERE provider_id=? AND direction=?').run('🎤 Transcrição: '+transcript,providerId,'in');
+  audit('voice_transcribed','contact:'+contactId);
+  const text=transcript.trim();
+  if(/^(parar|sair|stop|cancelar)$/i.test(text)){
+   db.prepare('UPDATE contacts SET opt_out=1 WHERE id=?').run(contactId);audit('opt_out','contact:'+contactId);
+   return;
+  }
+  await maybeAutoReply(contactId,text,true);
+ }catch(e){audit('voice_transcription_failed','contact:'+contactId);}
+}
+
 function staticReply(text){
  const t=String(text).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  if(/\b(preco|valor|quanto custa|orcamento)\b/.test(t))return 'Olá! 😊 Posso preparar uma proposta para você. Me conta qual produto ou serviço precisa e os detalhes principais?';
@@ -146,7 +279,7 @@ async function aiReply(text){
  if(!result)return null;
  return String(result).slice(0,900);
 }
-async function maybeAutoReply(contactId,text){
+async function maybeAutoReply(contactId,text,fromAudio=false){
  const contact=contactById(contactId);
  if(!durable||config.autoMode==='off'||!statusOf().metaReady||!contact||contact.paused||contact.opt_out)return;
  if(contact.last_auto_at&&Date.now()-Date.parse(contact.last_auto_at)<60000)return;
@@ -161,7 +294,11 @@ async function maybeAutoReply(contactId,text){
  db.prepare('UPDATE contacts SET last_auto_at=? WHERE id=?').run(now(),contactId);
  try{
   const reply=config.autoMode==='ai'?(config.openaiApiKey?await aiReply(text):null):staticReply(text);
-  if(reply){await sendWhatsApp(contactId,reply);audit('auto_reply_sent','contact:'+contactId);}
+  if(reply){
+   if(config.voiceMode==='always'||(config.voiceMode==='mirror'&&fromAudio))await sendWhatsAppAudio(contactId,reply);
+   else await sendWhatsApp(contactId,reply);
+   audit('auto_reply_sent','contact:'+contactId);
+  }
  }catch{audit('auto_reply_failed','contact:'+contactId);}
 }
 async function metaWebhook(req,res,url){
@@ -189,11 +326,12 @@ async function metaWebhook(req,res,url){
    if(!item.id||!item.from||!/^[0-9]{8,18}$/.test(String(item.from)))continue;
    const when=item.timestamp&&/^\d{10}$/.test(String(item.timestamp))?new Date(Number(item.timestamp)*1000).toISOString():now();
    const name=String(names.get(item.from)||'Contato').slice(0,150);
-   const text=item.type==='text'?String(item.text?.body||'').slice(0,8000):'['+String(item.type||'Mídia')+']';
+   const text=item.type==='text'?String(item.text?.body||'').slice(0,8000):item.type==='audio'?'🎤 Áudio recebido (transcrição pendente)':'['+String(item.type||'Mídia')+']';
    const id=upsertContact(String(item.from),name,when,true);
    const created=addMessage(id,String(item.id),'in',String(item.type||'text'),text,when,'received');
    if(created){
     inserted++;
+    if(item.type==='audio'&&item.audio?.id){tasks.push([id,String(item.id),String(item.audio.id),'audio']);}
     if(item.type==='text'){
      if(/^(parar|sair|stop|cancelar)$/i.test(text.trim())){
       db.prepare('UPDATE contacts SET opt_out=1 WHERE id=?').run(id);audit('opt_out','contact:'+id);
@@ -207,7 +345,10 @@ async function metaWebhook(req,res,url){
  }
  ok(res,{received:inserted});
  if(inserted)audit('meta_inbound','count:'+inserted);
- for(const [contactId,text] of tasks)maybeAutoReply(contactId,text).catch(()=>{});
+ for(const task of tasks){
+  if(task[3]==='audio')processIncomingVoice(task[0],task[1],task[2]).catch(()=>{});
+  else maybeAutoReply(task[0],task[1]).catch(()=>{});
+ }
 }
 const toolSpecs=[
  {name:'nandozap_status',description:'Consultar estado do NandoZap IA, sem enviar mensagens.',inputSchema:{type:'object',properties:{},additionalProperties:false}},
@@ -281,7 +422,7 @@ const httpServer=http.createServer(async(req,res)=>{
     latestInbound:db.prepare("SELECT MAX(created_at) AS at FROM messages WHERE direction='in'").get().at});
   }
   if(req.method==='GET'&&pathname==='/api/settings')return ok(res,{
-   businessName:config.businessName,systemPrompt:config.systemPrompt,autoMode:config.autoMode,metaVerifyToken:config.metaVerifyToken,
+   businessName:config.businessName,systemPrompt:config.systemPrompt,autoMode:config.autoMode,voiceMode:config.voiceMode,voiceName:config.voiceName,metaVerifyToken:config.metaVerifyToken,
    graphVersion:config.graphVersion,metaAppSecretSet:Boolean(config.metaAppSecret),metaAccessTokenSet:Boolean(config.metaAccessToken),
    metaPhoneId:config.metaPhoneId,openaiApiKeySet:Boolean(config.openaiApiKey),durable,webhookUrl:'https://'+req.headers.host+'/webhooks/meta',
    mcpUrl:'https://'+req.headers.host+'/mcp'
@@ -294,6 +435,12 @@ const httpServer=http.createServer(async(req,res)=>{
    for(const key of ['metaAppSecret','metaAccessToken','openaiApiKey']){
     if(typeof data[key]==='string'&&data[key].trim())config[key]=data[key].trim().slice(0,2000);
    }
+   if(['off','mirror','always'].includes(data.voiceMode)){
+    if(data.voiceMode!=='off'&&!durable)return send(res,409,{error:'Áudio automático requer armazenamento permanente.'});
+    if(data.voiceMode!=='off'&&!config.openaiApiKey)return send(res,409,{error:'Cadastre a chave OpenAI API para ativar áudio.'});
+    config.voiceMode=data.voiceMode;
+   }
+   if(typeof data.voiceName==='string'&&voices.has(data.voiceName))config.voiceName=data.voiceName;
    if(['off','rules','ai'].includes(data.autoMode)){
     if(data.autoMode!=='off'&&!durable)return send(res,409,{error:'Não é seguro ativar automações sem armazenamento persistente.'});
     if(data.autoMode!=='off'&&!statusOf().metaReady)return send(res,409,{error:'Conecte a Meta antes de ativar respostas automáticas.'});
@@ -311,6 +458,18 @@ const httpServer=http.createServer(async(req,res)=>{
   if(req.method==='POST'&&pathname==='/api/send'){
    const data=jsonBody(await parseBody(req,6500));
    return ok(res,await sendWhatsApp(Number(data.contactId),data.text));
+  }
+  if(req.method==='POST'&&pathname==='/api/send-audio'){
+   const data=jsonBody(await parseBody(req,2800));
+   return ok(res,await sendWhatsAppAudio(Number(data.contactId),data.text));
+  }
+  if(req.method==='POST'&&pathname==='/api/preview-voice'){
+   const data=jsonBody(await parseBody(req,600));
+   if(Date.now()-previewLastAt<15000)return send(res,429,{error:'Aguarde 15 segundos antes de ouvir outra prévia.'});
+   previewLastAt=Date.now();
+   const bytes=await synthesizeVoice(String(data.text||'Olá! Sou a assistente virtual do NandoZap IA. Como posso ajudar?').slice(0,180));
+   res.writeHead(200,{'content-type':'audio/mpeg','cache-control':'no-store','x-content-type-options':'nosniff','content-length':String(bytes.length)});
+   res.end(bytes);return;
   }
   if(req.method==='POST'&&pathname==='/api/contact-details'){
    const data=jsonBody(await parseBody(req,1400)),c=contactById(Number(data.contactId));
