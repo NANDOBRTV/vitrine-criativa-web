@@ -161,7 +161,7 @@ async function previewVoice(){
   const res=await fetch('/api/preview-voice',{
    method:'POST',cache:'no-store',credentials:'same-origin',
    headers:{'content-type':'application/json','x-nz-action':'admin'},
-   body:JSON.stringify({text:'Olá! Sou a assistente virtual do NandoZap IA. Posso ajudar com suas dúvidas e pedidos.'})
+   body:JSON.stringify({text:'Olá! Sou a assistente virtual do NandoZap IA. Posso ajudar com suas dúvidas e pedidos.',voiceName:$('voiceName').value})
   });
   if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(data.error||'Não foi possível gerar a voz.');}
   const data=await res.blob();
