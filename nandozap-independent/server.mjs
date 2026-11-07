@@ -150,6 +150,9 @@ async function maybeAutoReply(contactId,text){
  const contact=contactById(contactId);
  if(!durable||config.autoMode==='off'||!statusOf().metaReady||!contact||contact.paused||contact.opt_out)return;
  if(contact.last_auto_at&&Date.now()-Date.parse(contact.last_auto_at)<60000)return;
+ const dayStart=new Date();dayStart.setUTCHours(0,0,0,0);
+ const today=db.prepare("SELECT COUNT(*) AS n FROM audit WHERE kind='auto_reply_sent' AND at>=?").get(dayStart.toISOString()).n;
+ if(today>=50){audit('auto_reply_daily_cap');return;}
  const plain=String(text).toLowerCase().trim();
  if(/^(parar|sair|stop|cancelar)$/.test(plain)){
   db.prepare('UPDATE contacts SET opt_out=1 WHERE id=?').run(contactId);audit('opt_out','contact:'+contactId);return;
@@ -158,7 +161,7 @@ async function maybeAutoReply(contactId,text){
  db.prepare('UPDATE contacts SET last_auto_at=? WHERE id=?').run(now(),contactId);
  try{
   const reply=config.autoMode==='ai'?(config.openaiApiKey?await aiReply(text):null):staticReply(text);
-  if(reply)await sendWhatsApp(contactId,reply);
+  if(reply){await sendWhatsApp(contactId,reply);audit('auto_reply_sent','contact:'+contactId);}
  }catch{audit('auto_reply_failed','contact:'+contactId);}
 }
 async function metaWebhook(req,res,url){
@@ -188,7 +191,14 @@ async function metaWebhook(req,res,url){
    const text=item.type==='text'?String(item.text?.body||'').slice(0,8000):'['+String(item.type||'Mídia')+']';
    const id=upsertContact(String(item.from),name,when,true);
    const created=addMessage(id,String(item.id),'in',String(item.type||'text'),text,when,'received');
-   if(created){inserted++;if(item.type==='text')tasks.push([id,text]);}
+   if(created){
+    inserted++;
+    if(item.type==='text'){
+     if(/^(parar|sair|stop|cancelar)$/i.test(text.trim())){
+      db.prepare('UPDATE contacts SET opt_out=1 WHERE id=?').run(id);audit('opt_out','contact:'+id);
+     }else tasks.push([id,text]);
+    }
+   }
   }
   for(const item of (value.statuses||[]).slice(0,50)){
    if(item.id)db.prepare('UPDATE messages SET delivery_status=? WHERE provider_id=?').run(String(item.status||'').slice(0,40),String(item.id));
@@ -300,6 +310,22 @@ const httpServer=http.createServer(async(req,res)=>{
    const data=jsonBody(await parseBody(req,6500));
    return ok(res,await sendWhatsApp(Number(data.contactId),data.text));
   }
+  if(req.method==='POST'&&pathname==='/api/contact-details'){
+   const data=jsonBody(await parseBody(req,1400)),c=contactById(Number(data.contactId));
+   if(!c)return send(res,404,{error:'Contato não encontrado'});
+   const nextName=typeof data.name==='string'?data.name.trim().slice(0,150):c.name;
+   if(!nextName)return send(res,400,{error:'Nome obrigatório'});
+   const note=typeof data.note==='string'?data.note.trim().slice(0,600):null;
+   db.exec('CREATE TABLE IF NOT EXISTS contact_notes(contact_id INTEGER PRIMARY KEY REFERENCES contacts(id) ON DELETE CASCADE,note TEXT NOT NULL DEFAULT "")');
+   db.prepare('UPDATE contacts SET name=? WHERE id=?').run(nextName,c.id);
+   if(note!==null)db.prepare('INSERT INTO contact_notes(contact_id,note) VALUES(?,?) ON CONFLICT(contact_id) DO UPDATE SET note=excluded.note').run(c.id,note);
+   audit('contact_updated','id:'+c.id);return ok(res,{ok:true});
+  }
+  if(req.method==='GET'&&pathname==='/api/contact-details'){
+   const id=Number(url.searchParams.get('contact_id'));if(!contactById(id))return send(res,404,{error:'Contato não encontrado'});
+   db.exec('CREATE TABLE IF NOT EXISTS contact_notes(contact_id INTEGER PRIMARY KEY REFERENCES contacts(id) ON DELETE CASCADE,note TEXT NOT NULL DEFAULT "")');
+   return ok(res,{contact:contactById(id),note:db.prepare('SELECT note FROM contact_notes WHERE contact_id=?').get(id)?.note||''});
+  }
   if(req.method==='POST'&&pathname==='/api/pause'){
    const data=jsonBody(await parseBody(req,300));
    const c=contactById(Number(data.contactId));if(!c)return send(res,404,{error:'Contato não encontrado'});
@@ -313,6 +339,7 @@ const httpServer=http.createServer(async(req,res)=>{
   }
   if(req.method==='GET'&&pathname==='/api/export'){
    return ok(res,{exportedAt:now(),contacts:db.prepare('SELECT * FROM contacts').all(),messages:db.prepare('SELECT * FROM messages').all(),
+    contactNotes:db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='contact_notes'").get()?db.prepare('SELECT * FROM contact_notes').all():[],
     audit:db.prepare('SELECT * FROM audit').all(),settings:{businessName:config.businessName,autoMode:config.autoMode}});
   }
   if(req.method==='POST'&&pathname==='/api/delete-contact'){
