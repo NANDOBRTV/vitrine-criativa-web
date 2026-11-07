@@ -16,6 +16,9 @@ const publicDir=path.join(baseDir,'public');
 const logger=pino({level:'silent'});
 let sock=null,starting=null,phase='idle',qrImage='',pairCode='',lastError='',registered=false,lastConnectedAt=null;
 let lastAttemptAt=0;
+let lastCloseCode=null;
+let pairIssuedAt=null;
+function safeEvent(kind,details={}){console.log('[nandozap-pair]',JSON.stringify({kind,...details}));}
 function hash(s){return crypto.createHash('sha256').update(s).digest();}
 function compare(a,b){const x=hash(a),y=hash(b);return crypto.timingSafeEqual(x,y);}
 function cookieValue(request){const raw=request.headers.cookie||'';const found=raw.split(';').map(x=>x.trim()).find(x=>x.startsWith('nz_admin='));return found?decodeURIComponent(found.slice(9)):'';}
@@ -49,7 +52,7 @@ async function connect(){
   registered=Boolean(state.creds.registered);
   const current=makeWASocket({
    auth:state,
-   browser:Browsers.ubuntu('NandoZap IA'),
+   browser:Browsers.macOS('Desktop'),
    printQRInTerminal:false,
    logger,
    markOnlineOnConnect:false,
@@ -58,26 +61,42 @@ async function connect(){
    keepAliveIntervalMs:20000
   });
   sock=current;
-  current.ev.on('creds.update',()=>saveCreds().catch(()=>{lastError='Não foi possível salvar a sessão de teste';}));
+  let credentialsSaved=Promise.resolve();
+  current.ev.on('creds.update',()=>{
+   credentialsSaved=credentialsSaved.then(()=>saveCreds()).catch(()=>{
+    lastError='Não foi possível salvar as credenciais do pareamento.';
+    safeEvent('save-credentials-failed');
+   });
+  });
   current.ev.on('connection.update',async(update)=>{
    if(sock!==current)return;
+   if(update.connection==='connecting')safeEvent('socket-connecting');
    if(update.qr){
-    try{qrImage=await QRCode.toDataURL(update.qr,{width:270,margin:2,errorCorrectionLevel:'M'});phase='waiting';}catch{lastError='Falha ao gerar QR';}
+    try{qrImage=await QRCode.toDataURL(update.qr,{width:270,margin:2,errorCorrectionLevel:'M'});phase='waiting';safeEvent('qr-ready');}catch{lastError='Falha ao gerar QR';}
    }
    if(update.connection==='open'){
-    phase='connected';registered=true;lastConnectedAt=new Date().toISOString();lastError='';pairCode='';qrImage='';
+    phase='connected';registered=true;lastCloseCode=null;lastConnectedAt=new Date().toISOString();lastError='';pairCode='';qrImage='';safeEvent('socket-connected');
    }
    if(update.connection==='close'){
-    const code=update.lastDisconnect?.error?.output?.statusCode;
-    qrImage='';pairCode='';registered=false;
+    const code=Number(update.lastDisconnect?.error?.output?.statusCode||0);
+    lastCloseCode=code||null;
+    safeEvent('socket-closed',{code:lastCloseCode,hadPairCode:Boolean(pairIssuedAt)});
+    qrImage='';pairCode='';
+    await credentialsSaved;
     if(code===DisconnectReason.loggedOut){
-      phase='logged-out';lastError='Sessão encerrada no WhatsApp; será necessário vincular novamente.';
+      phase='logged-out';registered=false;
+      lastError='O WhatsApp recusou ou encerrou o vínculo. Confira o número; em caso de repetição, use um cliente oficial.';
       await fs.rm(authDir,{recursive:true,force:true}).catch(()=>{});
       sock=null;
     }else{
-      phase='reconnecting';lastError='A conexão foi interrompida; tentando reconectar.';
+      phase='reconnecting';
+      lastError=code===DisconnectReason.restartRequired
+       ? 'O WhatsApp solicitou reinício da sessão. Reconectando com as credenciais salvas.'
+       : code===408
+         ? 'O tempo de conexão expirou. Tente um novo código uma vez ou use QR em outro aparelho.'
+         : 'A conexão foi interrompida; tentando reconectar.';
       sock=null;
-      setTimeout(()=>{connect().catch(()=>{});},2500);
+      setTimeout(()=>{connect().catch(e=>safeEvent('reconnect-failed',{cause:String(e?.name||'unknown')}));},2500);
     }
    }
   });
@@ -85,7 +104,7 @@ async function connect(){
  try{await starting;}catch(e){phase='error';lastError=String(e?.message||'Erro ao iniciar conexão').slice(0,200);sock=null;throw e;}
  finally{starting=null;}
 }
-async function status(){return {phase,connected:phase==='connected',qr:phase==='waiting'?qrImage:null,pairCode:pairCode||null,registered,lastConnectedAt,error:lastError,warning:'Teste não oficial. A hospedagem gratuita pode dormir e perder a sessão.'};}
+async function status(){return {phase,connected:phase==='connected',qr:phase==='waiting'?qrImage:null,pairCode:pairCode||null,registered,lastConnectedAt,lastCloseCode,pairIssuedAt,error:lastError,warning:'Teste não oficial. O WhatsApp pode recusar o vínculo com bibliotecas não oficiais. Render Free pode dormir e perder a sessão.'};}
 const recentAttempts=new Map();
 const server=http.createServer(async(req,res)=>{
  const pathname=new URL(req.url||'/',"http://localhost").pathname;
@@ -130,9 +149,12 @@ const server=http.createServer(async(req,res)=>{
     try{
      const raw=await sock.requestPairingCode(number);
      pairCode=String(raw||'').replace(/[^0-9A-Za-z]/g,'').toUpperCase();
+     pairIssuedAt=new Date().toISOString();
+     safeEvent('pair-code-issued',{length:pairCode.length});
      return json(res,200,{code:pairCode.match(/.{1,4}/g)?.join('-')||pairCode});
     }catch(e){
-     lastError='Não foi possível obter um código. Confirme o número e tente novamente.';
+     lastError='Não foi possível obter um código. Confira o número completo e tente novamente.';
+     safeEvent('pair-code-failed',{cause:String(e?.name||'unknown')});
      return json(res,503,{error:lastError});
     }
    }
