@@ -158,7 +158,7 @@ async function boundedBytes(response,max=16*1024*1024){
  if(!length)throw new Error('Áudio vazio');
  return Buffer.concat(chunks,length);
 }
-async function synthesizeVoice(text){
+async function synthesizeVoice(text,voiceOverride=null){
  requireVoiceKey();
  const message=String(text||'').trim();
  if(message.length<1||message.length>1100)throw Object.assign(new Error('A resposta de áudio precisa ter entre 1 e 1100 caracteres.'),{status:400});
@@ -167,7 +167,7 @@ async function synthesizeVoice(text){
   method:'POST',signal:AbortSignal.timeout(30000),
   headers:{'authorization':'Bearer '+config.openaiApiKey,'content-type':'application/json'},
   body:JSON.stringify({model:process.env.NZ_TTS_MODEL||'gpt-4o-mini-tts',
-    voice:voices.has(config.voiceName)?config.voiceName:'marin',
+    voice:voices.has(voiceOverride)?voiceOverride:voices.has(config.voiceName)?config.voiceName:'marin',
     input:sentence,response_format:'mp3',speed:1,
     instructions:'Fale em português do Brasil, com dicção clara, ritmo natural e atendimento profissional. Nunca finja ser uma pessoa.'})
  });
@@ -467,7 +467,7 @@ const httpServer=http.createServer(async(req,res)=>{
    const data=jsonBody(await parseBody(req,600));
    if(Date.now()-previewLastAt<15000)return send(res,429,{error:'Aguarde 15 segundos antes de ouvir outra prévia.'});
    previewLastAt=Date.now();
-   const bytes=await synthesizeVoice(String(data.text||'Olá! Sou a assistente virtual do NandoZap IA. Como posso ajudar?').slice(0,180));
+   const bytes=await synthesizeVoice(String(data.text||'Olá! Sou a assistente virtual do NandoZap IA. Como posso ajudar?').slice(0,180),data.voiceName);
    res.writeHead(200,{'content-type':'audio/mpeg','cache-control':'no-store','x-content-type-options':'nosniff','content-length':String(bytes.length)});
    res.end(bytes);return;
   }
