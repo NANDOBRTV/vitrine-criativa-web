@@ -106,7 +106,7 @@ textarea{min-height:95px;resize:vertical}.btn{background:var(--brand);padding:12
      <button id="deleteContact" class="btn soft" style="padding:7px 10px;min-height:32px;font-size:11px">Excluir</button>
     </div>
     <div class="messages" id="messages"><p>Suas mensagens aparecerão aqui após receber eventos do WhatsApp.</p></div>
-    <div class="chatCompose"><input id="replyInput" placeholder="Digite uma resposta..." maxlength="4096"><button id="sendReply" class="btn">Enviar</button></div>
+    <div class="chatCompose"><input id="replyInput" placeholder="Digite uma resposta..." maxlength="4096"><button id="sendReply" class="btn">Enviar texto</button><button id="sendAudio" class="btn secondary" title="Gerar e enviar a mensagem em áudio">🔊 Áudio</button></div>
     <p style="margin:0;padding:0 15px 13px;font-size:10px">Envio somente com Meta conectada, armazenamento persistente e janela de atendimento de 24 horas.</p>
    </div>
   </div>
@@ -120,6 +120,13 @@ textarea{min-height:95px;resize:vertical}.btn{background:var(--brand);padding:12
     <p>As respostas só são enviadas a quem iniciou a conversa. Há limite de frequência e respeito ao pedido de parar.</p>
     <label for="businessName">Nome do negócio</label><input id="businessName" maxlength="160">
     <label for="systemPrompt">Instruções do atendente</label><textarea id="systemPrompt" maxlength="2000"></textarea>
+    <label for="voiceMode">Como responder por áudio</label>
+    <select id="voiceMode"><option value="off">Somente texto</option><option value="mirror">Áudio quando o cliente enviar áudio</option><option value="always">Sempre responder por áudio</option></select>
+    <p>O áudio será gerado com voz artificial identificada. Para funcionar, configure a Meta, a chave OpenAI API e o armazenamento permanente.</p>
+    <label for="voiceName">Voz da assistente</label><select id="voiceName"><option value="marin">Marin — natural</option><option value="coral">Coral — expressiva</option><option value="nova">Nova — dinâmica</option><option value="sage">Sage — serena</option><option value="alloy">Alloy — neutra</option><option value="cedar">Cedar — clara</option><option value="onyx">Onyx — grave</option></select>
+    <button class="btn soft full" id="previewVoice" style="margin-top:12px">▶ Ouvir prévia da voz</button>
+    <audio id="audioPlayer" controls style="width:100%;margin-top:12px;display:none" preload="none"></audio>
+    <p style="font-size:11px">A prévia usa a API de voz e pode ter cobrança. O WhatsApp aceita MP3 como áudio; notas com o ícone de microfone exigem OGG/Opus.</p>
     <button class="btn full" id="saveAssistant" style="margin-top:17px">Salvar atendente</button>
    </div>
    <div class="card">
