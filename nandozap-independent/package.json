@@ -1,0 +1,13 @@
+{
+  "name": "nandozap-ia-independente",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning nandozap-independent/server.mjs",
+    "check": "node --check nandozap-independent/server.mjs && node --check nandozap-independent/public/app.js"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  }
+}
