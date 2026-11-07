@@ -78,6 +78,8 @@ async function refreshStats(){
 async function loadSettings(){
  settings=await api('/api/settings');
  $('autoMode').value=settings.autoMode;
+ $('voiceMode').value=settings.voiceMode||'off';
+ $('voiceName').value=settings.voiceName||'marin';
  $('businessName').value=settings.businessName||'';
  $('systemPrompt').value=settings.systemPrompt||'';
  $('aiKeyStatus').textContent=readable(settings.openaiApiKeySet);
@@ -142,6 +144,34 @@ async function sendReply(){
  }catch(e){toast(e.message,true)}
  finally{$('sendReply').disabled=false;}
 }
+async function sendAudio(){
+ if(!currentContact)return toast('Selecione um contato.',true);
+ const value=$('replyInput').value.trim();if(!value)return toast('Digite o texto a ser falado.',true);
+ if(value.length>1100)return toast('O áudio aceita até 1100 caracteres.',true);
+ $('sendAudio').disabled=true;
+ try{
+  await api('/api/send-audio','POST',{contactId:currentContact.id,text:value});
+  $('replyInput').value='';toast('Áudio enviado para a Meta; entrega depende do WhatsApp.');await selectChat(currentContact);
+ }catch(e){toast(e.message,true);}
+ finally{$('sendAudio').disabled=false;}
+}
+async function previewVoice(){
+ const node=$('previewVoice');node.disabled=true;
+ try{
+  const res=await fetch('/api/preview-voice',{
+   method:'POST',cache:'no-store',credentials:'same-origin',
+   headers:{'content-type':'application/json','x-nz-action':'admin'},
+   body:JSON.stringify({text:'Olá! Sou a assistente virtual do NandoZap IA. Posso ajudar com suas dúvidas e pedidos.'})
+  });
+  if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(data.error||'Não foi possível gerar a voz.');}
+  const data=await res.blob();
+  if(window.nzPreviewUrl)URL.revokeObjectURL(window.nzPreviewUrl);
+  window.nzPreviewUrl=URL.createObjectURL(data);
+  const player=$('audioPlayer');player.src=window.nzPreviewUrl;player.style.display='block';await player.play().catch(()=>{});
+  toast('Prévia de áudio gerada. Nenhuma mensagem de WhatsApp foi enviada.');
+ }catch(e){toast(e.message,true);}
+ finally{node.disabled=false;}
+}
 async function changePause(){
  if(!currentContact)return toast('Selecione um contato.',true);
  try{
@@ -200,10 +230,12 @@ $('pauseContact').addEventListener('click',changePause);
 $('editContact').addEventListener('click',editCurrentContact);
 $('deleteContact').addEventListener('click',deleteCurrentContact);
 $('sendReply').addEventListener('click',sendReply);
+$('sendAudio').addEventListener('click',sendAudio);
+$('previewVoice').addEventListener('click',previewVoice);
 $('replyInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendReply();}});
 $('testDemo').addEventListener('click',createDemo);
-$('saveAssistant').addEventListener('click',()=>saveSettings({businessName:$('businessName').value,systemPrompt:$('systemPrompt').value,autoMode:$('autoMode').value}));
-$('saveAi').addEventListener('click',()=>saveSettings({openaiApiKey:$('openaiKey').value,businessName:$('businessName').value,systemPrompt:$('systemPrompt').value,autoMode:$('autoMode').value}));
+$('saveAssistant').addEventListener('click',()=>saveSettings({businessName:$('businessName').value,systemPrompt:$('systemPrompt').value,autoMode:$('autoMode').value,voiceMode:$('voiceMode').value,voiceName:$('voiceName').value}));
+$('saveAi').addEventListener('click',()=>saveSettings({openaiApiKey:$('openaiKey').value,businessName:$('businessName').value,systemPrompt:$('systemPrompt').value,autoMode:$('autoMode').value,voiceMode:$('voiceMode').value,voiceName:$('voiceName').value}));
 $('saveMeta').addEventListener('click',()=>saveSettings({metaPhoneId:$('metaPhone').value,metaAppSecret:$('metaAppSecret').value,metaAccessToken:$('metaToken').value}));
 $('copyWebhook').addEventListener('click',()=>copyText($('webhookUrl').textContent+'\n'+$('verifyToken').textContent));
 $('generateKey').addEventListener('click',async()=>{
