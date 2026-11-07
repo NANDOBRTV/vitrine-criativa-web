@@ -1,6 +1,12 @@
 const $=id=>document.getElementById(id);
 let authenticated=false,summary=null,settings=null,currentContact=null,allChats=[];
-function visible(id,yes){const node=$(id);if(node)node.style.display=yes?'':'none';}
+function visible(id,yes){
+ const node=$(id);
+ if(!node)return;
+ // #workspace is hidden by its stylesheet default; removing inline display
+ // does not override that rule. Use an explicit display for visible screens.
+ node.style.display= yes ? (id==='loginPage'?'grid':'block') : 'none';
+}
 function toast(message,warning=false){
  const el=$('toast');el.textContent=message;el.style.display='block';
  el.style.borderColor=warning?'#ab7550':'#65e6a1';
@@ -36,8 +42,14 @@ async function doLogin(password){
  try{
   await api('/api/login','POST',{password});
   $('password').value='';$('loginError').textContent='';
-  showDashboard();await loadAll();
- }catch(e){$('loginError').textContent=e.message;}
+  showDashboard();
+ }catch(e){
+  $('loginError').textContent=e.message;
+  $('login').disabled=false;
+  return;
+ }
+ try{await loadAll();}
+ catch(e){toast('O painel abriu, mas não foi possível carregar todos os dados: '+e.message,true);}
  finally{$('login').disabled=false;}
 }
 async function startup(){
@@ -48,8 +60,10 @@ async function startup(){
   await doLogin(password);
   return;
  }
- try{await api('/api/status');showDashboard();await loadAll();}
- catch{showLogin();}
+ try{await api('/api/status');showDashboard();}
+ catch{showLogin();return;}
+ try{await loadAll();}
+ catch(e){toast('Alguns dados ainda não carregaram: '+e.message,true);}
 }
 async function loadAll(){
  await Promise.all([refreshStats(),loadSettings(),loadChats()]);
