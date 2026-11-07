@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09180f">
+<meta name="robots" content="noindex,nofollow">
+<title>NandoZap IA • Seu atendimento independente</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#e9fff0;background:#081810;--dark:#081810;--card:#11281a;--border:#285238;--muted:#93b7a0;--brand:#63eb9f;--warning:#f5cb78;--red:#ff9d96}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 80% 0%,#174a2a,transparent 40%),var(--dark)}button,input,textarea,select{font:inherit}
+button{border:0;cursor:pointer}button:disabled{cursor:not-allowed;opacity:.52}
+a{color:#b4ffca;text-decoration:none}a:hover{text-decoration:underline}
+#loginPage{min-height:100dvh;display:grid;place-items:center;padding:26px}
+.login{max-width:430px;width:100%;padding:35px 27px;border:1px solid #367048;border-radius:23px;background:#102519;box-shadow:0 28px 70px #0008}
+.logo{display:inline-grid;place-items:center;width:43px;height:43px;background:linear-gradient(135deg,#72ffad,#26b96a);color:#06301c;border-radius:13px;font-size:24px;font-weight:900}
+h1{font-size:30px;line-height:1.18;letter-spacing:-1.2px;margin:18px 0 10px}h2{font-size:19px;margin:0 0 7px;letter-spacing:-.4px}h3{margin:0 0 8px;font-size:14px}p{line-height:1.65;color:var(--muted);font-size:13px}
+label{display:block;font-size:12px;color:#c7e4ce;font-weight:700;margin:17px 0 7px}
+input,textarea,select{width:100%;padding:12px 14px;background:#071a10;color:#eefff1;border:1px solid #3a6548;border-radius:10px;outline:none;font-size:14px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+textarea{min-height:95px;resize:vertical}.btn{background:var(--brand);padding:12px 17px;border-radius:11px;font-weight:750;color:#0c331d;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{background:#a1ffcb}.btn.secondary{color:#d2f5df;background:#245236;border:1px solid #3c875a}.btn.soft{background:transparent;color:#baffd1;border:1px solid #3a7450}.btn.full{width:100%}
+.error{color:var(--red);font-size:12px;line-height:1.5}.hint{background:#302915;border:1px solid #73603b;color:#f2db9b;padding:13px;border-radius:11px;font-size:12px;line-height:1.6}
+.success{color:var(--brand)}
+#workspace{min-height:100vh;display:none}.sidebar{width:235px;position:fixed;inset:0 auto 0 0;background:#0d2215;border-right:1px solid #2d573e;padding:24px 15px;display:flex;flex-direction:column;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;padding:5px 10px 26px;font-size:19px;font-weight:850}.brand b{color:var(--brand)}.brand small{display:block;font-size:8px;letter-spacing:1.8px;color:#7fa88c}
+.nav{width:100%;color:#a9cab3;background:none;text-align:left;padding:13px 12px;border-radius:10px;font-size:13px;font-weight:700;display:flex;gap:11px;align-items:center}
+.nav.active,.nav:hover{background:#20452c;color:#8affb4}.sidefoot{margin-top:auto;font-size:11px;color:#88b196;padding:12px}
+.main{margin-left:235px;min-height:100vh}.top{padding:20px 30px;border-bottom:1px solid #285238;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.top strong{font-size:13px}.top span{font-size:10px;color:#a3c4a9}.body{max-width:1300px;padding:28px;margin:0 auto 80px}
+.eyebrow{color:#68dfa0;text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:800}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+.hero h1{margin:7px 0;font-size:31px}.hero p{margin:5px 0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{border:1px solid var(--border);border-radius:17px;background:var(--card);padding:22px;min-width:0}.stat{color:#9ab9a4;font-size:12px}.big{font-size:35px;font-weight:850;letter-spacing:-1.5px;margin:14px 0;color:#f0fff2}
+.panelGrid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:20px}.divider{border-top:1px solid #285238;margin:15px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:6px 10px;background:#2d3d25;color:#f0d58b;font-size:11px;font-weight:700}.chip.ok{background:#23573b;color:#91f5bc}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:13px 0;font-size:12px}.row span{color:#b2c8b6}.row b{color:#ecffef}
+.notice{margin-top:17px;background:#102d20;border:1px solid #407653;border-radius:12px;padding:16px;font-size:12px;line-height:1.7;color:#c9e8d1}
+.stack{display:grid;gap:15px}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.tabs button{background:#1c3d28;color:#a6d2b2;padding:10px 14px;border-radius:10px}.tabs .chosen{background:#52d98d;color:#09321b;font-weight:800}
+.inbox{display:grid;grid-template-columns:minmax(240px,320px) 1fr;min-height:520px;border:1px solid var(--border);border-radius:17px;overflow:hidden}
+.contacts{background:#0c2216;border-right:1px solid var(--border);max-height:65vh;overflow:auto}
+.contact{background:none;color:#d0f2da;width:100%;padding:18px 15px;display:flex;gap:12px;text-align:left;border-bottom:1px solid #21452f}.contact:hover,.contact.selected{background:#255538}
+.avatar{width:38px;height:38px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:#315f40;color:#c6ffe0;font-weight:850}
+.contactBody{min-width:0;flex:1}.contactBody strong{font-size:12px;display:block}.contactBody small{display:block;margin-top:5px;font-size:10px;color:#8fb79b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat{display:flex;flex-direction:column;min-width:0}.chatHead{padding:18px;border-bottom:1px solid var(--border);font-size:13px;font-weight:750}
+.messages{flex:1;min-height:330px;max-height:63vh;overflow-y:auto;padding:25px 18px;display:flex;flex-direction:column;gap:12px}
+.bubble{max-width:82%;padding:12px 14px;font-size:12px;line-height:1.6;border-radius:13px;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.in{align-self:flex-start;background:#243d2b}.bubble.out{align-self:flex-end;background:#205d3a}.bubble em{display:block;text-align:right;color:#91baa1;font-size:9px;margin-top:7px;font-style:normal}
+.chatCompose{padding:17px;border-top:1px solid var(--border);display:flex;gap:8px}.chatCompose input{flex:1;min-width:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;word-break:break-all;background:#0b1a11;padding:12px;border:1px solid #355c42;border-radius:10px}
+.check{display:flex;align-items:center;gap:9px;color:#c9dfcb;font-size:12px}.check input{width:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.wide{width:100%}
+.section{display:none}.section.visible{display:block}
+#toast{position:fixed;bottom:22px;right:24px;max-width:360px;background:#295c3d;border:1px solid #6ae6a0;color:white;padding:15px;border-radius:12px;font-size:12px;z-index:20;box-shadow:0 10px 35px #0006;display:none}
+@media(max-width:1020px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panelGrid{grid-template-columns:1fr}.body{padding:20px}}
+@media(max-width:720px){.sidebar{position:sticky;top:0;width:100%;height:auto;z-index:10;flex-direction:row;align-items:center;overflow-x:auto;gap:3px;padding:8px;border-right:0;border-bottom:1px solid var(--border)}
+.brand{padding:5px 9px;font-size:13px;white-space:nowrap}.brand .logo{height:28px;width:28px;font-size:15px;border-radius:8px}.brand small,.sidefoot{display:none}
+.nav{white-space:nowrap;padding:10px;font-size:11px;width:auto}.nav span{display:none}
+.main{margin-left:0}.top{padding:12px 16px}.top span{display:none}.body{padding:18px 13px 75px}.hero h1{font-size:26px}.card{padding:17px}.inbox{grid-template-columns:1fr}.contacts{max-height:195px;border-right:0;border-bottom:1px solid var(--border)}.contact{padding:12px}.chat{min-height:370px}.messages{min-height:250px;max-height:55vh}.two{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="loginPage"><div class="login">
+ <div class="logo">N</div><h1>NandoZap <span class="success">IA</span></h1>
+ <p>Seu próprio centro de atendimento WhatsApp. Sem iZap, WhatSync ou qualquer outro aplicativo de vendas.</p>
+ <label for="password">Senha do administrador</label><input id="password" type="password" autocomplete="current-password" placeholder="Digite sua senha privada">
+ <p id="loginError" class="error" role="alert"></p>
+ <button id="login" class="btn full">Entrar no NandoZap</button>
+ <p style="font-size:11px;margin-top:20px">Conexão protegida • Acesso restrito ao proprietário</p>
+</div></div>
+<div id="workspace">
+ <aside class="sidebar">
+  <div class="brand"><div class="logo">N</div><div>NandoZap <b>IA</b><small>INDEPENDENTE</small></div></div>
+  <button class="nav active" data-page="overview">◫ <span>Visão geral</span></button>
+  <button class="nav" data-page="inbox">▤ <span>Conversas</span></button>
+  <button class="nav" data-page="assistant">✦ <span>Atendente IA</span></button>
+  <button class="nav" data-page="connection">↔ <span>Conectar Meta</span></button>
+  <button class="nav" data-page="security">⚿ <span>Segurança e MCP</span></button>
+  <div class="sidefoot">NandoZap IA • Plataforma própria</div>
+ </aside>
+ <main class="main">
+ <header class="top"><strong>NandoZap IA <span> / Painel do proprietário</span></strong><button id="logout" class="btn soft" style="min-height:30px;padding:7px 12px;font-size:11px">Sair</button></header>
+ <div class="body">
+ <section id="overview" class="section visible">
+  <div class="hero"><div><div class="eyebrow">Central de operações</div><h1>Seu atendimento, <span class="success">suas regras.</span></h1><p>Dados próprios, integração oficial e agente virtual controlado por você.</p></div><button class="btn" data-jump="connection">Conectar WhatsApp →</button></div>
+  <div id="stats" class="grid">
+   <div class="card"><div class="stat">Contatos</div><div class="big" id="statContacts">—</div><small>Registrados no banco</small></div>
+   <div class="card"><div class="stat">Mensagens</div><div class="big" id="statMessages">—</div><small>Recebidas e enviadas</small></div>
+   <div class="card"><div class="stat">Aguardando resposta</div><div class="big" id="statWaiting">—</div><small>Última mensagem do cliente</small></div>
+   <div class="card"><div class="stat">Automação</div><div class="big" id="statAuto" style="font-size:22px">—</div><small>Modo selecionado</small></div>
+  </div>
+  <div class="panelGrid">
+   <div class="card"><h2>Estado da integração</h2><p id="metaBanner">Verificando Meta...</p><div class="row"><span>Webhook oficial</span><b id="webhookState">—</b></div><div class="row"><span>Banco permanente</span><b id="storageState">—</b></div><div class="row"><span>ChatGPT / MCP</span><b id="mcpState">—</b></div><div class="row"><span>Respostas automáticas</span><b id="replyState">—</b></div><div class="notice">Nenhuma mensagem é enviada para novos contatos sem uma conversa iniciada por eles. O histórico é separado de outros sistemas.</div></div>
+   <div class="card"><h2>Teste interno</h2><p>Crie uma conversa fictícia no painel para verificar a caixa de entrada sem usar um número de WhatsApp.</p><button id="testDemo" class="btn secondary">Criar conversa demonstrativa</button><div class="divider"></div><h3>Pronto para produção?</h3><p id="prodNotice">Verificando os pré-requisitos...</p><button class="btn soft" data-jump="connection">Ver pré-requisitos →</button></div>
+  </div>
+ </section>
+ <section id="inbox" class="section">
+  <div class="hero"><div><div class="eyebrow">Atendimento</div><h1>Caixa de <span class="success">entrada</span></h1><p>Histórico das mensagens recebidas na conexão oficial deste NandoZap.</p></div><button class="btn soft" id="refreshChats">Atualizar</button></div>
+  <div class="inbox">
+   <div class="contacts" id="contactList"><div class="card">Nenhuma conversa registrada.</div></div>
+   <div class="chat">
+    <div class="chatHead" id="chatTitle">Selecione uma conversa</div>
+    <div class="messages" id="messages"><p>Suas mensagens aparecerão aqui após receber eventos do WhatsApp.</p></div>
+    <div class="chatCompose"><input id="replyInput" placeholder="Digite uma resposta..." maxlength="4096"><button id="sendReply" class="btn">Enviar</button></div>
+    <p style="margin:0;padding:0 15px 13px;font-size:10px">Envio somente com Meta conectada, armazenamento persistente e janela de atendimento de 24 horas.</p>
+   </div>
+  </div>
+ </section>
+ <section id="assistant" class="section">
+  <div class="hero"><div><div class="eyebrow">Inteligência comercial</div><h1>Atendente <span class="success">IA</span></h1><p>Configure como o NandoZap responde automaticamente.</p></div></div>
+  <div class="two">
+   <div class="card">
+    <h2>Modo de atendimento</h2><label for="autoMode">Respostas automáticas</label>
+    <select id="autoMode"><option value="off">Desativadas</option><option value="rules">Regras prontas (sem custo de IA)</option><option value="ai">Inteligência artificial com API</option></select>
+    <p>As respostas só são enviadas a quem iniciou a conversa. Há limite de frequência e respeito ao pedido de parar.</p>
+    <label for="businessName">Nome do negócio</label><input id="businessName" maxlength="160">
+    <label for="systemPrompt">Instruções do atendente</label><textarea id="systemPrompt" maxlength="2000"></textarea>
+    <button class="btn full" id="saveAssistant" style="margin-top:17px">Salvar atendente</button>
+   </div>
+   <div class="card">
+    <h2>IA e custos</h2>
+    <p>O modo de regras não usa serviços pagos de geração de texto. O modo IA requer uma chave da API da OpenAI, cobrada separadamente da assinatura do ChatGPT.</p>
+    <label for="openaiKey">Chave privada OpenAI API</label><input id="openaiKey" type="password" autocomplete="off" placeholder="Deixe vazio para manter a atual">
+    <div class="row"><span>Chave cadastrada</span><b id="aiKeyStatus">—</b></div>
+    <div class="hint">O NandoZap nunca mostra uma chave salva novamente. Ela é armazenada criptografada e não aparece nas exportações.</div>
+    <button class="btn secondary full" id="saveAi" style="margin-top:14px">Salvar chave e configurações</button>
+   </div>
+  </div>
+ </section>
+ <section id="connection" class="section">
+  <div class="hero"><div><div class="eyebrow">Canal oficial</div><h1>Conectar <span class="success">WhatsApp Business</span></h1><p>Conexão direta com a Meta — sem QR Web, sem iZap e sem WhatSync.</p></div></div>
+  <div class="two">
+   <div class="card">
+    <h2>Webhook Meta</h2>
+    <label>Endereço do webhook</label><div class="mono" id="webhookUrl">Carregando...</div>
+    <label>Token de verificação</label><div class="mono" id="verifyToken">Carregando...</div>
+    <button class="btn soft full" id="copyWebhook" style="margin-top:12px">Copiar webhook</button>
+    <p>Informe o endereço e o token na configuração de Webhooks do aplicativo de negócios da Meta. Assine o campo <strong>messages</strong>.</p>
+    <div class="hint">A Meta precisa autorizar o aplicativo e o número. Não existe um QR Code de WhatsApp Web que substitua essa autorização oficial.</div>
+   </div>
+   <div class="card">
+    <h2>Credenciais oficiais</h2>
+    <label for="metaPhone">ID do número (Phone Number ID)</label><input id="metaPhone" placeholder="ID numérico da Meta">
+    <label for="metaAppSecret">App Secret da Meta</label><input id="metaAppSecret" type="password" autocomplete="off" placeholder="Deixe vazio para manter o atual">
+    <label for="metaToken">Token permanente de acesso</label><input id="metaToken" type="password" autocomplete="off" placeholder="Deixe vazio para manter o atual">
+    <div class="row"><span>App Secret</span><b id="appSecretStatus">—</b></div>
+    <div class="row"><span>Token de acesso</span><b id="accessTokenStatus">—</b></div>
+    <button id="saveMeta" class="btn full">Salvar conexão oficial</button>
+    <p>Credenciais são criptografadas antes de serem salvas. Para começar, é necessário que a Meta tenha emitido essas credenciais para o NandoZap.</p>
+   </div>
+  </div>
+ </section>
+ <section id="security" class="section">
+  <div class="hero"><div><div class="eyebrow">Proteção e integrações</div><h1>Segurança <span class="success">& MCP</span></h1><p>Controle exclusivo do proprietário, cópia de dados e integração futura com ChatGPT.</p></div></div>
+  <div class="two">
+   <div class="card"><h2>Chave MCP</h2><p>Crie a chave de autenticação para que o ChatGPT possa consultar os dados deste NandoZap, com sua autorização.</p><div class="mono" id="mcpUrl">Carregando...</div>
+    <button id="generateKey" class="btn full" style="margin-top:14px">Gerar nova chave MCP</button>
+    <div class="hidden" id="keyContainer" style="display:none"><label>Copie agora: só aparece uma vez</label><div class="mono" id="keyDisplay"></div><button id="copyKey" class="btn secondary full" style="margin-top:8px">Copiar chave</button></div>
+    <div class="notice">As ferramentas MCP atuais são somente leitura. Isso não instala automaticamente o servidor no ChatGPT.</div>
+   </div>
+   <div class="card"><h2>Seus dados</h2><p>Exporte seus contatos e mensagens em JSON para backup. Não são incluídos segredos da Meta ou de IA.</p><button id="export" class="btn secondary full">Exportar histórico</button><div class="divider"></div>
+    <h3>Armazenamento e disponibilidade</h3><p id="storageDetails">Verificando...</p>
+    <div class="hint">Uma instância gratuita da Render não é apropriada para armazenar mensagens reais: o disco local pode ser apagado quando o serviço suspende ou é republicado.</div>
+   </div>
+  </div>
+ </section>
+ </div></main>
+</div>
+<div id="toast" role="status"></div>
+<script src="/app.js" defer></script>
+</body></html>
