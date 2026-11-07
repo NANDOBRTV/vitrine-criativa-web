@@ -81,7 +81,7 @@ async function connect(){
     const code=Number(update.lastDisconnect?.error?.output?.statusCode||0);
     lastCloseCode=code||null;
     safeEvent('socket-closed',{code:lastCloseCode,hadPairCode:Boolean(pairIssuedAt)});
-    qrImage='';pairCode='';
+    qrImage='';pairCode='';pairIssuedAt=null;
     await credentialsSaved;
     if(code===DisconnectReason.loggedOut){
       phase='logged-out';registered=false;
