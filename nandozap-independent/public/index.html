@@ -97,9 +97,14 @@ textarea{min-height:95px;resize:vertical}.btn{background:var(--brand);padding:12
  <section id="inbox" class="section">
   <div class="hero"><div><div class="eyebrow">Atendimento</div><h1>Caixa de <span class="success">entrada</span></h1><p>Histórico das mensagens recebidas na conexão oficial deste NandoZap.</p></div><button class="btn soft" id="refreshChats">Atualizar</button></div>
   <div class="inbox">
-   <div class="contacts" id="contactList"><div class="card">Nenhuma conversa registrada.</div></div>
+   <div class="contacts"><div style="padding:12px"><input id="chatSearch" placeholder="Buscar contato..." autocomplete="off"></div><div id="contactList"><div class="card">Nenhuma conversa registrada.</div></div></div>
    <div class="chat">
     <div class="chatHead" id="chatTitle">Selecione uma conversa</div>
+    <div class="row" style="padding:0 14px" id="contactActions">
+     <button id="pauseContact" class="btn soft" style="padding:7px 10px;min-height:32px;font-size:11px">Pausar IA</button>
+     <button id="editContact" class="btn soft" style="padding:7px 10px;min-height:32px;font-size:11px">Editar contato</button>
+     <button id="deleteContact" class="btn soft" style="padding:7px 10px;min-height:32px;font-size:11px">Excluir</button>
+    </div>
     <div class="messages" id="messages"><p>Suas mensagens aparecerão aqui após receber eventos do WhatsApp.</p></div>
     <div class="chatCompose"><input id="replyInput" placeholder="Digite uma resposta..." maxlength="4096"><button id="sendReply" class="btn">Enviar</button></div>
     <p style="margin:0;padding:0 15px 13px;font-size:10px">Envio somente com Meta conectada, armazenamento persistente e janela de atendimento de 24 horas.</p>
