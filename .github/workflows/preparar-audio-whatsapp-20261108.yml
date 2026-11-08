@@ -1,0 +1,38 @@
+name: Preparar áudio WhatsApp 2026-11-08
+on:
+  push:
+    paths:
+      - '.github/workflows/preparar-audio-whatsapp-20261108.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audio-whatsapp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar locução corrigida e preparar MP4
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 'https://resource2.heygen.ai/text_to_speech/c222db1e04fe4d969bfea5ff6c9c0965/4db64fcc025a418dbf6f46cd94dcc404/id=5d9f779c-4c21-44d3-b7fd-f0c77468a22f.mp3' --output /tmp/locucao.mp3
+          mkdir -p assets/media
+          ffmpeg -hide_banner -loglevel error -y \
+            -f lavfi -i 'color=c=0x141118:s=640x360:r=8' \
+            -i /tmp/locucao.mp3 \
+            -filter_complex "[0:v]drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:text='VITRINE CRIATIVA WEB':fontsize=33:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2-12,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='Apresentacao comercial':fontsize=20:fontcolor=0xe9ff8a:x=(w-text_w)/2:y=(h-text_h)/2+32[v]" \
+            -map '[v]' -map 1:a:0 -c:v libx264 -preset fast -crf 29 \
+            -c:a aac -b:a 96k -pix_fmt yuv420p -shortest \
+            -movflags +faststart assets/media/apresentacao-bomde-20261108.mp4
+          test -s assets/media/apresentacao-bomde-20261108.mp4
+      - name: Publicar mídia para envio pelo WhatsApp
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/media/apresentacao-bomde-20261108.mp4
+          git commit -m 'Adicionar apresentação em vídeo para WhatsApp'
+          git push
