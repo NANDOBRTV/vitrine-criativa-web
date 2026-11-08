@@ -106,7 +106,7 @@ function addMessage(contactId,providerId,direction,kind,body,when=now(),status='
  catch(e){if(String(e).includes('UNIQUE'))return 0;throw e;}
 }
 async function sendWhatsApp(contactId,text){
- if(!durable)throw Object.assign(new Error('Envio real desativado: é necessário armazenamento permanente.'),{status:409});
+ if(!durable)throw Object.assign(new Error('Envio real desativado: é necessário armazenamento permanente.'),{status:503});
  if(!statusOf().metaReady)throw Object.assign(new Error('Conexão oficial da Meta ainda não está configurada.'),{status:409});
  const c=contactById(Number(contactId));
  if(!c)throw Object.assign(new Error('Contato não encontrado.'),{status:404});
@@ -134,7 +134,7 @@ function requireVoiceKey(){
  if(!config.openaiApiKey)throw Object.assign(new Error('Configure a chave de API da OpenAI para gerar ou transcrever áudio.'),{status:409});
 }
 function eligibleContact(id){
- if(!durable)throw Object.assign(new Error('Envio real de áudio desativado: configure armazenamento permanente no NandoZap.'),{status:409});
+ if(!durable)throw Object.assign(new Error('Envio real de áudio desativado: configure armazenamento permanente no NandoZap.'),{status:503});
  if(!statusOf().metaReady)throw Object.assign(new Error('Conecte primeiro a API oficial da Meta.'),{status:409});
  const c=contactById(Number(id));
  if(!c)throw Object.assign(new Error('Contato não encontrado.'),{status:404});
