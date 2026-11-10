@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080d20">
 <meta name="description" content="Neon Rush — corrida interativa cinematográfica para LIVE. Assista, escolha seu piloto e ajude na disputa.">
-<title>NEON RUSH V3 — Corrida dos Campeões</title>
+<title>NEON RUSH V4 — Neon City Chase</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 :root{--bg:#060b19;--teal:#5ff9ed;--pink:#fd5cba;--gold:#ffcf6e;--text:#f1f8ff;--muted:#97acc7}*{box-sizing:border-box}html,body{min-height:100%;margin:0}body{background:#060b19;color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:13px}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}button:disabled{opacity:.45;cursor:default}[hidden]{display:none!important}.app{max-width:1320px;margin:0 auto}.desktop-header{height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #233351;background:#081122}.wordmark{display:flex;align-items:center;gap:12px}.emblem{display:flex;align-items:center;justify-content:center;position:relative;width:43px;height:43px;background:linear-gradient(135deg,#51e7ee,#2080d9);color:#08233c;font-size:28px;font-weight:1000;border-radius:13px;box-shadow:0 2px 22px #3efbfb48}.spark{position:absolute;right:-5px;top:-8px;color:#fff;font-size:17px}.wordmark strong{display:block;font:900 23px/1 'Barlow Condensed',system-ui;letter-spacing:1.4px}.wordmark small{display:block;font-size:8px;letter-spacing:2px;color:var(--muted);margin-top:6px}.desktop-tag{font-weight:850;font-size:10px;letter-spacing:1.2px;color:#a2d4f4}.ping{width:7px;height:7px;background:#55f5b9;border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 8px #5af5bf}.columns{display:grid;grid-template-columns:minmax(360px,495px) minmax(330px,1fr);justify-content:center;gap:30px;padding:25px}.viewport{aspect-ratio:9/16;max-height:calc(100dvh - 123px);min-height:650px;max-width:495px;width:100%;position:relative;isolation:isolate;overflow:hidden;background:#0b1835;border:1px solid #4b638b;border-radius:24px;box-shadow:0 16px 70px #0009,0 0 80px #124b7a38}.sky{position:absolute;inset:0;background:linear-gradient(180deg,#090d33 0%,#193b71 21%,#bb6293 39%,#ffae94 46%,#13264f 58%,#060c1b 100%)}.skyStars{position:absolute;inset:0;background-image:radial-gradient(#d8f9ffb0 1px,transparent 1px),radial-gradient(#dce3ff75 1px,transparent 1px);background-size:63px 63px,105px 105px;background-position:9px 15px,43px 29px;mask-image:linear-gradient(#000,transparent 48%)}.sun{position:absolute;top:23%;left:50%;transform:translateX(-50%);width:43%;aspect-ratio:1;border-radius:50%;background:linear-gradient(180deg,#fce5b0,#ffb78f);box-shadow:0 0 23px #ffac9c,0 0 100px 55px #f885975c;clip-path:polygon(0 0,100% 0,100% 70%,0 70%,0 76%,100% 76%,100% 83%,0 83%,0 91%,100% 91%,100% 100%,0 100%)}.clouds{position:absolute;top:24%;left:-20%;width:150%;height:150px;opacity:.24;background:repeating-linear-gradient(175deg,transparent 0 18px,#ffdcb8 19px 26px,transparent 30px 68px);filter:blur(14px)}.skyline{position:absolute;left:0;right:0;top:35%;height:27%;background-image:linear-gradient(#18325e,#091734);clip-path:polygon(0 61%,3% 61%,3% 40%,7% 40%,7% 46%,11% 46%,11% 29%,14% 29%,14% 35%,17% 35%,17% 57%,19% 57%,19% 38%,23% 38%,23% 60%,27% 60%,27% 33%,31% 33%,31% 47%,34% 47%,34% 16%,36% 16%,36% 50%,41% 50%,41% 38%,44% 38%,44% 62%,49% 62%,49% 40%,52% 40%,52% 55%,57% 55%,57% 34%,60% 34%,60% 24%,62% 24%,62% 42%,65% 42%,65% 61%,69% 61%,69% 28%,72% 28%,72% 48%,76% 48%,76% 35%,80% 35%,80% 59%,85% 59%,85% 24%,89% 24%,89% 44%,94% 44%,94% 31%,97% 31%,97% 56%,100% 56%,100% 100%,0 100%)}.city-back{opacity:.62;transform:scaleX(1.18);filter:blur(2px)}.city-front{top:40%;background:linear-gradient(#132247,#090f28);opacity:.95}.horizonGlow{position:absolute;top:44%;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#ff95c9,transparent);box-shadow:0 0 50px 10px #ff70b84d}.viewport canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.viewport canvas#game2d{z-index:1}.viewport canvas#game3d{z-index:2}.vignette{position:absolute;inset:0;z-index:3;pointer-events:none;box-shadow:inset 0 0 80px #02061180,inset 0 -135px 135px #050b20aa;background:linear-gradient(0deg,#080d22 0%,transparent 24%,transparent 80%,#070d22a6 100%)}.speedlines{position:absolute;inset:0;z-index:3;opacity:0;pointer-events:none;background:repeating-linear-gradient(110deg,transparent 0 20px,#7dfff50a 20px 24px,transparent 24px 70px);transition:opacity .2s}.speedlines.active{opacity:1;animation:speedmove .5s linear infinite}@keyframes speedmove{to{background-position:-75px 130px}}.gamehead,.raceinfo,.leaderbar,.toasts,.bottomhud,.countdown,.hero,.finishBanner,.mobile-actions,.corner-note{position:absolute;z-index:5}.gamehead{top:0;left:0;right:0;padding:18px 17px 0;display:flex;justify-content:space-between;align-items:flex-start}.brandline{display:flex;align-items:center;gap:7px}.neonicon{font-size:31px;color:var(--teal);text-shadow:0 0 18px var(--teal)}.brandline strong{display:block;font:900 27px/.87 'Barlow Condensed',system-ui;letter-spacing:.5px}.brandline strong i{font-style:normal;color:#6dfff5}.brandline small{display:block;font:800 8px/1 Inter,system-ui;letter-spacing:2px;margin-top:6px;color:#d3eaff}.live-label{background:#ff4f76;color:white;border:1px solid #ffb5cc;border-radius:7px;letter-spacing:.4px;font-size:9px;font-weight:900;padding:7px 8px;box-shadow:0 0 15px #f13d6a77;white-space:nowrap}.pulse{width:6px;height:6px;display:inline-block;border-radius:50%;background:#fff;animation:pulse 1s infinite alternate;margin-right:3px}@keyframes pulse{to{opacity:.35}}.raceinfo{top:69px;left:11px;right:11px;height:60px;display:flex;align-items:center;justify-content:space-around;padding:9px 8px;border:1px solid #80a7cf4f;border-radius:13px;background:linear-gradient(120deg,#08172bde,#152442c9);box-shadow:0 8px 25px #02071544;backdrop-filter:blur(9px)}.info-item{flex:1;min-width:0;padding:0 7px}.info-item.center{text-align:center}.info-item.right{text-align:right}.info-item span{font-size:8px;color:#adc9db;letter-spacing:.8px;font-weight:750;white-space:nowrap}.info-item strong{display:block;margin-top:5px;font:850 15px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.3px;white-space:nowrap}.info-item .digits{font-size:27px;color:#fff}.info-item strong b{font-size:25px;color:var(--teal)}.info-item strong small{font:750 11px Inter;color:var(--muted)}.info-divider{height:31px;width:1px;background:#5b78926a}.leaderbar{top:139px;left:11px;right:11px;display:flex;align-items:center;gap:9px;border:1px solid #b68562a4;background:linear-gradient(90deg,#382a26e6,#131b32c5);padding:7px 10px;border-radius:9px;backdrop-filter:blur(8px)}.leader-icon{font-size:22px}.leadertext{flex:1}.leadertext small{display:block;font-size:8px;font-weight:800;letter-spacing:1.6px;color:#ffdb9d}.leadertext strong{display:block;font:900 17px 'Barlow Condensed';letter-spacing:1px}.leader-pos{border:1px solid #f8bb7f90;border-radius:7px;padding:5px 8px;font-size:9px;font-weight:900;color:#ffdb9d}.bottomhud{bottom:72px;left:11px;right:11px;pointer-events:none}.race-meter{padding:8px 10px 9px;margin-bottom:10px;border:1px solid #69dce97a;border-radius:12px;background:#06152cce;backdrop-filter:blur(8px)}.meter-header{display:flex;justify-content:space-between;font-size:9px;font-weight:850;letter-spacing:.8px;color:#c7ecfa}.meter-header b{color:#6df8eb}.meter{height:9px;background:#162743;border-radius:10px;margin-top:6px;position:relative;border:1px solid #466e8b}.meter>div:first-child{height:100%;width:0;background:linear-gradient(90deg,#26a9e7,#6af9e6,#e1fb98);border-radius:8px;box-shadow:0 0 11px #61e7ff}.finishFlag{position:absolute;right:-3px;top:-15px;font-size:16px}.ranks-title{display:flex;justify-content:space-between;align-items:center;padding:0 3px 7px;color:#e8f5fc;font-weight:950;letter-spacing:1.2px;font-size:10px}.ranks-title small{margin-left:5px;color:#7ce8ec;font-size:8px}.ranks-count{color:var(--gold);font-size:9px}.ranking{display:grid;gap:5px}.rankrow{height:32px;display:flex;align-items:center;gap:9px;padding:2px 9px 2px 7px;border-left:3px solid var(--color);background:linear-gradient(90deg,#0a1b31e8,#142a42d4);border-radius:8px;box-shadow:0 3px 15px #0004;backdrop-filter:blur(7px)}.rankpos{background:#384b67;border-radius:6px;width:25px;height:24px;display:flex;align-items:center;justify-content:center;font:900 16px 'Barlow Condensed'}.rankrow:first-child .rankpos{background:linear-gradient(120deg,#ffdf7b,#f59e56);color:#4c2608}.rankrow:nth-child(2) .rankpos{background:#d8e8f4;color:#31445f}.rankrow:nth-child(3) .rankpos{background:#e9a795;color:#5b282b}.rankname{flex:1;font-size:11px;font-weight:900;letter-spacing:.35px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rankspeed{font:900 11px 'Barlow Condensed';color:#8ff7eb}.rankrow.selected{outline:1px solid #bef9ffb2}.live-ticker{margin-top:7px;display:flex;align-items:center;background:#061426db;border:1px solid #37516c;border-radius:7px;height:26px;font-size:9px;color:#c6e7f2;padding-right:8px;overflow:hidden;gap:8px;white-space:nowrap}.live-ticker>span:last-child{overflow:hidden;text-overflow:ellipsis}.ticker-pill{height:100%;display:grid;place-items:center;padding:0 8px;background:#153b47;color:#78f9eb;font-weight:900;letter-spacing:1px}.toasts{top:24%;left:15px;right:15px;display:flex;flex-direction:column;gap:8px;pointer-events:none}.toast{align-self:center;max-width:100%;padding:10px 15px;border:1px solid #a9f1f9;background:#0b1938e8;border-radius:13px;font:900 13px 'Barlow Condensed';letter-spacing:.3px;color:#f8ffff;text-align:center;box-shadow:0 5px 25px #0008;animation:toast .28s ease-out both}.toast.gift{border-color:#ffc2eb;background:#392043e8}.toast.leader{border-color:#f9cf89;background:#302623e8}@keyframes toast{from{transform:translateY(15px) scale(.94);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}.hero{top:34%;left:22px;right:22px;padding:23px 13px;text-align:center;border-radius:17px;background:linear-gradient(180deg,#081b2ed9,#08152be5);border:1px solid #82dfe88a;box-shadow:0 0 40px #0009;backdrop-filter:blur(9px)}.eyebrow{color:var(--teal);font-size:9px;font-weight:900;letter-spacing:2px}.hero h1{margin:11px 0;font:900 clamp(33px,7.2vw,47px)/.91 'Barlow Condensed',Impact,sans-serif;letter-spacing:.45px;text-shadow:0 4px 16px #000}.hero em{color:var(--gold);font-style:normal}.hero p{font-size:11px;line-height:1.6;color:#bed6e8;max-width:265px;margin:0 auto 16px}.hero small{display:block;color:#9ac2dc;font-size:9px;margin-top:11px}.btn{border:0;color:#061f33;border-radius:11px;font-weight:950;padding:12px 14px;letter-spacing:.5px}.btn-cta{background:linear-gradient(110deg,#70fff0,#5dceec);box-shadow:0 5px 25px #65fff03e}.btn-cta span{margin-left:9px}.btn-light{background:linear-gradient(110deg,#ffdfa0,#ffb7a0)}.btn-sm{padding:13px}.btn-outline{border:1px solid #56738c;color:#d9f8ff;background:#10203a}.countdown{top:35%;left:0;right:0;text-align:center;pointer-events:none}.cd-label{font:900 13px 'Barlow Condensed';letter-spacing:7px;text-shadow:0 3px 10px #000}.cd-num{font:900 152px/.9 'Barlow Condensed';color:#fff;text-shadow:0 0 22px #8cf3f7,0 7px 25px #000}.finishBanner{top:32%;left:23px;right:23px;text-align:center;padding:24px 14px;background:#07192aeb;border:1px solid #f9cc8b;border-radius:19px;box-shadow:0 0 65px #ffb97344;backdrop-filter:blur(8px)}.finishBanner small{display:block;color:var(--gold);font-size:11px;letter-spacing:2px;font-weight:900}.finishBanner strong{display:block;color:white;font:900 48px 'Barlow Condensed';margin:5px 0}.finishBanner #podiumNames{font-size:12px;line-height:2;color:#d7e7f0;margin-bottom:14px}.mobile-actions{bottom:10px;left:11px;right:11px;height:54px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.mobile-actions button{background:#101e36eb;border:1px solid #46728d;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bdeffa;box-shadow:0 5px 20px #0006}.mobile-actions button span{font-size:19px}.mobile-actions button small{font-size:8px;font-weight:900;letter-spacing:.6px}.mobile-actions .mobile-main{background:linear-gradient(145deg,#2dede5,#136dc8);color:white;border:1px solid #a8fdff}.corner-note{top:51.5%;right:8px;writing-mode:vertical-rl;font-size:7px;letter-spacing:2px;font-weight:900;color:#d9eeff7c;pointer-events:none}.console{padding:0 0 32px;max-width:610px}.panel-top{padding:7px 4px 12px}.panel-overline{color:#72f8eb;font-size:10px;font-weight:900;letter-spacing:2px}.panel-top h2{font:900 clamp(33px,3.9vw,49px)/1 'Barlow Condensed';letter-spacing:.3px;margin:8px 0}.panel-top h2 span{color:var(--teal)}.panel-top p{color:#a8bbd1;line-height:1.6;max-width:500px;margin:0 0 12px}.panel{background:linear-gradient(145deg,#121d32,#0e172b);border:1px solid #283a5b;border-radius:16px;margin:12px 0;padding:16px;box-shadow:0 6px 25px #0309194a}.panel-label{font-size:10px;color:#82d4e1;font-weight:900;letter-spacing:1.5px;margin-bottom:13px}.panel-label .feedDot{float:right;width:7px;height:7px;border-radius:50%;background:#48f3a1;box-shadow:0 0 13px #48f3a1}.sectionStatus{padding:14px 16px}.row{display:flex;align-items:center;gap:9px}.state-dot{width:8px;height:8px;background:#78f5bb;border-radius:50%;box-shadow:0 0 9px #75f4b2}.row b{flex:1;font-size:12px}.state-tag{font-size:9px;font-weight:900;border:1px solid #627c92;padding:5px 7px;border-radius:6px;color:#b9d6f8}.state-foot{display:flex;justify-content:space-between;color:#a3bcce;font-size:10px;margin:13px 0 0;border-top:1px solid #2b3d55;padding-top:10px}.selected-driver{display:flex;align-items:center;gap:10px;background:#0a1529;border:1px solid #41607a;border-radius:11px;padding:9px}.driver-avatar{width:37px;height:37px;display:grid;place-items:center;background:#3ae1e4;border-radius:9px;color:#063044;font-size:23px;font-weight:900}.selected-driver small{display:block;color:#a1b8c8;font-size:9px;letter-spacing:1.2px}.selected-driver b{font:900 21px 'Barlow Condensed';letter-spacing:.7px}.caret{margin-left:auto;font-size:20px;color:#adf5ff}.driver-buttons{display:flex;gap:7px;overflow:auto;margin-top:10px;padding-bottom:3px}.pilot-chip{display:flex;align-items:center;gap:6px;border:1px solid #3a506d;background:#192942;color:#d5eaff;border-radius:8px;padding:7px 9px;font:800 10px Inter;white-space:nowrap}.pilot-chip.selected{border-color:#63f6e6;background:#1a5363}.pilot-chip i{width:7px;height:7px;border-radius:100%;background:var(--chip)}.giftGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.power{min-height:85px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;border-radius:12px;border:1px solid #365675;background:#162843;color:#f8fbff;padding:10px 12px}.power span{font-size:23px;margin-bottom:4px}.power b{font:900 16px 'Barlow Condensed';letter-spacing:.6px}.power small{margin-top:2px;font-size:10px;color:#aac8db}.power.like{background:linear-gradient(130deg,#422136,#1d2549);border-color:#764467}.power.rose{background:linear-gradient(130deg,#461b36,#1c2039);border-color:#7e4770}.power.galaxy{background:linear-gradient(130deg,#1c2c56,#2b1b4f);border-color:#554f9c}.power.nitro{background:linear-gradient(130deg,#442d21,#1d2738);border-color:#82583e}.power:active,.mobile-actions button:active{transform:scale(.97)}.joinRow{display:flex;gap:8px}.joinRow input{min-width:0;flex:1;background:#0a1529;color:#e9fbff;border:1px solid #405c7b;border-radius:10px;padding:0 13px;outline:none}.hint{display:block;font-size:10px;margin-top:10px;color:#a0b5cc}.controlsRow{display:flex;gap:10px}.controlsRow>.btn{flex:1}.switches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.small-control{font-size:10px;color:#a7cde8;padding:8px 10px;border-radius:9px;border:1px solid #36516e;background:#101e35}.eventFeed{display:grid;gap:10px;max-height:170px;overflow:auto}.eventFeed>div{padding-bottom:8px;font-size:11px;color:#c4deef;border-bottom:1px solid #273b54}.eventFeed>div:first-child{color:#8cf6f0}.footnote{font-size:11px;line-height:1.8;color:#7e95af;padding:11px 5px}.footnote strong{color:#d3f4fb}.modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;background:#020714b0;padding:16px;backdrop-filter:blur(7px)}.modalPanel{background:#101c32;border:1px solid #5b8aa4;border-radius:17px;padding:18px;width:min(450px,100%);max-height:80vh;overflow:auto;box-shadow:0 20px 70px #000b}.modalHead{display:flex;align-items:center;justify-content:space-between}.modalHead h2{font:900 27px 'Barlow Condensed';margin:0}.modalHead button{background:#253650;border:1px solid #42668a;color:#fff;border-radius:9px;padding:9px 12px}.modalPanel p{color:#a8bcce;font-size:12px}.picker-item{width:100%;display:flex;gap:11px;align-items:center;text-align:left;border:1px solid #365571;background:#172a42;color:#eefaff;border-radius:10px;margin:7px 0;padding:10px}.picker-item.selected{border-color:#58f4e6}.picker-item .circle{border-radius:50%;width:23px;height:23px;background:var(--p);box-shadow:0 0 15px var(--p)}.picker-item strong{font-size:12px}.picker-item small{margin-left:auto;color:#97b9d4;font-size:10px}
@@ -34,17 +34,64 @@
 .speed-readout span{font:800 9px/1.2 system-ui;color:#bff6ff;letter-spacing:1px}
 .speed-readout[hidden]{display:none!important}
 @media(max-width:650px){.speed-readout{top:255px;left:11px;padding:4px 8px}.speed-readout b{font-size:20px}}
+
+/* V4: Cinema game screen, inspired by neon urban street racing, with original graphics */
+.viewport{background:#102b4a;border-color:#32677c}
+.sky,.skyStars,.sun,.clouds,.skyline,.horizonGlow{opacity:0}
+.vignette{box-shadow:inset 0 0 45px #03122055,inset 0 -75px 80px #06162c44;background:linear-gradient(180deg,#04152a88,transparent 14%,transparent 75%,#04142a40)}
+.speedlines{opacity:0!important}.speedlines.active{opacity:.14!important}
+.gamehead{top:4px;padding:9px 12px}
+.brandline strong{font-size:19px;letter-spacing:.5px}.brandline small{font-size:6px;margin-top:3px;letter-spacing:1.2px}
+.neonicon{font-size:20px}.live-label{font-size:8px;background:#0b294daa;box-shadow:none;border-color:#70dbe7a6;padding:5px 8px}
+.raceinfo{top:46px;left:auto;right:12px;width:99px;height:42px;min-height:0;background:transparent;box-shadow:none;border:0;backdrop-filter:none;padding:0}
+.raceinfo .info-item:not(.center),.raceinfo .info-divider{display:none}
+.raceinfo .info-item.center{padding:0;text-align:right}
+.raceinfo .info-item.center span{font-size:7px;color:#c7e8ff;letter-spacing:1px}
+.raceinfo .info-item .digits{font-size:22px;line-height:1.1;letter-spacing:1px;text-shadow:0 2px 12px #000}
+.leaderbar{display:none}
+.cameraBadge{top:91px!important;left:auto!important;right:12px;max-width:175px;padding:6px 9px;background:#0b1d34bd;border:1px solid #69d6e668;box-shadow:none;backdrop-filter:blur(4px)}
+.cameraBadge span{font-size:12px}.cameraBadge b{font-size:10px;letter-spacing:.4px}.cameraBadge small{font-size:8px}
+.speed-readout{top:auto!important;left:12px!important;bottom:calc(env(safe-area-inset-bottom) + 100px)!important;border:0!important;background:#07172a88!important;box-shadow:none!important;border-radius:8px;padding:6px 11px!important;backdrop-filter:blur(4px)}
+.speed-readout b{font:900 38px/1 'Barlow Condensed',system-ui!important;text-shadow:0 1px 10px #000}
+.speed-readout span{font-size:9px!important}
+.bottomhud{position:absolute;inset:0;pointer-events:none}
+.race-meter{position:absolute;left:12px;bottom:calc(env(safe-area-inset-bottom) + 81px);width:145px;margin:0;padding:0;border:0;box-shadow:none;background:transparent;backdrop-filter:none;display:none}
+.ranking{position:absolute;top:92px;left:12px;width:142px;display:grid;gap:3px}
+.ranks-title,.live-ticker{display:none}
+.rankrow{height:25px;border-left:2px solid var(--color);border-radius:3px;background:#06142a92;padding:1px 4px;box-shadow:none;backdrop-filter:blur(3px);gap:5px}
+.rankpos{height:20px;width:19px;font-size:13px;background:transparent!important;color:#ffffff!important}
+.rankname{font-size:10px}.rankspeed{font-size:9px;color:#9ce4f5}
+.rankrow.selected{outline:1px solid #ffffff7b}
+.toasts{top:27%;gap:4px}.toast{font-size:11px;padding:7px 11px;border-radius:7px;background:#0a2031a6}
+.mobile-actions{bottom:calc(env(safe-area-inset-bottom) + 8px)!important;height:55px!important;left:10px;right:10px;padding:0 5px;background:linear-gradient(0deg,#06132255,transparent);border:0;gap:5px}
+.mobile-actions button{border:1px solid #9ac8ed48!important;background:#071b30b0!important;backdrop-filter:blur(3px)!important;box-shadow:none!important;border-radius:10px!important}
+.mobile-actions button.mobile-main{background:#0d5369c9!important;border:1px solid #65e7ec9f!important}
+.mobile-actions button span{font-size:19px!important}.mobile-actions button small{font-size:8px!important}
+.hero{top:31%;background:#04152abe!important;border:1px solid #5bd8e65c!important;backdrop-filter:blur(7px);box-shadow:0 15px 70px #0005;border-radius:16px;padding:21px 16px!important}
+.hero h1{font-size:clamp(33px,7vw,55px)!important;line-height:.96}
+.hero p{font-size:11px!important;max-width:270px;margin:10px auto 14px}
+.corner-note{display:none}
+#renderToggle{position:absolute;top:166px;right:13px;z-index:8;padding:4px 8px;font-size:10px;font-weight:800;border:1px solid #7cd4f363;background:#0a2a43b8;color:#eaf8ff;border-radius:7px}#raceMinimap{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 97px);right:15px;z-index:7;width:92px;height:100px;padding:2px;opacity:.94;pointer-events:none;filter:drop-shadow(0 3px 8px #000)}
+#raceMinimap svg{display:block;width:100%;height:100%;overflow:visible}
+#raceMinimap .track-outline{fill:none;stroke:#a4e7ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+#raceMinimap .track-marker{fill:#f8cc65;stroke:#fff;stroke-width:1.5}
+#raceMinimap .track-label{font:900 10px system-ui;fill:#f1faff;paint-order:stroke;stroke:#082239;stroke-width:2}
+#raceFilm{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:soft-light;opacity:.2;background:repeating-linear-gradient(0deg,#ffffff07 0 1px,transparent 1px 4px)}
+@media(max-width:970px){.viewport{height:100dvh}.columns{padding:0}.gamehead{top:8px}.cameraBadge{top:94px!important}.raceinfo{top:53px}.ranking{top:102px}.mobile-actions{height:54px!important}}
+@media(min-width:971px){.viewport{height:calc(100dvh - 123px)}.mobile-actions{display:flex}.cameraBadge{top:89px!important}.ranking{top:90px}}
+@media(max-height:650px){.ranking{display:none}.speed-readout{bottom:75px!important}#raceMinimap{bottom:75px}.hero{top:24%}}
+
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="desktop-header"><div class="wordmark"><span class="emblem">N<span class="spark">✦</span></span><div><strong>NEON RUSH</strong><small>CHAMPIONS CIRCUIT · LIVE ARCADE</small></div></div><div class="desktop-tag"><span class="ping"></span> CÂMERA DINÂMICA · V3</div></header>
+  <header class="desktop-header"><div class="wordmark"><span class="emblem">N<span class="spark">✦</span></span><div><strong>NEON RUSH</strong><small>CHAMPIONS CIRCUIT · LIVE ARCADE</small></div></div><div class="desktop-tag"><span class="ping"></span> CÂMERA DINÂMICA · V2</div></header>
   <main class="columns">
    <section class="viewport" id="stage" aria-label="Corrida Neon Rush">
     <div class="sky" aria-hidden="true"><div class="skyStars"></div><div class="sun"></div><div class="clouds"></div><div class="skyline city-back"></div><div class="skyline city-front"></div><div class="horizonGlow"></div></div>
-    <canvas id="game2d" width="720" height="1280" aria-label="Visão animada da corrida"></canvas>
+    <canvas id="game2d" width="540" height="960" aria-label="Visão animada da corrida"></canvas>
     <canvas id="game3d" aria-label="Corrida tridimensional" style="display:none"></canvas>
-    <div class="vignette" aria-hidden="true"></div><div class="speedlines" id="speedlines" aria-hidden="true"></div>
+    <div id="raceFilm" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div><button id="renderToggle" type="button" aria-label="Alternar modo 3D e cinema" title="Alternar modo gráfico">3D</button><div id="raceMinimap" aria-hidden="true"><svg viewBox="0 0 100 112"><path class="track-outline" d="M19 100 L14 77 L35 57 L14 42 L28 17 L62 12 L84 38 L61 54 L87 77 L69 98 Z"/><circle id="mapPosition" class="track-marker" cx="19" cy="100" r="5"/><text class="track-label" x="33" y="110">400 m</text></svg></div><div class="speedlines" id="speedlines" aria-hidden="true"></div>
     <div class="gamehead">
       <div class="brandline"><span class="neonicon">✦</span><div><strong>NEON <i>RUSH</i></strong><small>CHAMPIONS CIRCUIT</small></div></div>
       <div class="live-label"><span class="pulse"></span> DEMO LIVE</div>
@@ -69,7 +116,7 @@
      <div class="live-ticker"><span class="ticker-pill">● LIVE</span><span id="ticker">Selecione um piloto e acompanhe a disputa!</span></div>
     </div>
     <div class="mobile-actions"><button id="openPilots" aria-label="Escolher piloto"><span>👥</span><small>PILOTOS</small></button><button id="boost" class="mobile-main" aria-label="Enviar curtidas e turbo"><span>⚡</span><small>TURBO</small></button><button id="cameraManual" aria-label="Close da câmera no piloto escolhido"><span>🎥</span><small>CLOSE</small></button><button id="gift" aria-label="Enviar presente virtual"><span>🎁</span><small>PRESENTE</small></button><button id="audio" aria-label="Ativar ou desativar áudio"><span id="soundIcon">🔇</span><small>ÁUDIO</small></button></div>
-    <div class="corner-note">NEON RUSH V3 · PISTA MAIS CLARA + VELOCIDADE</div>
+    <div class="corner-note">NEON RUSH V4 · NEON CITY CHASE</div>
    </section>
    <aside class="console">
     <div class="panel-top"><div class="panel-overline">CENTRAL DO CRIADOR</div><h2>Comande a <span>corrida.</span></h2><p>Escolha um piloto, simule o chat e envie poderes. As oito primeiras inscrições são de demonstração.</p></div>
@@ -287,7 +334,7 @@ const baseNames=['NANDO','LUA','FÊNIX','RAFA','KDX','NINJA','BIA','VOLT'];
 const colors=['#58f9f0','#fa69b5','#ffda83','#84b7ff','#b79aff','#8df5ab','#ff9e78','#eaa3e9'];
 let nextId=0;const spawn=(name,i=0)=>({id:++nextId,name:String(name).slice(0,16).toUpperCase(),color:colors[i%8],lane:i%4,baseSpeed:5.08+(Math.sin(i*12.77)+1)*.91+Math.random()*.35,meters:0,progress:0,boost:0,shield:0,nitro:0,likes:0,gifts:0,score:0,shifts:0});
 const state={phase:'ready',round:1,drivers:baseNames.map((name,i)=>spawn(name,i)),likes:0,gifts:0,selectedId:1,timeLeft:70,elapsed:0,cameraAuto:true,viewMode:0,mute:true,roundStart:0,cdStarted:0,lastFrame:performance.now(),lastHud:0,lastUpdate:0,leaderId:null,weather:0,events:[],finishing:false,pendingName:null,showGraphics:'2D',camera:{mode:'pack',targetId:null,manual:false,nextAt:10,until:0,lastTarget:null,shot:0,cycle:0}};
-const ctx=$('#game2d').getContext('2d',{alpha:true});
+const ctx=$('#game2d').getContext('2d',{alpha:true});ctx.scale(.75,.75);
 let audioCtx=null,engineNode=null,audioGain=null,scene3d=null,webglFailed=false;
 function selected(){return state.drivers.find(d=>d.id===state.selectedId)||state.drivers[0]}
 function sorting(){return [...state.drivers].sort((a,b)=>b.meters-a.meters||a.id-b.id)}
@@ -300,7 +347,7 @@ function addEvent(txt,type='default'){
 function synth(freq=440,duration=.12,shape='sine',gain=.045){if(state.mute)return;try{audioCtx??=new (window.AudioContext||window.webkitAudioContext)();audioCtx.resume();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=shape;o.frequency.setValueAtTime(freq,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(60,freq*.78),audioCtx.currentTime+duration);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(gain,audioCtx.currentTime+.018);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration+.02);}catch{}}
 function toggleAudio(){state.mute=!state.mute;if(!state.mute){synth(880,.18,'triangle');addEvent('🔊 Áudio ativado')}$('#soundIcon').textContent=state.mute?'🔇':'🔊';$('#muteBtn').textContent=state.mute?'🔇 Áudio desativado':'🔊 Áudio ativado';}
 function setPhase(phase){state.phase=phase;$('#hero').hidden=phase!=='ready';$('#countdown').hidden=phase!=='countdown';$('#finishBanner').hidden=phase!=='finished';$('#startConsole').disabled=phase==='countdown'||phase==='race';const states={ready:'Pronto para largar',countdown:'Contagem regressiva',race:'Corrida em andamento',finished:'Corrida encerrada'};$('#sessionState').textContent=states[phase];$('#phaseTag').textContent=phase==='race'?'AO VIVO':phase==='finished'?'PÓDIO':phase==='countdown'?'LARGADA':'PRÉVIA';}
-function updateHUD(){const drivers=sorting();let leader=drivers[0],sel=selected();$('#clock').textContent=format(state.timeLeft);$('#round').textContent=String(state.round).padStart(2,'0');$('#pilotCount').textContent=String(state.drivers.length).padStart(2,'0');$('#leadName').textContent=leader?.name||'—';$('#leadSpeed').textContent=leader?Math.round(leader.meters)+' / 400 M':'LARGADA';$('#progressText').textContent=Math.round(leader?.progress||0)+'%';$('#progressFill').style.width=(leader?.progress||0)+'%';$('#driverName').textContent=sel?.name||'—';$('#driverAvatar').textContent=sel?.name?.slice(0,1)||'?';$('#driverAvatar').style.background=sel?.color||'#58f9f0';$('#startConsole').disabled=state.phase==='race'||state.phase==='countdown';
+function updateHUD(){const drivers=sorting();let leader=drivers[0],sel=selected();$('#clock').textContent=format(state.timeLeft);$('#round').textContent=String(state.round).padStart(2,'0');$('#pilotCount').textContent=String(state.drivers.length).padStart(2,'0');$('#leadName').textContent=leader?.name||'—';$('#leadSpeed').textContent=leader?Math.round(leader.meters)+' / 400 M':'LARGADA';$('#progressText').textContent=Math.round(leader?.progress||0)+'%';$('#progressFill').style.width=(leader?.progress||0)+'%';try{const dot=$('#mapPosition');const t=clamp((leader?.meters||0)/400,0,1);const points=[[19,100],[14,77],[35,57],[14,42],[28,17],[62,12],[84,38],[61,54],[87,77],[69,98],[19,100]];const scaled=t*(points.length-1),idx=Math.min(points.length-2,Math.floor(scaled)),f=scaled-idx;dot.setAttribute('cx',points[idx][0]*(1-f)+points[idx+1][0]*f);dot.setAttribute('cy',points[idx][1]*(1-f)+points[idx+1][1]*f)}catch{}$('#driverName').textContent=sel?.name||'—';$('#driverAvatar').textContent=sel?.name?.slice(0,1)||'?';$('#driverAvatar').style.background=sel?.color||'#58f9f0';$('#startConsole').disabled=state.phase==='race'||state.phase==='countdown';
  $('#ranking').innerHTML=drivers.slice(0,3).map((d,i)=>'<div class="rankrow '+(d.id===state.selectedId?'selected':'')+'" style="--color:'+d.color+'"><span class="rankpos">'+(i+1)+'</span><b class="rankname">'+escapeHTML(d.name)+'</b><span class="rankspeed">'+Math.round(d.meters)+' m</span></div>').join('');
  $('#driverButtons').innerHTML=drivers.map(d=>'<button data-driver="'+d.id+'" class="pilot-chip '+(d.id===state.selectedId?'selected':'')+'" style="--chip:'+d.color+'"><i></i>'+escapeHTML(d.name)+'</button>').join('');
 }
@@ -451,56 +498,132 @@ function vehicle(g,x,y,scale,phase){const s=scale;ctx.save();ctx.translate(x,y);
  ctx.restore();
  if(y>400&&y<1200){const title=g.name;const ww=Math.max(80,title.length*12*scale);ctx.fillStyle='#061225c9';ctx.strokeStyle=g.color;ctx.lineWidth=1.3;ctx.beginPath();ctx.roundRect(x-ww/2,y-79*scale-28*scale,ww,24*scale,8*scale);ctx.fill();ctx.stroke();text(title,x,y-79*scale-11*scale,Math.max(10,17*scale),'#fff');}
 }
-function render2d(t){if($('#game2d').style.display==='none')return;
- ctx.clearRect(0,0,W,H);renderCity(t,state.elapsed);drawRoad(t);
- const drivers=sorting(),leader=drivers[0],move=state.phase==='race'?leader?.meters||0:15; // draw from back to front
- // Mantém o pelotão visível mesmo quando as distâncias aumentam.
- // Usamos um espaçamento comprimido em tela; a classificação continua baseada em metros reais.
- const focus=state.phase==='race'&&state.camera.mode==='close'?state.drivers.find(d=>d.id===state.camera.targetId):null;
- // Na corrida, uma câmera de perseguição: piloto selecionado em PRIMEIRO PLANO.
- // Os adversários aparecem adiante em profundidades diferentes. Assim, os
- // carros ficam grandes e a pista corre sob o carro, como numa corrida real.
- const chaser=selected()||leader;
- const rivals=sorting().filter(d=>d.id!==chaser?.id);
- const visible=state.drivers.map((g,i)=>{
-   const isChaser=state.phase==='race'&&g.id===chaser?.id;
-   const ri=rivals.findIndex(d=>d.id===g.id);
-   const row=Math.floor(Math.max(0,ri)/3);
-   const lane=[-1,0,1][Math.max(0,ri)%3];
-   const delta=(leader?.meters||0)-g.meters;
-   const y=isChaser?745+Math.sin(t*.013)*4:
-     state.phase==='race'?595+row*76+Math.sin(t*.011+i)*4+clamp(delta*.7,0,12):
-     578+Math.floor(i/4)*124;
-   const fraction=clamp((y-500)/790,.08,.90),road=roadAt(fraction,move*30+t*.0025);
-   const sx=isChaser?clamp(road.x+Math.sin(t*.003)*12,140,580):
-     state.phase==='race'?clamp(road.x+lane*(85+row*30)+Math.sin(t*.004+i)*4,82,638):
-     clamp(road.x+(g.lane-1.5)*road.w*.46,80,640);
-   const scale=isChaser?1.55:(state.phase==='race'?.80+row*.10:.93+fraction*.44);
-   return {g,y,sx,scale,z:isChaser?9:fraction};
- }).sort((a,b)=>a.z-b.z);
- if(focus){
-   for(const o of visible){if(o.g.id!==focus.id)vehicle(o.g,o.sx,o.y,Math.min(.67,o.scale*.62),t);}
-   // Close verdadeiro no Canvas: o carro escolhido ocupa o centro da imagem.
-   const swing=Math.sin(t*.00065)*31;
-   vehicle(focus,360+swing,660,2.75+Math.sin(t*.002)*.06,t);
-   ctx.fillStyle='#06132edb';ctx.strokeStyle=focus.color;ctx.lineWidth=3;
-   ctx.beginPath();ctx.roundRect(195,890,330,59,15);ctx.fill();ctx.stroke();
-   text('🎥 '+focus.name,360,928,31,'#ffffff');
- }else{
-   for(const o of visible)vehicle(o.g,o.sx,o.y,o.scale,t);
- }
- if(state.phase==='finished'){
-   for(let i=0;i<38;i++){let x=(i*109+t*.09)%800-30,y=(i*71+(t*.1*(i%3+1)))%1250;path([[x,y],[x+7,y+1],[x+4,y+13],[x-1,y+9]],['#ffce71','#63f7e9','#fa8ad1'][i%3]);}
- }
- if(state.phase==='race'&&selected()?.boost>0){for(let j=0;j<15;j++){const x=200+Math.sin(j*1.6+t*.0002)*180,yy=(j*131+t*.75)%1280;ctx.strokeStyle=j%2?'#67ecff39':'#ffd9a329';ctx.lineWidth=1+j%2;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x-30,yy+80);ctx.stroke();}}
+// V4: Original cinematic perspective painter, suitable for Android without GPU.
+const CINEMATH={horizon:420,end:1280};
+function nCurve(t){return Math.sin(t*.45)*24+Math.sin(t*.18+1.2)*19;}
+function nRoad(q,t){const y=CINEMATH.horizon+860*Math.pow(q,1.35);const w=27+q*q*648;const x=360+nCurve(t)*(q*.36)+Math.sin(q*3+t*.12)*22*q;return {x,y,w};}
+function nQuad(a,b,c,d,color){path([a,b,c,d],color);}
+function nGlowLine(x1,y1,x2,y2,w,color){ctx.save();ctx.lineCap='round';ctx.strokeStyle=color;ctx.shadowColor=color;ctx.shadowBlur=16;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();}
+function nCity(t){
+ let sky=ctx.createLinearGradient(0,0,0,570);sky.addColorStop(0,'#0a1a3c');sky.addColorStop(.44,'#214777');sky.addColorStop(.70,'#326285');sky.addColorStop(1,'#70a4b5');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+ // Distant skyline is built from original silhouettes and luminous windows.
+ for(let layer=0;layer<2;layer++){for(let i=0;i<26;i++){const x=-37+i*32+layer*13,h=80+((i*43+layer*71)%200),base=492+layer*22;
+ ctx.fillStyle=layer?'#193b65':'#21476d';ctx.fillRect(x,base-h,26,h);
+ if(i%3===0){ctx.fillStyle='#5baff54b';ctx.fillRect(x+3,base-h,4,h*.62);}
+ for(let j=0;j<9;j++){let y=base-h+10+j*19;if(y>base-6)break;ctx.fillStyle=(i+j)%3===0?'#ff9ddd88':'#90e6ff77';ctx.fillRect(x+5+((j+i)%2)*11,y,4,6);}
+ }}
+ const glow=ctx.createRadialGradient(360,412,20,360,412,420);glow.addColorStop(0,'#99f8ff7d');glow.addColorStop(.5,'#4de2ed24');glow.addColorStop(1,'#00132600');ctx.fillStyle=glow;ctx.fillRect(0,0,W,950);
 }
+function nRoadSurface(t){
+ const roadGrad=ctx.createLinearGradient(0,420,0,1280);roadGrad.addColorStop(0,'#4f86a0');roadGrad.addColorStop(.32,'#37586f');roadGrad.addColorStop(.65,'#29445d');roadGrad.addColorStop(1,'#1b3a52');
+ for(let i=0;i<54;i++){let q=i/54,p=(i+1)/54,a=nRoad(q,t),b=nRoad(p,t);nQuad([a.x-a.w,a.y],[a.x+a.w,a.y],[b.x+b.w,b.y],[b.x-b.w,b.y],i%5===0?'#33546a':'#3c6077');}
+ // Bright cyan and coral guardrails define the entire roadway.
+ for(const side of [-1,1]){for(let i=0;i<30;i++){const a=nRoad(i/30,t),b=nRoad((i+1)/30,t);const ac=a.x+side*a.w,bc=b.x+side*b.w;
+ nQuad([ac-side*(2+i*.14),a.y],[ac+side*(1+i*.06),a.y],[bc+side*(1+i*.1),b.y],[bc-side*(3+i*.22),b.y],side<0?'#91eeff':'#ffaece');}}
+ // Surface reflection strips, reflections of moving city lights.
+ for(let i=0;i<70;i++){const depth=((i*17+Math.floor(t*30))%900)/900;const q=Math.pow(depth,1.25);if(q<.05)continue;const a=nRoad(q,t),s=q*q;
+ const x=a.x+(i%2?-.55:.55)*a.w+(i%5-2)*5*s;
+ ctx.fillStyle=i%4?'#78eaf216':'#ffc6e827';ctx.fillRect(x,a.y,2+s*12,2+s*55);
+ }
+ // Meters of lane marks continuously stream from horizon to camera.
+ const stream=state.phase==='race'?state.elapsed*0.4:t*.00012;
+ for(let k=0;k<36;k++){let p=((k/36+stream)%1);p=Math.pow(p,1.13);if(p<.03||p>.97)continue;let q=Math.min(.995,p+.022+.026*p),a=nRoad(p,t),b=nRoad(q,t);
+ for(const lane of [-1/3,1/3]){const x=a.x+a.w*lane,xb=b.x+b.w*lane,w=1+p*6; nQuad([x-w,a.y],[x+w,a.y],[xb+w*1.2,b.y],[xb-w*1.2,b.y],'#e7faffc9');}
+ if(k%4===0){ // Wet tarmac glimmers under each passing sign light.
+  for(const side of [-1,1]){const x=a.x+side*a.w*.75;ctx.fillStyle=side===1?'#f8adf330':'#8afaff41';ctx.fillRect(x,a.y,3+17*p,2+95*p);}
+ }
+ }
+ // Fast white crosswalks and racing start grids moving under the car.
+ const pass=state.phase==='race'?state.elapsed*.29:t*.00010;
+ for(let i=0;i<2;i++){const p=((i*.56+pass)%1);if(p<.21)continue;let a=nRoad(p,t),b=nRoad(Math.min(.999,p+.035),t);for(let lane=-4;lane<5;lane++){let x=a.x+lane*a.w*.19,xb=b.x+lane*b.w*.19;
+ nQuad([x-8*p,a.y],[x+8*p,a.y],[xb+17*p,b.y],[xb-17*p,b.y],'#eafcff80');}}
+}
+function nBuildings(t){
+ const move=state.phase==='race'?state.elapsed*.28:t*.00013;
+ for(let i=0;i<22;i++){const u=((i/22+move)%1);const q=Math.pow(u,1.25);if(q<.10)continue;const r=nRoad(q,t),pw=10+q*62;
+ for(let side of [-1,1]){const x=r.x+side*(r.w+25+q*83),h=75+q*310+((i*17)%35)*q;
+ const towerW=pw*(.8+(i%3)*.16);const x1=side>0?x:x-towerW;
+ ctx.fillStyle=i%2?'#24486b':'#285578';ctx.fillRect(x1,r.y-h,towerW,h);
+ ctx.fillStyle=side>0?'#ff8fd8':'#70f4ff';ctx.globalAlpha=.92;
+ ctx.fillRect(x1+5,r.y-h+8,Math.max(3,4+q*4),h*.63);ctx.globalAlpha=1;
+ for(let w=0;w<3;w++)for(let k=0;k<5;k++){let wy=r.y-h+20+k*h*.15,wx=x1+12+w*towerW/4;if(wy>=r.y-8)break;ctx.fillStyle=(k+w+i)%3?'#a7eaff48':'#ffb3d17d';ctx.fillRect(wx,wy,3+q*7,2+q*4);}
+ // Side neon canopy bars, like overhead lighting in a street-racing city.
+ if(i%2===0){let ex=x+side*(75+q*200),ey=r.y-h*1.10;let xx=r.x+side*(r.w*.95),yy=r.y-(70+q*130);
+ nGlowLine(xx,yy,ex,ey,1+q*4,side<0?'#60faff':'#ff6eb9');
+ ctx.strokeStyle=side<0?'#c0ffff7d':'#ffd0f38c';ctx.lineWidth=2+q*2;ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex+side*(60+q*50),ey-90*q);ctx.stroke();}
+ }}
+}
+function nRoofCanopy(t){
+ // Luminous repeating diagonals add strong perspective / speed while keeping road visible.
+ const move=state.phase==='race'?state.elapsed*.22:t*.00011;
+ for(let i=0;i<26;i++){let p=((i/26+move)%1);p=Math.pow(p,.75);if(p<.06)continue;let r=nRoad(Math.min(.98,p*.78),t);
+ const y=-30+p*330,xL=-20-p*110,xR=740+p*120;
+ const leftColor=i%4===0?'#ff75c4':i%2?'#56ebff':'#bc83ff';const rightColor=i%3===0?'#7dcbff':'#ff85c9';
+ nGlowLine(xL,y,r.x-r.w*.88,405+25*p,2.5+6*p,leftColor);
+ nGlowLine(xR,y,r.x+r.w*.88,405+25*p,2.5+6*p,rightColor);
+ }
+}
+function nDrawCar(driver,x,y,scale,phase,hero=false){
+ const color=driver?.color||'#69e3fb';ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);
+ // Glossy ground reflection and underglow.
+ ctx.save();ctx.scale(1,.45);const grad=ctx.createRadialGradient(0,134,0,0,134,160);grad.addColorStop(0,color+'99');grad.addColorStop(.6,color+'24');grad.addColorStop(1,color+'00');ctx.fillStyle=grad;ctx.fillRect(-160,-80,320,400);ctx.restore();
+ ctx.shadowColor='#001126';ctx.shadowBlur=22;ctx.fillStyle='#071321ba';ctx.beginPath();ctx.ellipse(0,96,104,26,0,0,TAU);ctx.fill();ctx.shadowBlur=0;
+ // The wheels are darker than the side panels and remain legible.
+ for(const side of [-1,1]){const xx=side*83;ctx.fillStyle='#07131c';ctx.beginPath();ctx.roundRect(xx-13,2,26,76,6);ctx.fill();ctx.fillStyle='#669fb0';ctx.fillRect(xx-8,15,16,22);}
+ // 3D-look rear section: silhouette, roof, rear glass, sculpted trunk and bumper.
+ path([[-91,57],[-84,-7],[-66,-34],[-53,-63],[53,-63],[66,-34],[84,-7],[91,57],[74,92],[-74,92]],'#0e1d2b','#a7dbe6',1.5);
+ path([[-82,47],[-71,-10],[-55,-44],[55,-44],[71,-10],[82,47],[69,74],[-69,74]],color);
+ path([[-55,-44],[-40,-77],[40,-77],[55,-44],[43,-19],[-43,-19]],'#17334c','#d1f4ff',1.4);
+ path([[-41,-68],[41,-68],[51,-36],[-51,-36]],'#152f43');
+ path([[-33,-62],[33,-62],[39,-47],[-39,-47]],'#2c6680');
+ // Dark rear fascia with continuous red LED blade.
+ path([[-80,20],[80,20],[77,54],[-77,54]],'#102133');
+ ctx.shadowColor='#ff507a';ctx.shadowBlur=18;rect(-77,23,154,9,'#ff4765');rect(-63,25,126,4,'#ffd9de');ctx.shadowBlur=0;
+ // Spoiler wing behind cockpit and raised supports.
+ for(const sx of [-58,58]){path([[sx-5,-30],[sx+5,-30],[sx+4,-70],[sx-4,-70]],'#13233a');}
+ path([[-100,-80],[100,-80],[92,-62],[-92,-62]],'#10223a','#66b8d1',2);rect(-90,-77,180,4,'#5c889e');
+ // Side reflections, aggressive diffuser, exhausts and race number.
+ path([[-86,57],[-74,85],[-56,91],[-55,42]],'#102539');path([[86,57],[74,85],[56,91],[55,42]],'#102539');
+ path([[-58,72],[58,72],[70,93],[-70,93]],'#0b1a27');
+ for(const sx of [-43,43]){ctx.fillStyle='#84d9ee';ctx.beginPath();ctx.ellipse(sx,83,9,5,0,0,TAU);ctx.fill();}
+ rect(-12,49,24,10,'#142e3a');rect(-8,51,16,5,'#b4e9ee');
+ ctx.shadowColor='#b1f9ff';ctx.shadowBlur=11;rect(-58,0,2,15,'#ffffff6b');rect(56,0,2,15,'#ffffff68');ctx.shadowBlur=0;
+ if(driver?.boost>0||driver?.nitro>0){for(const sx of [-34,34]){let amount=17+Math.sin(phase*.022+sx)*11;path([[sx-8,90],[sx+8,90],[sx+14,90+amount],[sx,126+amount*1.25],[sx-14,90+amount]],'#67faff99');}}
+ if(hero){const shine=ctx.createLinearGradient(-80,-80,80,50);shine.addColorStop(0,'#ffffff5a');shine.addColorStop(.4,'#ffffff00');shine.addColorStop(1,'#001b3840');ctx.fillStyle=shine;ctx.fillRect(-74,-60,146,84);}
+ ctx.restore();
+}
+function nDrawScene(t){
+ ctx.clearRect(0,0,W,H);
+ const seconds=state.phase==='race'?state.elapsed:t*.00035;
+ nCity(seconds);nRoadSurface(seconds);nBuildings(seconds);nRoofCanopy(seconds);
+ const drivers=sorting(),leader=drivers[0];const close=state.phase==='race'&&state.camera.mode==='close';const subject=close?state.drivers.find(d=>d.id===state.camera.targetId):selected()||leader;
+ // Opponents move in depth, across lanes, and occasionally pass the chase car.
+ const others=drivers.filter(d=>d.id!==subject?.id);
+ for(let i=0;i<Math.min(6,others.length);i++){const d=others[i],lane=(i%3)-1,depthRow=Math.floor(i/3),delta=(d.meters-(subject?.meters||0));
+ let py=575+depthRow*100-clamp(delta,-90,90)*.47+Math.sin(t*.0018+i*2)*11;
+ py=clamp(py,510,790);const q=clamp((py-420)/860,.08,.64),r=nRoad(q,seconds);const x=r.x+lane*r.w*.55+Math.sin(t*.001+i*2)*7;
+ nDrawCar(d,x,py,.38+q*.63,t,false);
+ }
+ if(subject){let x=360+Math.sin(t*.0008)*11,y=state.phase==='race'?943:935;
+ if(close){const shot=state.camera.shot||0;x=shot===1?411:shot===2?307:360;y=940;}
+ const size=close?2.03:1.75;nDrawCar(subject,x,y,size,t,true);
+ if(close){const name=String(subject.name).slice(0,18);ctx.save();ctx.textAlign='center';ctx.fillStyle='#071b32aa';ctx.beginPath();ctx.roundRect(228,1111,264,37,11);ctx.fill();ctx.font='800 23px system-ui';ctx.fillStyle='#dcffff';ctx.fillText('🎥 '+name,360,1136);ctx.restore();}
+ }
+ if(state.phase==='finished'){for(let i=0;i<26;i++){const x=(i*113+t*.04)%W,y=(i*77+t*.07*(i%3+1))%H;ctx.fillStyle=i%2?'#ff9ddd':'#8bf8ff';ctx.fillRect(x,y,4,9);}}
+}
+function render2d(t){if($('#game2d').style.display==='none')return;nDrawScene(t);}
+
 function try3D(){if(!window.Neon3D?.createRace3D){state.showGraphics='2D';return;}try{const canvas=$('#game3d');canvas.style.display='block';const obj=window.Neon3D.createRace3D(canvas);if(!obj)throw Error('WebGL não disponível');scene3d=obj;state.showGraphics='WebGL';$('#game2d').style.display='none';}catch(e){console.warn('Neon Rush: modo 2D ativado',e.message);state.showGraphics='2D';$('#game3d').style.display='none';$('#game2d').style.display='block';}}
 function frame(t){let dt=clamp((t-state.lastFrame)/1000,0,.05);state.lastFrame=t;update(dt,t);
  if(scene3d){try{const data={mode:state.phase==='race'?'corrida':state.phase==='finished'?'podio':'inscricao',players:state.drivers.map(d=>({id:d.id,name:d.name,color:d.color,lane:d.lane,progress:d.meters,boost:d.boost})),camera:state.camera,winner:sorting().slice(0,3)};const ok=scene3d.render(data,t,dt);if(ok===false)throw Error('WebGL context lost');}catch(e){scene3d=null;$('#game3d').style.display='none';$('#game2d').style.display='block';console.warn('Modo 2D alternativo:',e.message);}}
- if(!scene3d&&t-(window.__neonLastCanvas||0)>40){render2d(t);window.__neonLastCanvas=t;}requestAnimationFrame(frame)}
+ if(!scene3d&&t-(window.__neonLastCanvas||0)>38){render2d(t);window.__neonLastCanvas=t;}requestAnimationFrame(frame)}
 // Controls
+$('#renderToggle').onclick=()=>{if(scene3d){scene3d=null;$('#game3d').style.display='none';$('#game2d').style.display='block';state.showGraphics='2D CINEMA';$('#renderToggle').textContent='3D';try{localStorage.setItem('neon-rush-v4-gpu','off')}catch{}}else{try3D();if(scene3d){$('#renderToggle').textContent='CINEMA';try{localStorage.setItem('neon-rush-v4-gpu','on')}catch{}}}};
 $('#startMain').onclick=start;$('#startConsole').onclick=start;$('#again').onclick=()=>reset(true);$('#restart').onclick=()=>reset();$('#boost').onclick=()=>power('like');$('#gift').onclick=()=>power('galaxy');$('#audio').onclick=toggleAudio;$('#muteBtn').onclick=toggleAudio;$('#openPilots').onclick=showPilots;$('#closePicker').onclick=()=>$('#pickerOverlay').hidden=true;$('#pickerOverlay').onclick=e=>{if(e.target===$('#pickerOverlay'))$('#pickerOverlay').hidden=true};$('#pickerList').onclick=e=>{const b=e.target.closest('[data-picker]');if(b)choosePilot(Number(b.dataset.picker))};$('#driverButtons').onclick=e=>{const b=e.target.closest('[data-driver]');if(b)choosePilot(Number(b.dataset.driver))};$('#likeBtn').onclick=()=>power('like');$('#roseBtn').onclick=()=>power('rose');$('#galaxyBtn').onclick=()=>power('galaxy');$('#nitroBtn').onclick=()=>power('nitro');$('#cameraManual').onclick=()=>setClose(true);$('#closeBtn').onclick=()=>setClose(true);$('#camBtn').onclick=()=>{state.cameraAuto=!state.cameraAuto;$('#camBtn').textContent=state.cameraAuto?'◉ CLOSE AUTOMÁTICO · 10s':'◉ CLOSE AUTOMÁTICO DESLIGADO';addEvent(state.cameraAuto?'🎥 Closes aleatórios ativados':'🎥 Closes aleatórios pausados','silent');};$('#joinBtn').onclick=()=>{join($('#username').value);$('#username').value=''};$('#username').onkeydown=e=>{if(e.key==='Enter')$('#joinBtn').click()};
-try3D();setPhase('ready');updateHUD();addEvent('✨ Oito pilotos preparados para o Skyline Sprint','silent');requestAnimationFrame(frame);
+// V4 defaults to the cinematic perspective renderer, working even without WebGL.
+// Experimental WebGL can be toggled by the creator; never rely on a GPU existing.
+try{const saved=localStorage.getItem('neon-rush-v4-gpu');if(saved==='on')try3D();}catch{}
+setPhase('ready');state.showGraphics=scene3d?'WebGL':'2D CINEMA';updateHUD();addEvent('✨ Oito pilotos preparados para o Skyline Sprint','silent');requestAnimationFrame(frame);setTimeout(()=>{if(state.phase==='ready'&&!new URLSearchParams(location.search).has('manual'))start();},1500);
 window.NEON_RUSH_DEBUG={getState:()=>({phase:state.phase,drivers:state.drivers.map(d=>({name:d.name,meters:d.meters,boost:d.boost})),selected:selected()?.name,likes:state.likes,gifts:state.gifts,renderer:state.showGraphics,elapsed:state.elapsed,camera:state.camera,visibleDrivers:state.drivers.length}),start,reset,power,join,finish,setClose};
 })();
 
