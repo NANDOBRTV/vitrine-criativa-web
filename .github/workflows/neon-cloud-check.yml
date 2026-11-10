@@ -1,0 +1,25 @@
+name: Neon Live Studio - verificação
+on:
+  push:
+    branches: [neon-live-studio-cloud]
+    paths:
+      - 'neon-live-studio-cloud/**'
+      - '.github/workflows/neon-cloud-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar sintaxe do servidor
+        run: node --check neon-live-studio-cloud/server.mjs
+      - name: Testar API em ambiente isolado
+        run: node --test neon-live-studio-cloud/server.test.mjs
