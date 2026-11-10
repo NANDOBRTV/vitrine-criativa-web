@@ -342,7 +342,7 @@ const ctx=cinemaCanvas.getContext('2d',{alpha:false,desynchronized:true});
 // It preserves the 9:16 composition while avoiding overworking Android GPUs.
 const quality={mode:'auto',tier:'balanced',targetFps:30,changes:0};
 const skyCanvas=document.createElement('canvas');const skyCtx=skyCanvas.getContext('2d',{alpha:false});let skyCached=false;
-const perf={frames:0,avgDrawMs:0,maxDrawMs:0,lastDrawMs:0,firstFrame:performance.now(),actualFps:0,adaptiveDowngrades:0};
+const perf={frames:0,avgDrawMs:0,maxDrawMs:0,lastDrawMs:0,firstFrame:performance.now(),actualFps:0,visibleFps:0,windowStart:performance.now(),windowFrames:0,adaptiveDowngrades:0};
 function qualityScale(){return quality.tier==='eco'?.55:quality.tier==='normal'?.75:.67;}
 function setQualityTier(t){
  quality.tier=t;quality.targetFps=t==='eco'?24:30;const ratio=qualityScale();
@@ -647,9 +647,16 @@ function render2d(t){
  perf.frames++;perf.lastDrawMs=elapsed;perf.maxDrawMs=Math.max(perf.maxDrawMs,elapsed);
  perf.avgDrawMs=perf.avgDrawMs?perf.avgDrawMs*.94+elapsed*.06:elapsed;
  perf.actualFps=perf.frames/Math.max(.01,(performance.now()-perf.firstFrame)/1000);
- // Tune conservatively: rendering time, not RAF pauses, determines GPU/CPU pressure.
- if(quality.mode==='auto'&&quality.tier==='balanced'&&perf.frames>=35&&perf.frames%16===0&&perf.avgDrawMs>23){
-  setQualityTier('eco');perf.adaptiveDowngrades++;
+ perf.windowFrames++;
+ // FPS also captures CSS/compositor/thermal slowdowns which drawMs alone cannot see.
+ const observedWindow=performance.now()-perf.windowStart;
+ if(observedWindow>=2700){
+  perf.visibleFps=perf.windowFrames*1000/Math.max(1,observedWindow);
+  if(quality.mode==='auto'&&quality.tier==='balanced'&&document.visibilityState==='visible'&&perf.windowFrames>=7&&
+    (perf.avgDrawMs>23||perf.visibleFps<20)){
+     setQualityTier('eco');perf.adaptiveDowngrades++;
+  }
+  perf.windowFrames=0;perf.windowStart=performance.now();
  }
 }
 
