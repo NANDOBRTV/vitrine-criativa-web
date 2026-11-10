@@ -116,7 +116,7 @@
      <div class="live-ticker"><span class="ticker-pill">● LIVE</span><span id="ticker">Selecione um piloto e acompanhe a disputa!</span></div>
     </div>
     <div class="mobile-actions"><button id="openPilots" aria-label="Escolher piloto"><span>👥</span><small>PILOTOS</small></button><button id="boost" class="mobile-main" aria-label="Enviar curtidas e turbo"><span>⚡</span><small>TURBO</small></button><button id="cameraManual" aria-label="Close da câmera no piloto escolhido"><span>🎥</span><small>CLOSE</small></button><button id="gift" aria-label="Enviar presente virtual"><span>🎁</span><small>PRESENTE</small></button><button id="audio" aria-label="Ativar ou desativar áudio"><span id="soundIcon">🔇</span><small>ÁUDIO</small></button></div>
-    <div class="corner-note">NEON RUSH V4.1 · NEON CITY CHASE</div>
+    <div class="corner-note">NEON RUSH V4.2 · NEON CITY CHASE</div>
    </section>
    <aside class="console">
     <div class="panel-top"><div class="panel-overline">CENTRAL DO CRIADOR</div><h2>Comande a <span>corrida.</span></h2><p>Escolha um piloto, simule o chat e envie poderes. As oito primeiras inscrições são de demonstração.</p></div>
@@ -357,7 +357,7 @@ function showPilots(){const root=$('#pickerList');root.innerHTML=state.drivers.m
 function join(raw){let name=String(raw||'').trim().replace(/[<>]/g,'').slice(0,16);if(!name){addEvent('Digite o nome para entrar','gift');return false;}if(state.phase==='countdown'||state.phase==='race'){state.pendingName=name.toUpperCase();addEvent('💬 '+name+' entrará na próxima corrida','default');return true;}if(state.drivers.length>=16){addEvent('🚫 Limite de 16 pilotos nesta rodada','gift');return false;}if(state.drivers.some(d=>d.name===name.toUpperCase())){addEvent('💬 Este piloto já está inscrito','gift');return false;}state.drivers.push(spawn(name,state.drivers.length));addEvent('💬 '+name.toUpperCase()+' entrou para a corrida','default');updateHUD();return true;}
 function reset(autostart=false){state.round++;state.elapsed=0;state.prevRaceElapsed=0;state.timeLeft=70;state.cdStarted=0;state.finishing=false;state.viewMode=0;state.camera={mode:'pack',targetId:null,manual:false,nextAt:10,until:0,lastTarget:null,shot:0,cycle:0};state.drivers.forEach((d,i)=>{d.meters=0;d.progress=0;d.boost=0;d.nitro=0;d.shield=0;d.shifts=0;d.lane=i%4;d.baseSpeed=5.1+((Math.sin(i*9.7+state.round)+1)*.95);});if(state.pendingName){if(state.drivers.length<16)state.drivers.push(spawn(state.pendingName,state.drivers.length));state.pendingName=null;}
  setPhase('ready');$('#cameraBadge').hidden=true;$('#speedlines').classList.remove('active');updateHUD();if(autostart)start();}
-function start(){if(state.phase==='race'||state.phase==='countdown')return;state.elapsed=0;state.prevRaceElapsed=0;state.timeLeft=70;state.cdStarted=performance.now();state.roundStart=0;state.camera={mode:'pack',targetId:null,manual:false,nextAt:10,until:0,lastTarget:null,shot:0,cycle:0};setPhase('countdown');addEvent('🚦 Prepare-se! A largada começa em 3 segundos','default');}
+function start(){if(state.phase==='race'||state.phase==='countdown')return;state.elapsed=0;state.prevRaceElapsed=0;state.timeLeft=70;state.cdStarted=Date.now();state.roundStart=0;state.camera={mode:'pack',targetId:null,manual:false,nextAt:10,until:0,lastTarget:null,shot:0,cycle:0};setPhase('countdown');addEvent('🚦 Prepare-se! A largada começa em 3 segundos','default');}
 function finish(){if(state.phase!=='race')return;setPhase('finished');$('#cameraBadge').hidden=true;state.finishing=true;$('#speedlines').classList.remove('active');const sorted=sorting();$('#champion').textContent=sorted[0]?.name||'SEM PILOTOS';$('#champion').style.color=sorted[0]?.color||'#fff';$('#podiumNames').innerHTML=sorted.slice(0,3).map((d,i)=>['🥇','🥈','🥉'][i]+' '+escapeHTML(d.name)+' — '+Math.round(d.meters)+' m').join('<br>');addEvent('🏆 '+(sorted[0]?.name||'—')+' É O CAMPEÃO!', 'leader');synth(660,.38,'sawtooth');updateHUD();}
 function power(type){const p=selected();if(!p)return;if(type==='like'){state.likes+=15;p.likes+=15;p.boost=Math.min(10,p.boost+3);p.score+=15;addEvent('❤️ +15 curtidas! '+p.name+' ganhou TURBO','gift');synth(740,.13,'triangle');}
  else if(type==='rose'){state.gifts++;p.gifts++;p.shield=4;p.boost=Math.max(p.boost,2);addEvent('🌹 '+p.name+' ativou ESCUDO DE ROSAS','gift');synth(510,.23,'triangle');}
@@ -395,9 +395,9 @@ function cameraTick(){
  $('#cameraTime').textContent=focus?Math.max(0,Math.ceil(state.camera.until-state.elapsed))+'s':'AUTO · 10s';
 }
 
-function update(dt,t){if(state.phase==='countdown'){const sec=Math.floor((t-state.cdStarted)/1000);if(sec>=4){state.roundStart=t;setPhase('race');addEvent('🏁 VALENDO! A corrida começou!','leader');synth(880,.33,'triangle');}else{let n=3-sec;$('#cdNum').textContent=sec===3?'GO!':n;if(n>0&&state.lastCd!==n){state.lastCd=n;synth(350+((3-n)*130),.18,'square');}}}
+function update(dt,t){if(state.phase==='countdown'){const sec=Math.max(0,Math.floor((Date.now()-state.cdStarted)/1000));if(sec>=4){state.roundStart=Date.now();setPhase('race');addEvent('🏁 VALENDO! A corrida começou!','leader');synth(880,.33,'triangle');}else{let n=3-sec;$('#cdNum').textContent=sec===3?'GO!':n;if(n>0&&state.lastCd!==n){state.lastCd=n;synth(350+((3-n)*130),.18,'square');}}}
  if(state.phase==='race'){
-  state.elapsed=(t-state.roundStart)/1000;state.timeLeft=Math.max(0,70-state.elapsed);
+  state.elapsed=Math.max(0,(Date.now()-state.roundStart)/1000);state.timeLeft=Math.max(0,70-state.elapsed);
   const cars=state.drivers;
   // Distância baseada no TEMPO REAL, não no FPS: o jogo não fica parado se o navegador reduzir frames.
   const simDt=Math.max(0,state.elapsed-(state.prevRaceElapsed||0));state.prevRaceElapsed=state.elapsed;
