@@ -31,7 +31,7 @@ function session(req){const c=(req.headers.cookie||'').split(';').map(x=>x.trim(
 function check(a,b){if(!a||!b)return false;let x=crypto.createHash('sha256').update(String(a)).digest(),y=crypto.createHash('sha256').update(String(b)).digest();return crypto.timingSafeEqual(x,y);}
 function origin(req){const o=req.headers.origin;return !o||o==='https://'+req.headers.host||o==='http://'+req.headers.host;}
 async function readBody(req){let a=[],sz=0;for await(const c of req){sz+=c.length;if(sz>8192)throw Error('large');a.push(c);}return JSON.parse(Buffer.concat(a).toString('utf8')||'{}');}
-const html=await readFile(path.join(DIR,'index.html'));
+const html=(await readFile(path.join(DIR,'index.html'),'utf8')).replace('</head>','<meta name="neon-multiplayer" content="1"></head>');
 http.createServer(async(req,res)=>{
  let u;try{u=new URL(req.url,'https://'+(req.headers.host||'localhost'));}catch{return json(res,400,{error:'URL inválida'});}
  const p=u.pathname;
