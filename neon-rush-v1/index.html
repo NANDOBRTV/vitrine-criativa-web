@@ -392,7 +392,7 @@ function drawMap(){const el=q('#minimap'),c=el.getContext('2d');const w=el.width
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;hud();}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
  const b=document.createElement('button'),im=document.createElement('img'),label=document.createElement('span'),name=document.createElement('strong'),detail=document.createElement('small');
- im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.png';im.alt='Skin original '+p.id;im.loading='lazy';
+ im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.webp';im.onerror=()=>{if(!im.dataset.fallback){im.dataset.fallback='1';im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.png';}};im.alt='Skin original '+p.id;im.loading='lazy';
  name.textContent=p.id+'  ·  '+p.model;detail.textContent='Pintura e modelo 3D do veículo nº '+p.id;
  label.append(name,detail);b.append(im,label);b.style.borderLeft='5px solid '+p.color;b.setAttribute('aria-pressed',i===selected?'true':'false');
  b.onclick=()=>selectDriver(i);return b;}));}
