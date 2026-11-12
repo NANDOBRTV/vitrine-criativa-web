@@ -89,11 +89,11 @@ function pathCurve(s){return (pathSlope(s+1.5)-pathSlope(s-1.5))/3/Math.pow(1+pa
 function pathY(s){return .12*Math.sin(s/39)+.09*Math.sin(s/18);}
 function point(s,lane=0){let k=pathSlope(s),n=Math.hypot(1,k);return [pathX(s)+lane/n,pathY(s),s-lane*k/n];}
 function angle(s){return Math.atan2(pathSlope(s),1);}
-let timer=0,round=1,gamePhase='countdown',countDown=3,selected=8,focus=-1,focusUntil=0,nextClose=10,closeEventCount=0,manual=false,watchOvertake=null,watchUntil=0,mode='chase',muted=true,frameCounter=0,lastFrame=0,engine=null,meshes=null,gl=null,orientationIssues=0,collisionEvents=0,passingEvents=0,physicsAccumulator=0,renderHistory=[],cameraPos=null,cameraLook=null;
+let timer=0,round=1,gamePhase='countdown',countDown=3,selected=8,focus=-1,focusUntil=0,nextClose=10,closeEventCount=0,manual=false,watchOvertake=null,watchUntil=0,mode='chase',muted=true,frameCounter=0,lastFrame=0,engine=null,meshes=null,gl=null,orientationIssues=0,collisionEvents=0,passingEvents=0,physicsAccumulator=0,renderHistory=[],cameraPos=null,cameraLook=null,cameraManualUntil=0;
 let players=[];
 const gameOptions={autoStart:true,quality:'normal',showMap:true};
 function createDrivers(){players=CAR_DATA.map((a,i)=>({id:a[0],model:a[1],name:a[1].split(' ').slice(-1)[0]+' '+a[0],color:a[2],progress:-Math.floor(i/4)*8,lateral:LANES[i%4],target:LANES[i%4],speed:0,boost:0,braking:false,steering:0,roll:0,wheelRoll:0,maxSpeed:27+i*.29+(i%3)*.3,passing:0,passed:0,passedBy:0,lastLaneChange:-99,damage:0}));}
-function gridCars(){createDrivers();timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;}
+function gridCars(){createDrivers();timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;cameraManualUntil=0;}
 function laneFree(d,proposed){for(const o of players){if(o===d)continue;const oc=Math.abs(o.lateral-proposed)<2.45||Math.abs(o.target-proposed)<2.45;
  if(oc&&Math.abs(o.progress-d.progress)<SAFE_GAP+4.2+(Math.abs(o.speed-d.speed)*.22))return false;}return true;}
 function closestAhead(d,lane,range=90){let candidate=null,dist=range;
@@ -145,7 +145,7 @@ function physicsStep(dt){if(gamePhase!=='race')return;
   const before=physicsStep.previousOrder.indexOf(leaders[i].id);if(before>i){passingEvents++;watchOvertake=leaders[i].id;watchUntil=timer+2.0;leaders[i].passed++;}}
  }
  physicsStep.previousOrder=leaders.map(p=>p.id);
- if(timer>=nextClose){nextClose+=10;if(focus===-1){focus=Math.floor(Math.random()*players.length);focusUntil=timer+2.5+Math.random()*4;manual=false;closeEventCount++;}}
+ if(timer>=nextClose){nextClose+=10;if(focus===-1&&timer>cameraManualUntil){focus=Math.floor(Math.random()*players.length);focusUntil=timer+2.5+Math.random()*4;manual=false;closeEventCount++;}}
  if(focus!==-1&&timer>=focusUntil){focus=-1;manual=false;}
 }
 function checkPhysics(){const seen=[];for(let i=0;i<players.length;i++)for(let j=i+1;j<players.length;j++){const a=players[i],b=players[j];if(Math.abs(a.lateral-b.lateral)<2.12&&Math.abs(a.progress-b.progress)<SAFE_GAP-.06)seen.push([a.id,b.id]);}return seen;}
@@ -413,7 +413,7 @@ function updateEngineAudio(){if(!engineAudio)return;const {ctx,a,b,gain,filter}=
  gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?.035:0,t,.13);
 }
 function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hidden=false;};q('#pickerClose').onclick=()=>q('#picker').hidden=true;
- q('#camera').onclick=()=>{const modes=['chase','tv','drone'];mode=modes[(modes.indexOf(mode)+1)%modes.length];q('#activity').textContent='📷 '+(mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'TV':'AÉREA');};
+ q('#camera').onclick=()=>{const modes=['chase','tv','drone'];mode=modes[(modes.indexOf(mode)+1)%modes.length];focus=-1;watchOvertake=null;cameraManualUntil=timer+6;q('#activity').textContent='📷 '+(mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'TV':'AÉREA');};
  q('#boost').onclick=addBoost;q('#gift').onclick=addGift;q('#close').onclick=closeNow;
  q('#restart').onclick=()=>{gridCars();q('#activity').textContent='🚦 Preparando nova corrida';};
  q('#full').onclick=()=>{const el=q('#frame');if(el.requestFullscreen)el.requestFullscreen().catch(()=>{});};
