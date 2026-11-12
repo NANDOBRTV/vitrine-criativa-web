@@ -157,7 +157,7 @@ function wheelArt(d){
  const v=wheelFiles.get(id);return v.ok?v.img:null;
 }
 function roll(d){
- const id=String(d?.id??d?.carId??'?'),distance=Number(d?.progress??d?.meters);
+ const id=String(d?.id??d?.carId??'?'),distance=Number(d?.meters??d?.progress);
  let w=wheelMotion.get(id);if(!w){w={last:distance,phase:0};wheelMotion.set(id,w);}
  if(Number.isFinite(distance)){
   const delta=distance-w.last;
