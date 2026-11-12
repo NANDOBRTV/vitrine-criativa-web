@@ -43,11 +43,11 @@ test('o modo WebGL nunca substitui a partida por corrida invisível',()=>{
 });
 
 test('qualidade e mapa persistem; narração e áudio são opt-in',()=>{
- for(const x of ['SETTINGS_KEY','function saveSettings()','function syncSettings()','q(\\'#mapToggle\\').onclick','q(\\'#quality\\').onclick','q(\\'#narrator\\').onclick','q(\\'#mute\\').onclick','RaceNarrator.overtake','RaceNarrator.finish'])assert.ok(html.includes(x.replaceAll("\\'","'")),x);
+ for(const x of ['SETTINGS_KEY','function saveSettings()','function syncSettings()', "q('#mapToggle').onclick", "q('#quality').onclick", "q('#narrator').onclick", "q('#mute').onclick", 'RaceNarrator.overtake','RaceNarrator.finish'])assert.ok(html.includes(x),x);
  assert.ok(html.includes('localStorage.setItem(SETTINGS_KEY'));
  assert.ok(html.includes('muted=true'));
 });
 
 test('galeria existente, skins e física continuam no jogo',()=>{
- for(const x of ['stockcar-viewer.html','createCarModels(gl)','makeRoad()','makeWheel()','function checkPhysics()','window.NEON_RUSH_V14','const SAFE_GAP='])assert.ok(html.includes(x),x);
+ for(const x of ['stockcar-viewer.html','createCarModels(gl)','makeRoad()','makeWheel()','function checkPhysics()','window.NEON_RUSH_V14','SAFE_GAP=5.7'])assert.ok(html.includes(x),x);
 });
