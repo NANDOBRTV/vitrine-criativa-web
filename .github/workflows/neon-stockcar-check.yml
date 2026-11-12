@@ -5,6 +5,7 @@ on:
     paths:
       - 'neon-rush-v1/index.html'
       - 'neon-rush-v1/stockcar-smoke.test.mjs'
+      - 'neon-rush-v1/gamedev-master-qa.test.mjs'
       - '.github/workflows/neon-stockcar-check.yml'
   workflow_dispatch:
 permissions:
@@ -19,4 +20,4 @@ jobs:
         with:
           node-version: '22'
       - name: Verificar HTML, JavaScript, fisica, minimapa e painel
-        run: node --test neon-rush-v1/stockcar-smoke.test.mjs
+        run: node --test neon-rush-v1/stockcar-smoke.test.mjs neon-rush-v1/gamedev-master-qa.test.mjs
