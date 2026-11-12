@@ -153,7 +153,8 @@ const wheelFiles=new Map(),wheelMotion=new Map();let wheelDraws=0,wheelTicks=0;
 function wheelArt(d){
  const id=String(d?.carId||'');if(!/^car_(04|11|18|27|33|07|19|23|90|64)$/.test(id))return null;
  if(!wheelFiles.has(id)){const entry={img:new Image(),ok:false};entry.img.onload=()=>entry.ok=true;
- entry.img.src='assets/stockcar/cars/'+id+'/'+id+'_wheel.png';wheelFiles.set(id,entry);}
+ entry.img.onerror=()=>{if(!entry.pngFallback){entry.pngFallback=true;entry.img.src='assets/stockcar/cars/'+id+'/'+id+'_wheel.png';}};
+ entry.img.src='assets/stockcar/cars/'+id+'/'+id+'_wheel.webp';wheelFiles.set(id,entry);}
  const v=wheelFiles.get(id);return v.ok?v.img:null;
 }
 function roll(d){
