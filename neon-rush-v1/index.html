@@ -479,7 +479,7 @@ function updateEngineAudio(){if(!engineAudio)return;const {ctx,a,b,gain,filter}=
  const speed=(players[selected]?.speed||0)*3.6,t=ctx.currentTime;
  const base=65+speed*1.42;a.frequency.setTargetAtTime(base,t,.065);b.frequency.setTargetAtTime(base*.51,t,.09);
  filter.frequency.setTargetAtTime(270+speed*11,t,.1);
- gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?(RaceNarrator.enabled()&&window.speechSynthesis?.speaking?.() ? .012 : .035):0,t,.13);
+ gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?(RaceNarrator.enabled()&&window.speechSynthesis?.speaking ? .012 : .035):0,t,.13);
 }
 function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hidden=false;};q('#pickerClose').onclick=()=>q('#picker').hidden=true;
  q('#camera').onclick=()=>{const modes=['chase','tv','drone'];mode=modes[(modes.indexOf(mode)+1)%modes.length];focus=-1;watchOvertake=null;cameraManualUntil=timer+6;q('#activity').textContent='📷 '+(mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'TV':'AÉREA');};
