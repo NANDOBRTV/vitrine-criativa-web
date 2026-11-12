@@ -26,7 +26,7 @@ test('sintaxe, dez skins, narração e controles preservados',()=>{
 });
 test('pista contínua e dez pontos numerados no minimapa',()=>{
  const r=run("createDrivers();const canvas={width:164,height:194,getContext:()=>ctx};"+
- "const ctx={beginPath(){},moveTo(){},lineTo(){},closePath(){},fill(){},stroke(){},save(){},restore(){},setLineDash(){},arc(){},fillText(){}};"+
+ "const ctx={clearRect(){},beginPath(){},moveTo(){},lineTo(){},closePath(){},fill(){},stroke(){},save(){},restore(){},setLineDash(){},arc(){},fillText(){}};"+
  "const els={'#minimap':canvas,'#mapCount':{textContent:''},'#mapLegend':{textContent:''}};const q=x=>els[x];"+
  "drawMap();const headings=[...Array(681)].map((_,i)=>angle(START+i));"+
  "return {points:mapPoints,unique:mapUnique,samples:mapTrack.center.length,label:els['#mapCount'].textContent,turn:Math.max(...headings.slice(1).map((v,i)=>Math.abs(v-headings[i]))),grid:[0,-8,-16].map(p=>point(START+p,0)[2])};",true);
