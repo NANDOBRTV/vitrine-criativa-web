@@ -1,18 +1,18 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.1 · Stock Car 3D com Pinturas</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}#minimap{height:124px;width:103px;background:#06152acc;border:1px solid #67919e80;border-radius:13px;box-shadow:0 2px 10px #0005}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.2 · Stock Car 3D com Narrador</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}#minimap{height:124px;width:103px;background:#06152acc;border:1px solid #67919e80;border-radius:13px;box-shadow:0 2px 10px #0005}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
 #pickerList button img{width:100px;height:59px;object-fit:contain;border-radius:7px;background:linear-gradient(135deg,#142b42,#101b29);flex-shrink:0}
 #pickerList button strong{font-size:13px;color:#fff;display:block}#pickerList button small{display:block;color:#b5d5eb;font-size:10px;margin-top:5px}
-#pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 8px}.bottomHud{bottom:8px}.speed b{font-size:45px}}
+#pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}.narrationCaption{padding:9px 12px;margin:8px 1px 0;border-radius:10px;border:1px solid #5ec8d36a;background:#10283c;color:#e0f8ff;text-align:center;font-weight:700;font-size:12px;line-height:1.35}.narrationCaption[hidden]{display:none!important}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 8px}.bottomHud{bottom:8px}.speed b{font-size:45px}}
 </style></head><body>
-<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.1 · STOCK CAR 3D COM PINTURAS</small></div><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div>
+<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.2 · STOCK CAR 3D COM NARRADOR</small></div><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div>
 <div class="layout"><div class="gamebox"><div id="frame" aria-label="Corrida de carros 3D">
 <canvas id="world" width="390" height="693" aria-label="Pista e carros em 3D"></canvas><div class="film"></div>
 <div class="topHud"><div><b id="position">01/10</b><span>POSIÇÃO</span></div><div style="text-align:right"><b id="elapsed">00:00</b><span id="phase">LARGADA</span></div></div>
 <div id="cameraMode">PERSEGUIÇÃO</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
 <div class="bottomHud"><div class="speed"><b id="speed">000</b> <small>KM/H</small><label id="pilotName">CRUZE 04</label><small id="meter">000 / 680 m</small></div><canvas id="minimap" width="116" height="136" aria-label="Minimapa com os dez carros"></canvas></div>
 <div id="finishOverlay" hidden><h2>🏆 BANDEIRA QUADRICULADA</h2><div id="winner"></div><p>Toque em reiniciar para outra corrida</p></div></div>
-<div class="controls"><button id="choose">🚗 PILOTO</button><button id="camera">📷 CÂMERA</button><button id="close">🎥 CLOSE</button><button id="restart" class="hot">↻ REINICIAR</button></div></div>
-<aside class="panel"><div class="label">CORRIDA INTERATIVA</div><h1>Uma pista.<br>Dez pilotos.<br>Disputa real.</h1><p>Corrida automática com carros 3D sólidos, frenagem nas curvas, trocas de faixa e ultrapassagens calculadas fisicamente.</p><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button><button id="quality">NORMAL</button><button id="mute">SOM OFF</button></div><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor">Os botões simulam interações de LIVE; não há conexão TikTok real. A pista e os carros são malhas WebGL, não sprites sobrepostos.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
-<div class="footer">NEON RUSH V14 · Corrida WebGL com modelos e pinturas 3D originais · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
+<div class="controls"><button id="choose">🚗 PILOTO</button><button id="camera">📷 CÂMERA</button><button id="close">🎥 CLOSE</button><button id="restart" class="hot">↻ REINICIAR</button></div><div id="narrationCaption" class="narrationCaption" role="status" aria-live="polite" hidden></div></div>
+<aside class="panel"><div class="label">CORRIDA INTERATIVA</div><h1>Uma pista.<br>Dez pilotos.<br>Disputa real.</h1><p>Corrida automática com carros 3D sólidos, frenagem nas curvas, trocas de faixa e ultrapassagens calculadas fisicamente.</p><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button><button id="quality">NORMAL</button><button id="mute">SOM OFF</button><button id="narrator" aria-pressed="false" style="grid-column:1/-1">🎙️ NARRADOR OFF</button></div><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor">Os botões simulam interações de LIVE; não há conexão TikTok real. A pista e os carros são malhas WebGL, não sprites sobrepostos.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
+<div class="footer">NEON RUSH V14.2 · Corrida WebGL com carros 3D e narração em português · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
 <div id="picker" hidden><div class="inside"><button id="pickerClose" style="float:right">✕ FECHAR</button><h2>Escolher piloto</h2><div id="pickerList"></div></div></div>
 <script>const TAU=Math.PI*2;
 const CL=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -93,7 +93,7 @@ let timer=0,round=1,gamePhase='countdown',countDown=3,selected=8,focus=-1,focusU
 let players=[];
 const gameOptions={autoStart:true,quality:'normal',showMap:true};
 function createDrivers(){players=CAR_DATA.map((a,i)=>({id:a[0],model:a[1],name:a[1].split(' ').slice(-1)[0]+' '+a[0],color:a[2],progress:-Math.floor(i/4)*8,lateral:LANES[i%4],target:LANES[i%4],speed:0,boost:0,braking:false,steering:0,roll:0,wheelRoll:0,maxSpeed:27+i*.29+(i%3)*.3,passing:0,passed:0,passedBy:0,lastLaneChange:-99,damage:0}));}
-function gridCars(){createDrivers();timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;cameraManualUntil=0;}
+function gridCars(){if(!engine){gamePhase='gpu-error';q('#activity').textContent='⚠️ Ative o 3D antes de reiniciar';return false;}createDrivers();timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;cameraManualUntil=0;physicsStep.previousOrder=null;RaceNarrator.reset();return true;}
 function laneFree(d,proposed){for(const o of players){if(o===d)continue;const oc=Math.abs(o.lateral-proposed)<2.45||Math.abs(o.target-proposed)<2.45;
  if(oc&&Math.abs(o.progress-d.progress)<SAFE_GAP+4.2+(Math.abs(o.speed-d.speed)*.22))return false;}return true;}
 function closestAhead(d,lane,range=90){let candidate=null,dist=range;
@@ -138,26 +138,87 @@ function physicsStep(dt){if(gamePhase!=='race')return;
   const a=players[i],b=players[j];if(Math.abs(a.lateral-b.lateral)<2.12&&Math.abs(a.progress-b.progress)<SAFE_GAP-.05){orientationIssues++;}
  }
  timer+=dt;
- if(timer>=RACE_SECONDS||players.some(p=>p.progress>=DISTANCE)){gamePhase='podium';focus=-1;}
+ if(timer>=RACE_SECONDS||players.some(p=>p.progress>=DISTANCE)){gamePhase='podium';focus=-1;RaceNarrator.finish([...players].sort((a,b)=>b.progress-a.progress)[0]);}
  // Overtaking is counted from actual crossed positions; never substitute ranking-only swaps.
  const leaders=[...players].sort((a,b)=>b.progress-a.progress);
+ let majorOvertake=null;
  if(physicsStep.previousOrder){for(let i=0;i<leaders.length;i++){
-  const before=physicsStep.previousOrder.indexOf(leaders[i].id);if(before>i){passingEvents++;watchOvertake=leaders[i].id;watchUntil=timer+2.0;leaders[i].passed++;}}
+  const before=physicsStep.previousOrder.indexOf(leaders[i].id);if(before>i){passingEvents++;watchOvertake=leaders[i].id;watchUntil=timer+2.0;leaders[i].passed++;if(!majorOvertake||i<majorOvertake.place-1)majorOvertake={driver:leaders[i],place:i+1};}}
  }
+ if(majorOvertake)RaceNarrator.overtake(majorOvertake.driver,majorOvertake.place);
  physicsStep.previousOrder=leaders.map(p=>p.id);
  if(timer>=nextClose){nextClose+=10;if(focus===-1&&timer>cameraManualUntil){focus=Math.floor(Math.random()*players.length);focusUntil=timer+2.5+Math.random()*4;manual=false;closeEventCount++;}}
  if(focus!==-1&&timer>=focusUntil){focus=-1;manual=false;}
+ RaceNarrator.tick();
 }
 function checkPhysics(){const seen=[];for(let i=0;i<players.length;i++)for(let j=i+1;j<players.length;j++){const a=players[i],b=players[j];if(Math.abs(a.lateral-b.lateral)<2.12&&Math.abs(a.progress-b.progress)<SAFE_GAP-.06)seen.push([a.id,b.id]);}return seen;}
 const q=s=>document.querySelector(s);
 const rank=()=>[...players].sort((a,b)=>b.progress-a.progress);
-function addBoost(){players[selected].boost=Math.max(players[selected].boost,3.8);q('#activity').textContent='⚡ TURBO · '+players[selected].name;}
-function addGift(){const d=players[selected];d.boost=Math.max(d.boost,6.2);d.maxSpeed=Math.min(35,d.maxSpeed+.15);q('#activity').textContent='🎁 SUPER TURBO · '+d.name;}
+
+/* V14.2 — narration is driven by actual race events, not an unrelated timer. */
+const RaceNarrator=(()=>{
+ let enabled=false,spoken=0,lastSpeech=-Infinity,lastEvent="",lastLead="",checkpoint=0,seq=0;
+ const caption=()=>document.querySelector('#narrationCaption');
+ const available=()=>('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+ function chooseVoice(){
+  const voices=window.speechSynthesis.getVoices()||[];
+  const br=voices.filter(v=>/^pt[-_]BR$/i.test(v.lang));
+  const pt=br.length?br:voices.filter(v=>/^pt/i.test(v.lang));
+  const male=/\b(antonio|ant[oô]nio|ricardo|daniel|felipe|paulo|eduardo|marcelo|male)\b/i;
+  return pt.find(v=>male.test(v.name))||pt[0]||null;
+ }
+ function say(message,{urgent=false,cooldown=3600,key="generic"}={}){
+  if(!enabled)return false;
+  const now=performance.now(),synth=available()?window.speechSynthesis:null;
+  if(!urgent&&(now-lastSpeech<cooldown||(synth&&(synth.speaking||synth.pending))))return false;
+  lastSpeech=now;lastEvent=key;spoken++;const ticket=++seq;
+  const c=caption();if(c){c.textContent='🎙️ '+message;c.hidden=false;}
+  setTimeout(()=>{if(ticket===seq&&c)c.hidden=true;},6500);
+  if(synth){
+   try{
+    if(urgent)synth.cancel();
+    const u=new SpeechSynthesisUtterance(message);
+    u.lang='pt-BR';u.rate=1.14;u.pitch=.83;u.volume=.96;
+    const voice=chooseVoice();if(voice)u.voice=voice;
+    synth.speak(u);
+   }catch(e){console.warn('Narração de voz não disponível:',e);}
+  }
+  return true;
+ }
+ function toggle(){
+  enabled=!enabled;
+  const b=document.querySelector('#narrator');
+  if(b){b.textContent=enabled?'🎙️ NARRADOR ON':'🎙️ NARRADOR OFF';b.setAttribute('aria-pressed',String(enabled));}
+  if(!enabled){if(available())window.speechSynthesis.cancel();const c=caption();if(c)c.hidden=true;return;}
+  const msg=available()?'Atenção! Narrador da corrida ativado. Prepare-se para muita velocidade!':'Legendas de narração ativadas. A voz não está disponível neste navegador.';
+  say(msg,{urgent:true,key:'activated'});
+ }
+ function reset(){lastLead='';checkpoint=0;lastEvent='';if(enabled&&available())window.speechSynthesis.cancel();}
+ function start(){lastLead='';checkpoint=0;say('Largaram! Dez pilotos aceleram em busca da vitória!',{urgent:true,key:'start'});}
+ function overtake(driver,place){
+  const pos=place===1?'assume a liderança!':'ganha a posição número '+place+'!';
+  say('Olha a ultrapassagem! '+driver.name+' '+pos,{key:'pass',cooldown:3500});
+ }
+ function turbo(driver){say('Turbo ativado para '+driver.name+'! Agora vem velocidade!',{key:'turbo',cooldown:2500});}
+ function tick(){
+  if(!enabled||gamePhase!=='race')return;
+  const leaders=rank(),leader=leaders[0];if(!leader)return;
+  if(!lastLead)lastLead=leader.id;
+  if(lastLead!==leader.id){lastLead=leader.id;say('Mudança na ponta! '+leader.name+' é o novo líder da corrida!',{key:'leader',cooldown:2000});}
+  if(checkpoint===0&&timer>=9){if(say('A disputa está acirrada! '+leader.name+' puxa o pelotão!',{key:'midrace',cooldown:2700}))checkpoint=1;}
+  if(checkpoint<2&&leader.progress>=DISTANCE*.75){if(say('Reta final! '+leader.name+' se aproxima da bandeirada!',{key:'finalstretch',cooldown:2300}))checkpoint=2;}
+ }
+ function finish(winner){if(!winner)return;say('Bandeira quadriculada! '+winner.name+' vence a corrida! Que chegada!',{urgent:true,key:'finish'});}
+ return {toggle,reset,start,overtake,turbo,tick,finish,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,checkpoint})};
+})();
+
+function addBoost(){if(gamePhase!=='race'){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}players[selected].boost=Math.max(players[selected].boost,3.8);q('#activity').textContent='⚡ TURBO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
+function addGift(){if(gamePhase!=='race'){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}const d=players[selected];d.boost=Math.max(d.boost,6.2);d.maxSpeed=Math.min(35,d.maxSpeed+.15);q('#activity').textContent='🎁 SUPER TURBO · '+d.name;RaceNarrator.turbo(d);}
 function closeNow(){focus=selected;focusUntil=timer+5;manual=true;q('#activity').textContent='🎥 CLOSE · '+players[selected].name;}
 function hud(){const sorted=rank(),leader=sorted[0],me=players[selected],i=sorted.indexOf(me);
  q('#speed').textContent=String(Math.round(me.speed*3.6)).padStart(3,'0');q('#position').textContent=(i+1)+'/10';q('#meter').textContent=Math.max(0,Math.floor(leader.progress))+' / '+DISTANCE+' m';
  q('#elapsed').textContent=String(Math.floor(timer/60)).padStart(2,'0')+':'+String(Math.floor(timer%60)).padStart(2,'0');
- q('#pilotName').textContent=me.name;q('#phase').textContent=gamePhase==='countdown'?'LARGADA EM '+Math.max(0,Math.ceil(countDown)):gamePhase==='race'?'CORRIDA · VOLTA ÚNICA':'🏆 PÓDIO';
+ q('#pilotName').textContent=me.name;q('#phase').textContent=gamePhase==='countdown'?'LARGADA EM '+Math.max(0,Math.ceil(countDown)):gamePhase==='race'?'CORRIDA · VOLTA ÚNICA':gamePhase==='gpu-error'?'3D INDISPONÍVEL':'🏆 PÓDIO';
  q('#rank').replaceChildren(...sorted.slice(0,3).map((d,i)=>{const el=document.createElement('div');el.textContent=(i+1)+'º '+d.name+' · '+Math.max(0,d.progress|0)+'m';return el;}));
  q('#cameraMode').textContent=focus!==-1?'CLOSE · '+players[focus].name:watchOvertake&&timer<watchUntil?'ULTRAPASSAGEM':mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'CÂMERA TV':'AÉREA';
  q('#finishOverlay').hidden=gamePhase!=='podium';if(gamePhase==='podium')q('#winner').textContent=leader.name;
@@ -418,7 +479,7 @@ function updateEngineAudio(){if(!engineAudio)return;const {ctx,a,b,gain,filter}=
  const speed=(players[selected]?.speed||0)*3.6,t=ctx.currentTime;
  const base=65+speed*1.42;a.frequency.setTargetAtTime(base,t,.065);b.frequency.setTargetAtTime(base*.51,t,.09);
  filter.frequency.setTargetAtTime(270+speed*11,t,.1);
- gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?.035:0,t,.13);
+ gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?(RaceNarrator.enabled()&&window.speechSynthesis?.speaking?.() ? .012 : .035):0,t,.13);
 }
 function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hidden=false;};q('#pickerClose').onclick=()=>q('#picker').hidden=true;
  q('#camera').onclick=()=>{const modes=['chase','tv','drone'];mode=modes[(modes.indexOf(mode)+1)%modes.length];focus=-1;watchOvertake=null;cameraManualUntil=timer+6;q('#activity').textContent='📷 '+(mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'TV':'AÉREA');};
@@ -427,6 +488,7 @@ function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hid
  q('#full').onclick=()=>{const el=q('#frame');if(el.requestFullscreen)el.requestFullscreen().catch(()=>{});};
  q('#quality').onclick=()=>{gameOptions.quality=gameOptions.quality==='normal'?'eco':'normal';q('#quality').textContent=gameOptions.quality==='eco'?'ECO':'NORMAL';};
  q('#mute').onclick=()=>{muted=!muted;if(!muted)initEngineAudio();q('#mute').textContent=muted?'SOM OFF':'SOM ON';};
+ q('#narrator').onclick=()=>RaceNarrator.toggle();
 }
 let lastRender=0,perSecond=performance.now(),countedFrames=0,measuredFps=0;
 const debugEnabled=new URLSearchParams(location.search).has('debug');
@@ -434,7 +496,7 @@ q('#debugHUD').hidden=!debugEnabled;
 function drawFrame(ts){requestAnimationFrame(drawFrame);
  if(!lastFrame)lastFrame=ts;
  let rawdt=Math.min(.11,(ts-lastFrame)/1000);lastFrame=ts;
- if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0){gamePhase='race';timer=0;physicsStep.previousOrder=null;}}
+ if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0&&engine){gamePhase='race';timer=0;physicsStep.previousOrder=null;RaceNarrator.start();}else if(countDown<=0&&!engine){gamePhase='gpu-error';}}
  if(gamePhase==='race'){physicsAccumulator=Math.min(.25,physicsAccumulator+rawdt);let i=0;while(physicsAccumulator>=1/60&&i++<12){physicsStep(1/60);physicsAccumulator-=1/60;}}
  // Fixed rendering budget: 30 FPS normal, 24 FPS ECO; physics always runs at 60 Hz.
  const interval=gameOptions.quality==='eco'?1000/24:1000/30;
@@ -448,5 +510,5 @@ function drawFrame(ts){requestAnimationFrame(drawFrame);
  window.NEON_V14_DIAGNOSTICS={fps:measuredFps,real3D:!!engine,players:players.length,models:window.NEON_V14_METRICS?.carModels?.uniqueModels||0,skins:window.NEON_V14_METRICS?.carModels?.paintings||0,invalidMatrices:orientationIssues,overlaps:checkPhysics().length};
 }
 createDrivers();setupButtons();init3D();buildPicker();q('#activity').textContent='10 PILOTOS · 3D REAL · CORRIDA AUTOMÁTICA';requestAnimationFrame(drawFrame);
-window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({mode:gamePhase,seconds:timer,drivers:players.map(p=>({...p})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount}),testRun(seconds=20){const before=gamePhase;gamePhase='race';for(let i=0;i<seconds*60;i++)physicsStep(1/60);return {elapsed:timer,overlaps:checkPhysics(),passes:passingEvents,drivers:rank().map(p=>({id:p.id,m:p.progress,kmh:p.speed*3.6}))};}};
+window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,drivers:players.map(p=>({...p})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount}),testRun(seconds=20){const before=gamePhase;gamePhase='race';for(let i=0;i<seconds*60;i++)physicsStep(1/60);return {elapsed:timer,overlaps:checkPhysics(),passes:passingEvents,drivers:rank().map(p=>({id:p.id,m:p.progress,kmh:p.speed*3.6}))};}};
 </script></body></html>
