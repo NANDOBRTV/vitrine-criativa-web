@@ -31,7 +31,7 @@ test('JavaScript embutido tem sintaxe válida', () => {
 });
 
 test('mantém 10 modelos, controles, assets e WebGL original', () => {
-  assert.match(html, /V14\.4\.2/);
+  assert.match(html, /V14\.5\.0/);
   assert.match(source, /createEngine\(canvas\)/);
   assert.match(source, /getContext\('webgl'/);
   assert.match(html, /stockcar-viewer\.html/);
