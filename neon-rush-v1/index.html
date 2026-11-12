@@ -633,7 +633,52 @@ function mapGeometry(w,h){
  const scale=Math.min((w-32)/(xmax-xmin||1),(h-33)/(zmax-zmin||1));
  const X=p=>(w-(xmax-xmin)*scale)/2+(p[0]-xmin)*scale;
  const Y=p=>(h+(zmax-zmin)*scale)/2-(p[2]-zmin)*scale;
- return {w,h,left,right,center,X,Y,scale};
+ const screen=center.map(p=>({x:X(p),y:Y(p)})),lengths=[0];
+ for(let i=1;i<screen.length;i++)lengths.push(lengths[i-1]+Math.hypot(screen[i].x-screen[i-1].x,screen[i].y-screen[i-1].y));
+ const perimeter=lengths[lengths.length-1];
+ function atMeters(distance){
+  const index=wrapLap(distance)/20,i=Math.floor(index),t=index-i;
+  return {arc:lengths[i]+(lengths[i+1]-lengths[i])*t,
+   x:screen[i].x+(screen[i+1].x-screen[i].x)*t,
+   y:screen[i].y+(screen[i+1].y-screen[i].y)*t};
+ }
+ function atArc(distance){
+  const s=((distance%perimeter)+perimeter)%perimeter;
+  let low=0,high=lengths.length-1;
+  while(high-low>1){const mid=(low+high)>>1;if(lengths[mid]<=s)low=mid;else high=mid;}
+  const t=(s-lengths[low])/(lengths[low+1]-lengths[low]||1);
+  return {x:screen[low].x+(screen[low+1].x-screen[low].x)*t,
+   y:screen[low].y+(screen[low+1].y-screen[low].y)*t};
+ }
+ return {w,h,left,right,center,X,Y,scale,atMeters,atArc,perimeter};
+}
+// Numbered badges are spaced along the course; tiny tethered dots are the exact race positions.
+// This ensures no overlap/clipping while retaining honest positions even for a tight peloton.
+function layoutMinimapMarkers(cars,track,minSpacing=19){
+ if(!cars.length)return [];
+ const sorted=cars.map(item=>({...item,route:track.atMeters(item.driver.progress)})).sort((a,b)=>a.route.arc-b.route.arc);
+ let largest=-1,cut=sorted.length-1;
+ for(let i=0;i<sorted.length;i++){
+  const next=sorted[(i+1)%sorted.length].route.arc+(i===sorted.length-1?track.perimeter:0);
+  const gap=next-sorted[i].route.arc;
+  if(gap>largest){largest=gap;cut=i;}
+ }
+ const order=sorted.slice(cut+1).concat(sorted.slice(0,cut+1)),start=order[0].route.arc;
+ let previous=-Infinity;
+ for(const item of order){
+  let desired=item.route.arc;if(desired<start)desired+=track.perimeter;
+  const placed=Math.max(desired,previous+minSpacing);
+  item.position=track.atArc(placed);
+  previous=placed;
+ }
+ // Preserve the wraparound clearance. Worst-case: move the entire chain into the largest gap.
+ const last=order[order.length-1],overflow=previous-(start+track.perimeter-minSpacing);
+ if(overflow>0)for(let i=0;i<order.length;i++){
+  const item=order[i],desired=item.route.arc+(item.route.arc<start?track.perimeter:0);
+  const distance=(i/(order.length-1||1))*overflow;
+  item.position=track.atArc(Math.max(start+i*minSpacing,desired+Math.max(0,i*minSpacing-distance)));
+ }
+ return order;
 }
 function drawMap(){
  if(!gameOptions.showMap)return;
@@ -649,26 +694,33 @@ function drawMap(){
  const start=point(START,0),mx=t.X(start),my=t.Y(start);
  c.beginPath();c.arc(mx,my,4.5,0,TAU);c.fillStyle='#f8f9ff';c.fill();c.lineWidth=1.5;c.strokeStyle='#ffbf45';c.stroke();
  c.fillStyle='#ffffff';c.font='bold 9px sans-serif';c.fillText('L/C',mx+9,my-6);
- const used=[],leader=rank()[0],cars=players.map((driver,i)=>({driver,i,pos:point(START+driver.progress,driver.lateral)}));
- for(const o of cars.sort((a,b)=>b.driver.progress-a.driver.progress)){
-  const real={x:t.X(o.pos),y:t.Y(o.pos)};let marker=null;
-  for(let r=0;r<=32&&!marker;r+=4){const n=r?Math.max(12,Math.round(r*1.8)):1;
-   for(let j=0;j<n;j++){const rad=j/n*TAU,x=real.x+Math.cos(rad)*r,y=real.y+Math.sin(rad)*r;
-    if(x<8||x>w-8||y<8||y>h-8||used.some(v=>Math.hypot(v.x-x,v.y-y)<14))continue;
-    marker={x,y};break;
-   }
+ const leader=rank()[0],cars=players.map((driver,i)=>({driver,i,pos:point(START+driver.progress,driver.lateral)}));
+ const arranged=layoutMinimapMarkers(cars,t,19);
+ const used=[];
+ for(const o of arranged){
+  const actual={x:t.X(o.pos),y:t.Y(o.pos)};
+  const displayed={x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8)};
+  used.push({...displayed,id:o.driver.id});
+  // Tiny accurate dot on the real circuit; numbered badge is visually spaced along the circuit.
+  c.beginPath();c.arc(actual.x,actual.y,2.5,0,TAU);c.fillStyle=o.driver.color;c.fill();
+  const displaced=Math.hypot(displayed.x-actual.x,displayed.y-actual.y);
+  if(displaced>5){
+   c.beginPath();c.moveTo(actual.x,actual.y);c.lineTo(displayed.x,displayed.y);
+   c.strokeStyle='#a9efffb5';c.lineWidth=.85;c.stroke();
   }
-  marker=marker||{x:clamp(real.x,8,w-8),y:clamp(real.y,8,h-8)};
-  used.push({...marker,id:o.driver.id});
-  if(Math.hypot(marker.x-real.x,marker.y-real.y)>3){c.beginPath();c.moveTo(marker.x,marker.y);c.lineTo(real.x,real.y);c.strokeStyle='#d3e9e7a0';c.lineWidth=.9;c.stroke();}
-  const selectedCar=o.i===selected;
-  c.beginPath();c.arc(marker.x,marker.y,selectedCar?7.4:6.5,0,TAU);c.fillStyle=o.driver.color;c.fill();
-  c.lineWidth=selectedCar?2.4:1.5;c.strokeStyle=selectedCar?'#fff7b2':o.driver===leader?'#ffffff':'#cce5e8';c.stroke();
+  const selectedCar=o.i===selected,radius=selectedCar?6.6:6;
+  c.beginPath();c.arc(displayed.x,displayed.y,radius,0,TAU);c.fillStyle=o.driver.color;c.fill();
+  c.lineWidth=selectedCar?2:1.25;c.strokeStyle=selectedCar?'#fff5a9':o.driver===leader?'#ffffff':'#d5edf5';c.stroke();
   c.fillStyle=/^(04|18|33|07|19|90|64)$/.test(o.driver.id)?'#ffffff':'#10202b';
-  c.font='bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,marker.x,marker.y+.2);
+  c.font='bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,displayed.x,displayed.y+.2);
  }
+ mapMarkerState=arranged.map(o=>({
+  id:o.driver.id,meters:o.driver.progress,
+  x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8),
+  realX:t.X(o.pos),realY:t.Y(o.pos)
+ }));
  c.restore();mapPoints=used.length;mapUnique=new Set(used.map(v=>v.id)).size;mapFrames++;
- if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' pontos · '+(players[selected]?.name||'Piloto')+' selecionado';}
+ if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' carros · posições reais ligadas';}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;q('#nameInput').value=players[selected].name;hud();}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
