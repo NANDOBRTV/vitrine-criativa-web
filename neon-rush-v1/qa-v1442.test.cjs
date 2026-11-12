@@ -83,12 +83,12 @@ test('220 corridas de física real sem sobreposições nem estados inválidos', 
       'createDrivers();gamePhase="race";timer=0;nextClose=Infinity;inDiagnosticRun=true;' +
       'physicsStep.previousOrder=null;collisionEvents=0;passingEvents=0;orientationIssues=0;' +
       'players.forEach((p,i)=>{p.maxSpeed=testSpeeds[i];p.boost=testBoosts[i];});' +
-      'let steps=0,firstBad=null;' +
+      '(()=>{let steps=0,firstBad=null;' +
       'for(;steps<4680&&gamePhase==="race";steps++){' +
       'physicsStep(1/60);const bad=checkPhysics();if(bad.length){firstBad=bad;break;}' +
       'if(players.some(p=>!Number.isFinite(p.progress)||!Number.isFinite(p.speed)||!Number.isFinite(p.lateral))){firstBad="NaN";break;}' +
       '}' +
-      '({steps,firstBad,players:players.length,phase:gamePhase,invalid:orientationIssues});',
+      'return {steps,firstBad,players:players.length,phase:gamePhase,invalid:orientationIssues};})()',
       context, {timeout: 10000}
     );
     assert.equal(res.firstBad, null, 'Sobreposição/física inválida na corrida '+race+': '+JSON.stringify(res.firstBad));
