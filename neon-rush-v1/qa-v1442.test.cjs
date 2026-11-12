@@ -64,7 +64,7 @@ test('gridCars limpa estatísticas de cada corrida e câmera anterior', () => {
 });
 
 test('HUD mostra distância do piloto selecionado e pódio reinicia após 9s', () => {
-  assert.match(source, /q\('#meter'\)\.textContent=Math\.max\(0,Math\.floor\(me\.progress\)\)/);
+  assert.match(source, /q\('#meter'\)\.textContent=completedMeters\(me\.progress\)/);
   assert.match(source, /if\(gamePhase==='podium'\)\{podiumElapsed\+=rawdt;if\(podiumElapsed>=9&&engine\)gridCars\(\);\}/);
   assert.match(source, /cameraKey!==cameraTrackId/);
   assert.match(source, /let rawdt=Math\.max\(0,Math\.min\(/);
