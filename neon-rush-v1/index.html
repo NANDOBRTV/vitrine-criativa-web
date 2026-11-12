@@ -150,7 +150,21 @@ if(!rt)return;
 const original=rt.getSprite.bind(rt);
 const ACTIONS=['acceleration','braking','curve_left','curve_right','drift','collision'];
 const EXPECTED=['rear','rear','rear_3q','rear_3q','side','rear'];
-const entries=new Map(),canvases=new Map();let uses=0,missing=0,frames=0,lastAction='-';
+const entries=new Map(),canvases=new Map(),fxImages=new Map();let uses=0,missing=0,frames=0,lastAction='-',fxFrames=0;
+function effectSheet(name){
+ if(!fxImages.has(name)){const e={image:new Image(),status:'loading'};fxImages.set(name,e);
+ e.image.onload=()=>e.status='ready';e.image.onerror=()=>e.status='missing';
+ e.image.src='assets/stockcar/animations/effect_sheets/'+name+'_16.png';}
+ return fxImages.get(name);
+}
+function effectName(d,a){
+ const m=String(d?.maneuver||'').toUpperCase();
+ if(a==='collision')return 'impact';
+ if(a==='drift')return 'smoke';
+ if(a==='braking')return 'skid';
+ if(d?.nitro>0||m.includes('NITRO')||d?.boost>0)return 'nitro';
+ return null;
+}
 const carId=d=>/^car_(04|11|18|27|33|07|19|23|90|64)$/.test(String(d?.carId||''))?d.carId:null;
 function load(id){
  if(entries.has(id))return entries.get(id);
@@ -197,8 +211,16 @@ rt.getSprite=(d,view)=>{
  let cache=canvases.get(key);
  if(!cache){const canvas=document.createElement('canvas');canvas.width=224;canvas.height=128;
    cache={canvas,ctx:canvas.getContext('2d',{alpha:true}),frame:-1,base};canvases.set(key,cache);}
- if(cache.frame!==frame){cache.ctx.clearRect(0,0,224,128);
-   cache.ctx.drawImage(entry.image,frame*224,row*128,224,128,0,0,224,128);cache.frame=frame;frames++;}
+ const fx=effectName(d,act),efi=fx?Math.floor(performance.now()/100)%16:0;
+ const seq=frame+efi*8+(fx?256:0);
+ if(cache.frame!==seq){cache.ctx.clearRect(0,0,224,128);
+   cache.ctx.drawImage(entry.image,frame*224,row*128,224,128,0,0,224,128);
+   if(fx){const e=effectSheet(fx);if(e.status==='ready'){
+     const dest=fx==='nitro'?[74,104,75,51]:fx==='smoke'?[35,76,145,66]:fx==='skid'?[69,95,86,38]:[46,46,132,88];
+     cache.ctx.drawImage(e.image,(efi%4)*96,Math.floor(efi/4)*96,96,96,...dest);
+     fxFrames++;
+   }}
+   cache.frame=seq;frames++;}
  uses++;lastAction=act;
  return {image:cache.canvas,view:base.view,meta:metadata(base,act),generated:true};
 };
@@ -232,7 +254,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  }show();
 });
 window.STOCKCAR_V12_DEBUG={status:()=>({loaded:[...entries.values()].filter(x=>x.status==='ready').length,
- missing,uses,frames,lastAction}),getAnimation:load};
+ missing,uses,frames,lastAction,fxFrames,effectsLoaded:[...fxImages.values()].filter(e=>e.status==='ready').length}),getAnimation:load};
 })();
 /* V11.2: stable, ground-locked stock car sprites. 3D physics stays authoritative. */
 (()=>{'use strict';const rt=window.StockCarRuntime;if(!rt)return;
