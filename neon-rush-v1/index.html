@@ -168,7 +168,26 @@ function roll(d){
  }
  return w.phase;
 }
+let rearTreadFrames=0;
+function paintRearTreads(c,d,x,y,w,h,phase){
+ // Rear camera: wheel hubs are hidden by the bumper. Animate the visible tread.
+ if((Number(d?.speed)||0)<1.5||w<28||h<20)return;
+ const pitch=Math.max(3.5,h*.049),scroll=(phase/6.28318530718*pitch*1.7)%pitch;
+ for(const u of [.065,.85]){
+  const xx=x+u*w,yy=y+h*.80,tw=w*.088,th=h*.20;
+  c.save();c.beginPath();c.rect(xx,yy,tw,th);c.clip();
+  c.fillStyle='rgba(12,19,25,.68)';c.fillRect(xx,yy,tw,th);
+  c.strokeStyle='rgba(149,170,180,.46)';c.lineWidth=Math.max(.7,w*.004);
+  for(let k=-2;k<8;k++){
+   const ty=yy+k*pitch+scroll;
+   c.beginPath();c.moveTo(xx+tw*.16,ty);c.lineTo(xx+tw*.78,ty+pitch*.33);c.stroke();
+  }
+  c.restore();
+ }
+ rearTreadFrames++;
+}
 function spinPaint(c,sprite,d,x,y,w,h,phase){
+ if(sprite.view==='rear'){paintRearTreads(c,d,x,y,w,h,phase);return;}
  if(!['side','rear_3q','front_3q'].includes(sprite.view))return;
  const spots=sprite.meta?.wheel_anchors||[],img=wheelArt(d);if(!img)return;
  const count=sprite.view==='side'?2:1,diameter=Math.min(w*.178,h*.46);if(diameter<5)return;
@@ -221,7 +240,7 @@ rt.draw2D=(out,d,x,y,scale,phase,hero,shot=0)=>{
  const b=bound(sprite),w=(hero?125:150)*scale,h=w*b.h/Math.max(1,b.w);
  out.save();out.translate(x,y);out.drawImage(sprite.image,b.x,b.y,b.w,b.h,-w/2,-h,w,h);
  spinPaint(out,sprite,d,-w/2,-h,w,h,roll(d));out.restore();return true;};
-rt.summary=()=>({...oldSummary(),overlayVersion:'11.3-spinning-tires',profile,drawn3D:count,views,badCoordinates:bad,wheelFilesLoaded:[...wheelFiles.values()].filter(v=>v.ok).length,wheelDraws,wheelTicks});
+rt.summary=()=>({...oldSummary(),overlayVersion:'11.3-spinning-tires',profile,drawn3D:count,views,badCoordinates:bad,wheelFilesLoaded:[...wheelFiles.values()].filter(v=>v.ok).length,wheelDraws,wheelTicks,rearTreadFrames});
 })();</script>
  <script>
 // Neon Live Studio V3 — motor 3D WebGL original, sem dependências e sem assets externos.
