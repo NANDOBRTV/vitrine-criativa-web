@@ -601,7 +601,7 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
  engine.dimensions();engine.view(cameraPos,cameraLook);
  engine.draw(meshes.road);engine.draw(meshes.scenery);
  // All vehicles share road coordinates, yaw and ground height. Models are always actual meshes.
- let visible=0;
+ let visible=0,nitroRendered=0;
  for(const d of players){const at=point(START+d.progress,d.lateral);
   if(circularGap(d.progress,follow.progress)>125)continue;
   const yaw=angle(START+d.progress)+clamp(d.steering*.16,-.045,.045);
@@ -614,12 +614,12 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
    const wheelLocal=mul(M(side*1.05,.47,front?1.41:-1.35,front?turning:0,1),rotateX(-d.wheelRoll));
    engine.draw(meshes.wheel,mul(model,wheelLocal));
   }
-  if(gamePhase==='race'&&d.boost>.04&&meshes.nitro){const flicker=.88+.13*Math.sin(timer*33+d.progress*.07);engine.draw(meshes.nitro,mul(model,M(0,0,-.23,0,flicker)),[1,1,1],.94);}
+  if(gamePhase==='race'&&d.boost>.04&&meshes.nitro){const flicker=.88+.13*Math.sin(timer*33+d.progress*.07);engine.draw(meshes.nitro,mul(model,M(0,0,-.23,0,flicker)),[1,1,1],.94);nitroRendered++;}
   const sign=meshes.nameplates[d.id];
   if(sign){const signFacing=Math.atan2(cameraPos[0]-at[0],cameraPos[2]-at[2]);engine.draw(sign,M(at[0],at[1],at[2],signFacing,1));}
   visible++;
  }
- window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
+ window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,nitroRendered,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
  camera:mode,focus:focus!==-1?players[focus].id:null,elapsed:timer,carModels:CAR_DRAW_STATS,drivers:players.map(d=>({id:d.id,meters:d.progress,lane:d.lateral,angle:angle(START+d.progress),wheelRotation:d.wheelRoll}))};
 }
 
