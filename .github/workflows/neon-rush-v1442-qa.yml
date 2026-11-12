@@ -1,0 +1,27 @@
+name: NEON RUSH V14.4.2 QA
+on:
+  push:
+    branches:
+      - neon-rush-stockcar-v1442-gamedev-qa-20261112
+    paths:
+      - neon-rush-v1/**
+      - .github/workflows/neon-rush-v1442-qa.yml
+  pull_request:
+    branches:
+      - neon-rush-stockcar-v11
+    paths:
+      - neon-rush-v1/**
+      - .github/workflows/neon-rush-v1442-qa.yml
+permissions:
+  contents: read
+jobs:
+  node-physics-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check inline JavaScript and simulate 220 complete races
+        run: node --test neon-rush-v1/qa-v1442.test.cjs
