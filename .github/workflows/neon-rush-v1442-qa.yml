@@ -1,4 +1,4 @@
-name: NEON RUSH V14.4.2 QA
+name: NEON RUSH V14.5.0 QA
 on:
   push:
     branches:
@@ -17,11 +17,11 @@ permissions:
 jobs:
   node-physics-regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check inline JavaScript and simulate 220 complete races
-        run: node --test neon-rush-v1/qa-v1442.test.cjs
+      - name: Check WebGL source, 10km circuit, laps and simulated races
+        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs
