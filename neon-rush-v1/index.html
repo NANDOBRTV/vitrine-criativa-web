@@ -1,18 +1,24 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.5.0 · Stock Car — GameDev QA e Colisões</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.headerActions{display:flex;align-items:center;gap:5px;flex-shrink:0}.headerActions button{padding:9px 7px;font-size:10px}.panelSection{border-top:1px solid #ffffff25;margin-top:12px;padding-top:12px}.panelSection .minor{margin:3px 0}.settingsDetails{margin:12px 0;border:1px solid #46738a;border-radius:12px;background:#0b1c30;overflow:hidden}.settingsDetails summary{cursor:pointer;padding:12px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:#e8f8ff;font-weight:900}.settingsDetails summary span{font-size:10px;color:#a2e6cd}.settingsBody{padding:0 10px 10px}.settingsBody .minor{margin:6px 0 12px}.settingsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.settingsGrid button{min-height:50px;font-size:11px;padding:9px 4px}.settingsGrid button[aria-pressed="true"]{border-color:#5bd4ce;background:#163c4b}.panelSection .actions{margin:8px 0}.panel .status{margin-top:10px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}.mapShell{width:156px;flex-shrink:0;border-radius:12px;background:transparent;border:0;padding:4px 5px 3px;box-shadow:none}.mapShell[hidden]{display:none!important}.mapTitle{display:flex;justify-content:space-between;gap:5px;color:#bddeeb;font-size:9px;font-weight:850}.mapTitle b{color:#ffffff;font-size:10px}.mapLegend{font-size:9px;font-weight:700;color:#a1e3ed;text-align:center;padding-top:3px}#minimap{width:144px;height:170px;max-width:100%;display:block;border-radius:8px;background:transparent}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.6.0 · Stock Car — GameDev QA e Colisões</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.headerActions{display:flex;align-items:center;gap:5px;flex-shrink:0}.headerActions button{padding:9px 7px;font-size:10px}.panelSection{border-top:1px solid #ffffff25;margin-top:12px;padding-top:12px}.panelSection .minor{margin:3px 0}.settingsDetails{margin:12px 0;border:1px solid #46738a;border-radius:12px;background:#0b1c30;overflow:hidden}.settingsDetails summary{cursor:pointer;padding:12px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:#e8f8ff;font-weight:900}.settingsDetails summary span{font-size:10px;color:#a2e6cd}.settingsBody{padding:0 10px 10px}.settingsBody .minor{margin:6px 0 12px}.settingsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.settingsGrid button{min-height:50px;font-size:11px;padding:9px 4px}.settingsGrid button[aria-pressed="true"]{border-color:#5bd4ce;background:#163c4b}.panelSection .actions{margin:8px 0}.panel .status{margin-top:10px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}.mapShell{width:156px;flex-shrink:0;border-radius:12px;background:transparent;border:0;padding:4px 5px 3px;box-shadow:none}.mapShell[hidden]{display:none!important}.mapTitle{display:flex;justify-content:space-between;gap:5px;color:#bddeeb;font-size:9px;font-weight:850}.mapTitle b{color:#ffffff;font-size:10px}.mapLegend{font-size:9px;font-weight:700;color:#a1e3ed;text-align:center;padding-top:3px}#minimap{width:144px;height:170px;max-width:100%;display:block;border-radius:8px;background:transparent}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
 #pickerList button img{width:100px;height:59px;object-fit:contain;border-radius:7px;background:linear-gradient(135deg,#142b42,#101b29);flex-shrink:0}
 #pickerList button strong{font-size:13px;color:#fff;display:block}#pickerList button small{display:block;color:#b5d5eb;font-size:10px;margin-top:5px}
-#pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}.narrationCaption{padding:9px 12px;margin:8px 1px 0;border-radius:10px;border:1px solid #5ec8d36a;background:#10283c;color:#e0f8ff;text-align:center;font-weight:700;font-size:12px;line-height:1.35}.narrationCaption[hidden]{display:none!important}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 5px}.heading strong{font-size:14px}.headerActions button{font-size:9px;padding:8px 5px}.bottomHud{bottom:8px;gap:3px}.speed{min-width:105px}.speed b{font-size:42px}.mapShell{width:135px}#minimap{width:123px;height:148px}}
+#pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}
+.giftFeed{position:absolute;top:20%;left:12px;z-index:5;max-width:min(270px,75%);pointer-events:none;display:grid;gap:5px}
+.giftFeed:empty{display:none}.giftMsg{border:1px solid #27cdecdd;background:#06283dcf;color:#e8faff;border-radius:11px;padding:7px 11px;box-shadow:0 0 13px #04c8fd55;font-size:12px;font-weight:800;line-height:1.4;text-shadow:0 1px 3px #000}
+.giftMsg strong{display:block;color:#5efff5;font-size:11px}.giftMsg small{font-size:9px;color:#c6e2f2;letter-spacing:.5px}
+.nitroBadge{position:absolute;top:14%;right:12px;z-index:5;pointer-events:none;padding:5px 9px;border:1px solid #33eaf9;background:#052a46d8;color:#97fcff;border-radius:12px;font-size:11px;font-weight:1000;box-shadow:0 0 15px #00cbff7a}
+.nitroBadge[hidden]{display:none!important}
+.narrationCaption{padding:9px 12px;margin:8px 1px 0;border-radius:10px;border:1px solid #5ec8d36a;background:#10283c;color:#e0f8ff;text-align:center;font-weight:700;font-size:12px;line-height:1.35}.narrationCaption[hidden]{display:none!important}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 5px}.heading strong{font-size:14px}.headerActions button{font-size:9px;padding:8px 5px}.bottomHud{bottom:8px;gap:3px}.speed{min-width:105px}.speed b{font-size:42px}.mapShell{width:135px}#minimap{width:123px;height:148px}}
 .raceSetup{margin-top:11px;display:grid;gap:6px}.raceSetup label{color:#bce9f2;font-weight:800;font-size:11px}.raceSetup select,.raceSetup input{width:100%;min-height:41px;color:#fff;background:#091f33;border:1px solid #5098a5;border-radius:9px;padding:8px 9px;font-size:13px}.raceSetup button{min-height:42px}.raceSetup .help{font-size:10px;color:#a7c7da}</style></head><body>
-<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.5.0 · GAMEDEV QA · COLISÕES</small></div><div class="headerActions"><button id="settingsJump" type="button" title="Abrir painel de configurações">⚙️ AJUSTES</button><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div></div>
+<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.6.0 · GAMEDEV QA · COLISÕES</small></div><div class="headerActions"><button id="settingsJump" type="button" title="Abrir painel de configurações">⚙️ AJUSTES</button><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div></div>
 <div class="layout"><div class="gamebox"><div id="frame" aria-label="Corrida de carros 3D">
 <canvas id="world" width="390" height="693" aria-label="Pista e carros em 3D"></canvas><div class="film"></div>
 <div class="topHud"><div><b id="position">01/10</b><span>POSIÇÃO</span></div><div style="text-align:right"><b id="elapsed">00:00</b><span id="phase">LARGADA</span></div></div>
-<div id="cameraMode">PERSEGUIÇÃO</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
+<div id="cameraMode">PERSEGUIÇÃO</div><div id="giftFeed" class="giftFeed" aria-live="polite" aria-label="Mini chat de presentes simulados"></div><div id="nitroBadge" class="nitroBadge" hidden>⚡ NITRO 0.0s</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
 <div class="bottomHud"><div class="speed"><b id="speed">000</b> <small>KM/H</small><label id="pilotName">CRUZE 04</label><small id="meter">000 / 10.000 m</small><label id="lapHud">VOLTA 1/1</label></div><div id="mapShell" class="mapShell"><div class="mapTitle">CIRCUITO · 10 km <b id="mapCount">10/10</b></div><canvas id="minimap" width="164" height="194" role="img" aria-label="Circuito fechado de 10 quilômetros com dez marcadores dos pilotos e linha de largada e chegada"></canvas><div id="mapLegend" class="mapLegend">10 pontos · 10 carros</div></div></div>
 <div id="finishOverlay" hidden><h2>🏆 BANDEIRA QUADRICULADA</h2><div id="winner"></div><p>Nova corrida em 9 s · ou toque em reiniciar.</p></div></div>
 <div class="controls"><button id="choose">🚗 PILOTO</button><button id="camera">📷 CÂMERA</button><button id="close">🎥 CLOSE</button><button id="restart" class="hot">↻ REINICIAR</button></div><div id="narrationCaption" class="narrationCaption" role="status" aria-live="polite" hidden></div></div>
-<aside class="panel" id="settingsPanel"><div class="label">CENTRAL DA CORRIDA</div><h1>Dez pilotos.<br>Uma disputa.</h1><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><section class="panelSection" aria-label="Simulação de presentes"><div class="label">SIMULADOR DE LIVE</div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button></div><p class="minor">Interações de demonstração. Ainda não conectadas ao TikTok LIVE.</p></section><details id="gameSettings" class="settingsDetails" open><summary>⚙️ CONFIGURAÇÕES <span id="settingsStatus">NORMAL</span></summary><div class="settingsBody"><p class="minor">Ajuste o visual e o áudio sem reiniciar sua corrida. Voltas escolhidas valem na próxima largada.</p><div class="settingsGrid"><button type="button" id="quality" aria-pressed="false">✨ QUALIDADE: NORMAL</button><button type="button" id="mapToggle" aria-pressed="true">🗺️ MAPA: LIGADO</button><button type="button" id="mute" aria-pressed="false">🔇 MOTOR: OFF</button><button type="button" id="narrator" aria-pressed="false">🎙️ NARRADOR: OFF</button></div><div class="raceSetup"><label for="lapSelect">🏁 QUANTIDADE DE VOLTAS</label><select id="lapSelect" aria-label="Escolher número de voltas"><option value="1">1 volta · 10 km</option><option value="2">2 voltas · 20 km</option><option value="3">3 voltas · 30 km</option><option value="5">5 voltas · 50 km</option><option value="10">10 voltas · 100 km</option></select><label for="nameInput">🏷️ NOME DA PESSOA NO TETO DO CARRO</label><input id="nameInput" type="text" maxlength="18" placeholder="Nome ou usuário" autocomplete="off"><button id="nameSave" type="button">SALVAR NOME NA PLACA</button><span class="help">Escolha um piloto, digite o nome e salve. Funciona na simulação, sem conexão automática ao TikTok.</span></div><p id="settingsFeedback" role="status" class="minor" aria-live="polite">Configurações prontas.</p></div></details><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
-<div class="footer">NEON RUSH V14.5.0 · GameDev Master QA: colisões, câmera, desempenho, minimapa e narração · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
+<aside class="panel" id="settingsPanel"><div class="label">CENTRAL DA CORRIDA</div><h1>Dez pilotos.<br>Uma disputa.</h1><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><section class="panelSection" aria-label="Simulação de presentes"><div class="label">SIMULADOR DE LIVE</div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button></div><p class="minor">Interações de demonstração. Ainda não conectadas ao TikTok LIVE.</p></section><details id="gameSettings" class="settingsDetails" open><summary>⚙️ CONFIGURAÇÕES <span id="settingsStatus">NORMAL</span></summary><div class="settingsBody"><p class="minor">Ajuste o visual e o áudio sem reiniciar sua corrida. Voltas escolhidas valem na próxima largada.</p><div class="settingsGrid"><button type="button" id="quality" aria-pressed="false">✨ QUALIDADE: NORMAL</button><button type="button" id="mapToggle" aria-pressed="true">🗺️ MAPA: LIGADO</button><button type="button" id="mute" aria-pressed="false">🔇 MOTOR: OFF</button><button type="button" id="narrator" aria-pressed="false">🎙️ NARRADOR: OFF</button><button type="button" id="botGifts" aria-pressed="true">🎁 PRESENTES BOTS: ON</button></div><div class="raceSetup"><label for="lapSelect">🏁 QUANTIDADE DE VOLTAS</label><select id="lapSelect" aria-label="Escolher número de voltas"><option value="1">1 volta · 10 km</option><option value="2">2 voltas · 20 km</option><option value="3">3 voltas · 30 km</option><option value="5">5 voltas · 50 km</option><option value="10">10 voltas · 100 km</option></select><label for="nameInput">🏷️ NOME DA PESSOA NO TETO DO CARRO</label><input id="nameInput" type="text" maxlength="18" placeholder="Nome ou usuário" autocomplete="off"><button id="nameSave" type="button">SALVAR NOME NA PLACA</button><span class="help">Escolha um piloto, digite o nome e salve. Funciona na simulação, sem conexão automática ao TikTok.</span></div><p id="settingsFeedback" role="status" class="minor" aria-live="polite">Configurações prontas.</p></div></details><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
+<div class="footer">NEON RUSH V14.6.0 · GameDev Master QA: colisões, câmera, desempenho, minimapa e narração · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
 <div id="picker" hidden><div class="inside"><button id="pickerClose" style="float:right">✕ FECHAR</button><h2>Escolher piloto</h2><div id="pickerList"></div></div></div>
 <script>const TAU=Math.PI*2;
 const CL=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -113,6 +119,47 @@ function forwardGap(a,b){return wrapLap(b-a);}
 function currentLap(m){return clamp(Math.floor(Math.max(0,m)/DISTANCE)+1,1,raceLaps);}
 function completedMeters(m){return Math.max(0,Math.floor(m));}
 let timer=0,round=1,gamePhase='countdown',countDown=3,selected=8,focus=-1,focusUntil=0,nextClose=10,closeEventCount=0,manual=false,watchOvertake=null,watchUntil=0,mode='chase',muted=true,frameCounter=0,lastFrame=0,engine=null,meshes=null,gl=null,orientationIssues=0,collisionEvents=0,passingEvents=0,physicsAccumulator=0,renderHistory=[],cameraPos=null,cameraLook=null,cameraManualUntil=0,podiumElapsed=0,cameraTrackId=null,worldAnchor=null;
+// In-game demo gift bots. No TikTok connector is implied by these simulated events.
+let giftFeed=[],giftEvents=0,nextBotGift=9,mapMarkerState=[];
+const GIFT_BOT_NAMES=['João BOT','Lia BOT','Ana BOT','Davi BOT','Bia BOT','Leo BOT'];
+const cleanGiftText=value=>String(value||'').replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,24);
+function renderGiftFeed(){
+ const el=q('#giftFeed');
+ const active=giftFeed.filter(evt=>timer-evt.at<7);
+ if(active.length!==giftFeed.length)giftFeed=active;
+ const signature=active.map(evt=>evt.id).join('|');
+ if(el.dataset.signature===signature)return;
+ el.dataset.signature=signature;
+ el.replaceChildren(...active.slice(-3).map(evt=>{
+  const box=document.createElement('div'),title=document.createElement('div'),effect=document.createElement('strong'),source=document.createElement('small');
+  box.className='giftMsg';title.textContent='🎁 '+evt.sender+' enviou '+evt.gift;
+  effect.textContent='⚡ NITRO · '+evt.driverName;source.textContent=evt.source==='bot'?'BOT DE TESTE':evt.source==='demo'?'SIMULADOR':'EVENTO EXTERNO';
+  box.append(title,effect,source);return box;
+ }));
+}
+function activateNitro(d,duration=6.2){
+ if(!d||gamePhase!=='race')return false;
+ d.boost=Math.min(12,Math.max(d.boost,duration));return true;
+}
+function receiveGift({sender,recipientId,gift='Presente',source='external'}={}){
+ if(gamePhase!=='race'||!players.length)return false;
+ const d=players.find(p=>p.id===String(recipientId))||players[selected];
+ if(!activateNitro(d,6.2))return false;
+ const senderName=cleanGiftText(sender)||'Convidado';
+ const giftName=cleanGiftText(gift)||'Presente';
+ giftEvents++;giftFeed.push({id:giftEvents,sender:senderName,gift:giftName,driverName:d.name,at:timer,source:source==='bot'?'bot':source==='demo'?'demo':'external'});
+ giftFeed=giftFeed.slice(-3);renderGiftFeed();
+ q('#activity').textContent='🎁 '+senderName+' ➜ ⚡ NITRO de '+d.name;
+ if(!inDiagnosticRun)RaceNarrator.turbo(d);
+ return true;
+}
+function botGiftTick(){
+ if(!gameOptions.botGifts||inDiagnosticRun||timer<nextBotGift||gamePhase!=='race')return;
+ nextBotGift=timer+10+Math.random()*9;
+ const d=Math.random()<.48?players[selected]:players[Math.floor(Math.random()*players.length)];
+ const sender=GIFT_BOT_NAMES[Math.floor(Math.random()*GIFT_BOT_NAMES.length)];
+ receiveGift({sender,recipientId:d.id,gift:'Presente',source:'bot'});
+}
 let players=[];
 let inDiagnosticRun=false;
 const SETTINGS_KEY='neon-stockcar-v143';
@@ -122,9 +169,9 @@ const ALLOWED_LAPS=[1,2,3,5,10],DEMO_NAMES=['Ana','Bruno','Carla','Diego','Elisa
 const cleanName=value=>String(value||'').replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,18);
 const driverNames=savedSettings.names&&typeof savedSettings.names==='object'?{...savedSettings.names}:{};
 function driverName(id,i){return cleanName(driverNames[id])||DEMO_NAMES[i];}
-const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
+const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,botGifts:savedSettings.botGifts!==false,laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
 let raceLaps=gameOptions.laps;
-function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,laps:gameOptions.laps,names:driverNames}))}catch{}}
+function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,botGifts:gameOptions.botGifts,laps:gameOptions.laps,names:driverNames}))}catch{}}
 function syncSettings(){
  q('#quality').textContent=gameOptions.quality==='eco'?'⚡ QUALIDADE: ECO':'✨ QUALIDADE: NORMAL';
  q('#quality').setAttribute('aria-pressed',String(gameOptions.quality==='eco'));
@@ -133,11 +180,11 @@ function syncSettings(){
  q('#mapToggle').textContent=gameOptions.showMap?'🗺️ MAPA: LIGADO':'🗺️ MAPA: DESLIGADO';
  q('#mapToggle').setAttribute('aria-pressed',String(gameOptions.showMap));
  q('#mapShell').hidden=!gameOptions.showMap;
- q('#settingsStatus').textContent=gameOptions.quality==='eco'?'MODO ECO':'MODO NORMAL';q('#lapSelect').value=String(gameOptions.laps);
+ q('#settingsStatus').textContent=gameOptions.quality==='eco'?'MODO ECO':'MODO NORMAL';q('#lapSelect').value=String(gameOptions.laps);q('#botGifts').textContent=gameOptions.botGifts?'🎁 PRESENTES BOTS: ON':'🎁 PRESENTES BOTS: OFF';q('#botGifts').setAttribute('aria-pressed',String(gameOptions.botGifts));
 }
 function settingNote(t){q('#settingsFeedback').textContent=t;}
 function createDrivers(){players=CAR_DATA.map((a,i)=>({id:a[0],model:a[1],name:driverName(a[0],i),color:a[2],progress:-Math.floor(i/4)*8,lateral:LANES[i%4],target:LANES[i%4],speed:0,boost:0,braking:false,steering:0,roll:0,wheelRoll:0,maxSpeed:27+i*.29+(i%3)*.3,passing:0,passed:0,passedBy:0,lastLaneChange:-99,damage:0}));}
-function gridCars(){if(!engine){gamePhase='gpu-error';q('#activity').textContent='⚠️ Ative o 3D antes de reiniciar';return false;}createDrivers();raceLaps=gameOptions.laps;timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;cameraManualUntil=0;podiumElapsed=0;cameraTrackId=null;worldAnchor=null;collisionEvents=0;passingEvents=0;orientationIssues=0;renderHistory=[];physicsStep.previousOrder=null;RaceNarrator.reset();return true;}
+function gridCars(){if(!engine){gamePhase='gpu-error';q('#activity').textContent='⚠️ Ative o 3D antes de reiniciar';return false;}createDrivers();raceLaps=gameOptions.laps;timer=0;countDown=3;gamePhase='countdown';round++;focus=-1;watchOvertake=null;watchUntil=0;nextClose=10;closeEventCount=0;physicsAccumulator=0;cameraPos=null;cameraLook=null;cameraManualUntil=0;podiumElapsed=0;cameraTrackId=null;worldAnchor=null;collisionEvents=0;passingEvents=0;orientationIssues=0;renderHistory=[];giftFeed=[];giftEvents=0;nextBotGift=8+Math.random()*4;if(typeof document!=='undefined'){const feedEl=q('#giftFeed');if(feedEl){feedEl.replaceChildren();feedEl.dataset.signature='';}}physicsStep.previousOrder=null;RaceNarrator.reset();return true;}
 function laneFree(d,proposed){for(const o of players){if(o===d)continue;const oc=Math.abs(o.lateral-proposed)<2.45||Math.abs(o.target-proposed)<2.45;
  if(oc&&circularGap(o.progress,d.progress)<SAFE_GAP+4.2+(Math.abs(o.speed-d.speed)*.22))return false;}return true;}
 function closestAhead(d,lane,range=90){let candidate=null,dist=range;
@@ -160,7 +207,7 @@ function physicsStep(dt){if(gamePhase!=='race')return;
   const ease=Math.min(1,dt*1.5);d.lateral+=(d.target-d.lateral)*ease;
   d.steering=clamp((d.lateral-before)/Math.max(dt,.002)*.05 + pathCurve(z)*7,-.27,.27);
   d.roll=clamp(-d.steering*.11,-.055,.055);
-  let target=Math.min(speedLimit,d.maxSpeed+(d.boost>0?8:0));
+  let target=Math.min(speedLimit+(d.boost>0?11:0),d.maxSpeed+(d.boost>0?12:0));
   const ahead=closestAhead(d,d.lateral,35);
   if(ahead.car){if(ahead.gap<19)target=Math.min(target,Math.max(0,(ahead.car.speed||0)+(ahead.gap-7)*.65));}
   d.braking=d.speed>target+.35;
@@ -207,6 +254,7 @@ function physicsStep(dt){if(gamePhase!=='race')return;
   const a=players[i],b=players[j];if(Math.abs(a.lateral-b.lateral)<2.12&&circularGap(a.progress,b.progress)<SAFE_GAP-.05){orientationIssues++;}
  }
  timer+=dt;
+ if(!inDiagnosticRun)botGiftTick();
  if(timer>=RACE_SECONDS_PER_LAP*raceLaps||players.some(p=>p.progress>=DISTANCE*raceLaps)){gamePhase='podium';podiumElapsed=0;focus=-1;if(!inDiagnosticRun)RaceNarrator.finish([...players].sort((a,b)=>b.progress-a.progress)[0]);}
  // Overtaking is counted from actual crossed positions; never substitute ranking-only swaps.
  const leaders=[...players].sort((a,b)=>b.progress-a.progress);
@@ -281,8 +329,8 @@ const RaceNarrator=(()=>{
  return {toggle,reset,start,overtake,turbo,tick,finish,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,checkpoint})};
 })();
 
-function addBoost(){if(gamePhase!=='race'){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}players[selected].boost=Math.max(players[selected].boost,3.8);q('#activity').textContent='⚡ TURBO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
-function addGift(){if(gamePhase!=='race'){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}const d=players[selected];d.boost=Math.max(d.boost,6.2);d.maxSpeed=Math.min(35,d.maxSpeed+.15);q('#activity').textContent='🎁 SUPER TURBO · '+d.name;RaceNarrator.turbo(d);}
+function addBoost(){if(!activateNitro(players[selected],3.8)){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}q('#activity').textContent='⚡ NITRO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
+function addGift(){if(!receiveGift({sender:'Você · TESTE',recipientId:players[selected].id,gift:'Presente',source:'demo'}))q('#activity').textContent='Aguarde a largada e o modo 3D';}
 function closeNow(){focus=selected;focusUntil=timer+5;manual=true;q('#activity').textContent='🎥 CLOSE · '+players[selected].name;}
 function hud(){const sorted=rank(),leader=sorted[0],me=players[selected],i=sorted.indexOf(me);
  q('#speed').textContent=String(Math.round(me.speed*3.6)).padStart(3,'0');q('#position').textContent=(i+1)+'/10';q('#meter').textContent=completedMeters(me.progress).toLocaleString('pt-BR')+' / '+(DISTANCE*raceLaps).toLocaleString('pt-BR')+' m';q('#lapHud').textContent='VOLTA '+currentLap(me.progress)+'/'+raceLaps;
@@ -290,6 +338,7 @@ function hud(){const sorted=rank(),leader=sorted[0],me=players[selected],i=sorte
  q('#pilotName').textContent=me.name;q('#phase').textContent=gamePhase==='countdown'?'LARGADA EM '+Math.max(0,Math.ceil(countDown)):gamePhase==='race'?'CORRIDA · '+raceLaps+' VOLTA(S)':gamePhase==='gpu-error'?'3D INDISPONÍVEL':'🏆 PÓDIO';
  q('#rank').replaceChildren(...sorted.slice(0,3).map((d,i)=>{const el=document.createElement('div');el.textContent=(i+1)+'º '+d.name+' · '+currentLap(d.progress)+'/'+raceLaps+' · '+completedMeters(d.progress).toLocaleString('pt-BR')+'m';return el;}));
  q('#cameraMode').textContent=focus!==-1?'CLOSE · '+players[focus].name:watchOvertake&&timer<watchUntil?'ULTRAPASSAGEM':mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'CÂMERA TV':'AÉREA';
+ const nitro=q('#nitroBadge');nitro.hidden=gamePhase!=='race'||me.boost<=.04;if(!nitro.hidden)nitro.textContent='⚡ NITRO '+me.boost.toFixed(1)+'s';renderGiftFeed();
  q('#finishOverlay').hidden=gamePhase!=='podium';if(gamePhase==='podium'){q('#winner').textContent=leader.name;q('#finishOverlay p').textContent='Nova corrida em '+Math.max(0,Math.ceil(9-podiumElapsed))+' s · ou toque em reiniciar.';}
 }
 
@@ -491,6 +540,19 @@ function refreshWorldMeshes(progress,force=false){
  if(meshes.scenery?.buf)gl.deleteBuffer(meshes.scenery.buf);
  meshes.road=road;meshes.scenery=scenery;worldAnchor=anchor;
 }
+// Two animated cyan jets and road streaks are actual WebGL geometry attached to each car.
+function makeNitroFlames(){
+ const mesh=new Mesh();
+ for(const x of [-.62,.62]){
+  const z=-2.15;
+  // White-hot exhaust core, cyan shell and electric blue tail.
+  mesh.quad([x-.19,.42,z],[x+.19,.42,z],[x+.03,.43,-5.55],[x-.03,.43,-5.55],'#20dfff');
+  mesh.quad([x,.22,z],[x,.88,z],[x,.48,-5.4],[x,.4,-5.4],'#1477ff');
+  mesh.quad([x-.075,.48,z+.1],[x+.075,.48,z+.1],[x+.013,.48,-4.8],[x-.013,.48,-4.8],'#e1ffff');
+  mesh.quad([x-.13,.035,-2.2],[x+.13,.035,-2.2],[x+.02,.035,-7.5],[x-.02,.035,-7.5],'#1b71ff');
+ }
+ return mesh;
+}
 function setupWebGLRecovery(){
  const canvas=q('#world');
  canvas.addEventListener('webglcontextlost',event=>{
@@ -511,7 +573,7 @@ function showGPUFailure(error){
 }
 function init3D(){const cvs=q('#world');try{
  engine=createEngine(cvs);gl=engine.gl;worldAnchor=null;
- meshes={road:null,scenery:null,cars:createCarModels(gl),wheel:makeWheel().upload(gl),nameplates:{}};
+ meshes={road:null,scenery:null,cars:createCarModels(gl),wheel:makeWheel().upload(gl),nitro:makeNitroFlames().upload(gl),nameplates:{}};
  for(const d of players)meshes.nameplates[d.id]=makeNamePlate(gl,d);
  refreshWorldMeshes(players[selected]?.progress||0,true);
  q('#webglFail').hidden=true;return true;
@@ -539,7 +601,7 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
  engine.dimensions();engine.view(cameraPos,cameraLook);
  engine.draw(meshes.road);engine.draw(meshes.scenery);
  // All vehicles share road coordinates, yaw and ground height. Models are always actual meshes.
- let visible=0;
+ let visible=0,nitroRendered=0;
  for(const d of players){const at=point(START+d.progress,d.lateral);
   if(circularGap(d.progress,follow.progress)>125)continue;
   const yaw=angle(START+d.progress)+clamp(d.steering*.16,-.045,.045);
@@ -552,11 +614,12 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
    const wheelLocal=mul(M(side*1.05,.47,front?1.41:-1.35,front?turning:0,1),rotateX(-d.wheelRoll));
    engine.draw(meshes.wheel,mul(model,wheelLocal));
   }
+  if(gamePhase==='race'&&d.boost>.04&&meshes.nitro){const flicker=.88+.13*Math.sin(timer*33+d.progress*.07);engine.draw(meshes.nitro,mul(model,M(0,0,-.23,0,flicker)),[1,1,1],.94);nitroRendered++;}
   const sign=meshes.nameplates[d.id];
   if(sign){const signFacing=Math.atan2(cameraPos[0]-at[0],cameraPos[2]-at[2]);engine.draw(sign,M(at[0],at[1],at[2],signFacing,1));}
   visible++;
  }
- window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
+ window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,nitroRendered,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
  camera:mode,focus:focus!==-1?players[focus].id:null,elapsed:timer,carModels:CAR_DRAW_STATS,drivers:players.map(d=>({id:d.id,meters:d.progress,lane:d.lateral,angle:angle(START+d.progress),wheelRotation:d.wheelRoll}))};
 }
 
@@ -570,7 +633,52 @@ function mapGeometry(w,h){
  const scale=Math.min((w-32)/(xmax-xmin||1),(h-33)/(zmax-zmin||1));
  const X=p=>(w-(xmax-xmin)*scale)/2+(p[0]-xmin)*scale;
  const Y=p=>(h+(zmax-zmin)*scale)/2-(p[2]-zmin)*scale;
- return {w,h,left,right,center,X,Y,scale};
+ const screen=center.map(p=>({x:X(p),y:Y(p)})),lengths=[0];
+ for(let i=1;i<screen.length;i++)lengths.push(lengths[i-1]+Math.hypot(screen[i].x-screen[i-1].x,screen[i].y-screen[i-1].y));
+ const perimeter=lengths[lengths.length-1];
+ function atMeters(distance){
+  const index=wrapLap(distance)/20,i=Math.floor(index),t=index-i;
+  return {arc:lengths[i]+(lengths[i+1]-lengths[i])*t,
+   x:screen[i].x+(screen[i+1].x-screen[i].x)*t,
+   y:screen[i].y+(screen[i+1].y-screen[i].y)*t};
+ }
+ function atArc(distance){
+  const s=((distance%perimeter)+perimeter)%perimeter;
+  let low=0,high=lengths.length-1;
+  while(high-low>1){const mid=(low+high)>>1;if(lengths[mid]<=s)low=mid;else high=mid;}
+  const t=(s-lengths[low])/(lengths[low+1]-lengths[low]||1);
+  return {x:screen[low].x+(screen[low+1].x-screen[low].x)*t,
+   y:screen[low].y+(screen[low+1].y-screen[low].y)*t};
+ }
+ return {w,h,left,right,center,X,Y,scale,atMeters,atArc,perimeter};
+}
+// Numbered badges are spaced along the course; tiny tethered dots are the exact race positions.
+// This ensures no overlap/clipping while retaining honest positions even for a tight peloton.
+function layoutMinimapMarkers(cars,track,minSpacing=19){
+ if(!cars.length)return [];
+ const sorted=cars.map(item=>({...item,route:track.atMeters(item.driver.progress)})).sort((a,b)=>a.route.arc-b.route.arc);
+ let largest=-1,cut=sorted.length-1;
+ for(let i=0;i<sorted.length;i++){
+  const next=sorted[(i+1)%sorted.length].route.arc+(i===sorted.length-1?track.perimeter:0);
+  const gap=next-sorted[i].route.arc;
+  if(gap>largest){largest=gap;cut=i;}
+ }
+ const order=sorted.slice(cut+1).concat(sorted.slice(0,cut+1)),start=order[0].route.arc;
+ let previous=-Infinity;
+ for(const item of order){
+  let desired=item.route.arc;if(desired<start)desired+=track.perimeter;
+  const placed=Math.max(desired,previous+minSpacing);
+  item.position=track.atArc(placed);
+  previous=placed;
+ }
+ // Preserve the wraparound clearance. Worst-case: move the entire chain into the largest gap.
+ const last=order[order.length-1],overflow=previous-(start+track.perimeter-minSpacing);
+ if(overflow>0)for(let i=0;i<order.length;i++){
+  const item=order[i],desired=item.route.arc+(item.route.arc<start?track.perimeter:0);
+  const distance=(i/(order.length-1||1))*overflow;
+  item.position=track.atArc(Math.max(start+i*minSpacing,desired+Math.max(0,i*minSpacing-distance)));
+ }
+ return order;
 }
 function drawMap(){
  if(!gameOptions.showMap)return;
@@ -586,26 +694,33 @@ function drawMap(){
  const start=point(START,0),mx=t.X(start),my=t.Y(start);
  c.beginPath();c.arc(mx,my,4.5,0,TAU);c.fillStyle='#f8f9ff';c.fill();c.lineWidth=1.5;c.strokeStyle='#ffbf45';c.stroke();
  c.fillStyle='#ffffff';c.font='bold 9px sans-serif';c.fillText('L/C',mx+9,my-6);
- const used=[],leader=rank()[0],cars=players.map((driver,i)=>({driver,i,pos:point(START+driver.progress,driver.lateral)}));
- for(const o of cars.sort((a,b)=>b.driver.progress-a.driver.progress)){
-  const real={x:t.X(o.pos),y:t.Y(o.pos)};let marker=null;
-  for(let r=0;r<=32&&!marker;r+=4){const n=r?Math.max(12,Math.round(r*1.8)):1;
-   for(let j=0;j<n;j++){const rad=j/n*TAU,x=real.x+Math.cos(rad)*r,y=real.y+Math.sin(rad)*r;
-    if(x<8||x>w-8||y<8||y>h-8||used.some(v=>Math.hypot(v.x-x,v.y-y)<14))continue;
-    marker={x,y};break;
-   }
+ const leader=rank()[0],cars=players.map((driver,i)=>({driver,i,pos:point(START+driver.progress,driver.lateral)}));
+ const arranged=layoutMinimapMarkers(cars,t,19);
+ const used=[];
+ for(const o of arranged){
+  const actual={x:t.X(o.pos),y:t.Y(o.pos)};
+  const displayed={x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8)};
+  used.push({...displayed,id:o.driver.id});
+  // Tiny accurate dot on the real circuit; numbered badge is visually spaced along the circuit.
+  c.beginPath();c.arc(actual.x,actual.y,2.5,0,TAU);c.fillStyle=o.driver.color;c.fill();
+  const displaced=Math.hypot(displayed.x-actual.x,displayed.y-actual.y);
+  if(displaced>5){
+   c.beginPath();c.moveTo(actual.x,actual.y);c.lineTo(displayed.x,displayed.y);
+   c.strokeStyle='#a9efffb5';c.lineWidth=.85;c.stroke();
   }
-  marker=marker||{x:clamp(real.x,8,w-8),y:clamp(real.y,8,h-8)};
-  used.push({...marker,id:o.driver.id});
-  if(Math.hypot(marker.x-real.x,marker.y-real.y)>3){c.beginPath();c.moveTo(marker.x,marker.y);c.lineTo(real.x,real.y);c.strokeStyle='#d3e9e7a0';c.lineWidth=.9;c.stroke();}
-  const selectedCar=o.i===selected;
-  c.beginPath();c.arc(marker.x,marker.y,selectedCar?7.4:6.5,0,TAU);c.fillStyle=o.driver.color;c.fill();
-  c.lineWidth=selectedCar?2.4:1.5;c.strokeStyle=selectedCar?'#fff7b2':o.driver===leader?'#ffffff':'#cce5e8';c.stroke();
+  const selectedCar=o.i===selected,radius=selectedCar?6.6:6;
+  c.beginPath();c.arc(displayed.x,displayed.y,radius,0,TAU);c.fillStyle=o.driver.color;c.fill();
+  c.lineWidth=selectedCar?2:1.25;c.strokeStyle=selectedCar?'#fff5a9':o.driver===leader?'#ffffff':'#d5edf5';c.stroke();
   c.fillStyle=/^(04|18|33|07|19|90|64)$/.test(o.driver.id)?'#ffffff':'#10202b';
-  c.font='bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,marker.x,marker.y+.2);
+  c.font='bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,displayed.x,displayed.y+.2);
  }
+ mapMarkerState=arranged.map(o=>({
+  id:o.driver.id,meters:o.driver.progress,
+  x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8),
+  realX:t.X(o.pos),realY:t.Y(o.pos)
+ }));
  c.restore();mapPoints=used.length;mapUnique=new Set(used.map(v=>v.id)).size;mapFrames++;
- if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' pontos · '+(players[selected]?.name||'Piloto')+' selecionado';}
+ if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' carros · posições reais ligadas';}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;q('#nameInput').value=players[selected].name;hud();}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
@@ -637,6 +752,7 @@ function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hid
  q('#full').onclick=()=>{const el=q('#frame');if(el.requestFullscreen)el.requestFullscreen().catch(()=>{});};
  q('#quality').onclick=()=>{gameOptions.quality=gameOptions.quality==='normal'?'eco':'normal';saveSettings();syncSettings();settingNote(gameOptions.quality==='eco'?'ECO: 24 FPS e resolução 3D reduzida para aliviar o Android.':'NORMAL: renderização limitada a 30 FPS.');};
  q('#mapToggle').onclick=()=>{gameOptions.showMap=!gameOptions.showMap;saveSettings();syncSettings();settingNote(gameOptions.showMap?'Mapa da pista ativado.':'Mapa oculto.');};
+ q('#botGifts').onclick=()=>{gameOptions.botGifts=!gameOptions.botGifts;saveSettings();syncSettings();settingNote(gameOptions.botGifts?'Bots do simulador enviam presentes e ativam nitro.':'Presentes automáticos dos bots desativados.');};
  q('#lapSelect').onchange=()=>{const laps=Number(q('#lapSelect').value);if(!ALLOWED_LAPS.includes(laps))return;gameOptions.laps=laps;saveSettings();syncSettings();settingNote(laps+' volta(s) · '+(laps*10)+' km na próxima largada.');};
  q('#nameSave').onclick=()=>{const d=players[selected],label=cleanName(q('#nameInput').value);if(!label){settingNote('Informe um nome de até 18 caracteres.');return;}
   d.name=label;driverNames[d.id]=label;saveSettings();replaceNamePlate(d);buildPicker();hud();
@@ -674,7 +790,7 @@ function drawFrame(ts){requestAnimationFrame(drawFrame);
  window.NEON_V14_DIAGNOSTICS={fps:measuredFps,real3D:!!engine,players:players.length,mapPoints,mapUnique,trackSamples:mapTrack?.center.length||0,quality:gameOptions.quality,mapVisible:gameOptions.showMap,cpuRenderMs:renderHistory.length?+(renderHistory.reduce((a,b)=>a+b,0)/renderHistory.length).toFixed(2):null,models:window.NEON_V14_METRICS?.carModels?.uniqueModels||0,skins:window.NEON_V14_METRICS?.carModels?.paintings||0,invalidMatrices:orientationIssues,overlaps:checkPhysics().length};
 }
 createDrivers();setupButtons();setupWebGLRecovery();init3D();buildPicker();drawMap();hud();q('#activity').textContent='10 PILOTOS · 3D REAL · CORRIDA AUTOMÁTICA';requestAnimationFrame(drawFrame);
-window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount}),testRun(seconds=20){
+window.NEON_RUSH_V16=window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount,gifts:giftEvents,nitroActive:players.filter(p=>p.boost>.04).map(p=>({id:p.id,remaining:p.boost})),mapMarkers:mapMarkerState.map(m=>({...m}))}),receiveGift,testRun(seconds=20){
  // Run diagnostics on cloned state. Never change the player's race, podium, camera or narration.
  const requested=Number(seconds);
  if(!Number.isFinite(requested)||requested<0||requested>90)throw new RangeError('Duração de teste inválida (0 a 90 segundos)');
