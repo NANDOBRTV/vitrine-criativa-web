@@ -1,0 +1,49 @@
+name: NEON RUSH V14.5.0 QA
+on:
+  push:
+    branches:
+      - neon-rush-stockcar-v1442-gamedev-qa-20261112
+    paths:
+      - neon-rush-v1/**
+      - .github/workflows/neon-rush-v1442-qa.yml
+  pull_request:
+    branches:
+      - neon-rush-stockcar-v11
+    paths:
+      - neon-rush-v1/**
+      - .github/workflows/neon-rush-v1442-qa.yml
+permissions:
+  contents: read
+jobs:
+  node-physics-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check WebGL source, 10km circuit, laps and simulated races
+        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs
+
+  browser-android-webgl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser smoke dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright@1.64.1
+          npx playwright install --with-deps chromium
+      - name: Test mobile 9:16 WebGL, transparent map, names and 3 laps
+        run: node neon-rush-v1/browser-smoke-v1450.cjs
+      - name: Preserve Android screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-rush-v1450-android-screenshot
+          path: neon-rush-v1450-android-smoke.png
+          if-no-files-found: ignore
