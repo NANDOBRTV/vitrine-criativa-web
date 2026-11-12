@@ -1,15 +1,18 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V13 · Corrida 3D Reconstruída</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}#minimap{height:124px;width:103px;background:#06152acc;border:1px solid #67919e80;border-radius:13px;box-shadow:0 2px 10px #0005}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:12px;font-size:13px}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 8px}.bottomHud{bottom:8px}.speed b{font-size:45px}}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14 · Stock Car 3D com Pinturas</title><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}#minimap{height:124px;width:103px;background:#06152acc;border:1px solid #67919e80;border-radius:13px;box-shadow:0 2px 10px #0005}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
+#pickerList button img{width:100px;height:59px;object-fit:contain;border-radius:7px;background:linear-gradient(135deg,#142b42,#101b29);flex-shrink:0}
+#pickerList button strong{font-size:13px;color:#fff;display:block}#pickerList button small{display:block;color:#b5d5eb;font-size:10px;margin-top:5px}
+#pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 8px}.bottomHud{bottom:8px}.speed b{font-size:45px}}
 </style></head><body>
-<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V13 · CORRIDA 3D REAL</small></div><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div>
+<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14 · STOCK CAR 3D COM PINTURAS</small></div><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div>
 <div class="layout"><div class="gamebox"><div id="frame" aria-label="Corrida de carros 3D">
 <canvas id="world" width="390" height="693" aria-label="Pista e carros em 3D"></canvas><div class="film"></div>
 <div class="topHud"><div><b id="position">01/10</b><span>POSIÇÃO</span></div><div style="text-align:right"><b id="elapsed">00:00</b><span id="phase">LARGADA</span></div></div>
-<div id="cameraMode">PERSEGUIÇÃO</div><div id="webglFail" hidden></div>
+<div id="cameraMode">PERSEGUIÇÃO</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
 <div class="bottomHud"><div class="speed"><b id="speed">000</b> <small>KM/H</small><label id="pilotName">CRUZE 04</label><small id="meter">000 / 680 m</small></div><canvas id="minimap" width="116" height="136" aria-label="Minimapa com os dez carros"></canvas></div>
 <div id="finishOverlay" hidden><h2>🏆 BANDEIRA QUADRICULADA</h2><div id="winner"></div><p>Toque em reiniciar para outra corrida</p></div></div>
 <div class="controls"><button id="choose">🚗 PILOTO</button><button id="camera">📷 CÂMERA</button><button id="close">🎥 CLOSE</button><button id="restart" class="hot">↻ REINICIAR</button></div></div>
-<aside class="panel"><div class="label">CORRIDA INTERATIVA</div><h1>Uma pista.<br>Dez pilotos.<br>Disputa real.</h1><p>Corrida automática com carros 3D sólidos, frenagem nas curvas, trocas de faixa e ultrapassagens calculadas fisicamente.</p><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button><button id="quality">NORMAL</button><button id="mute">SOM OFF</button></div><div id="activity" class="status" role="status"></div><p class="minor">Os botões simulam interações de LIVE; não há conexão TikTok real. A pista e os carros são malhas WebGL, não sprites sobrepostos.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
-<div class="footer">NEON RUSH V13 · Protótipo 3D original · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
+<aside class="panel"><div class="label">CORRIDA INTERATIVA</div><h1>Uma pista.<br>Dez pilotos.<br>Disputa real.</h1><p>Corrida automática com carros 3D sólidos, frenagem nas curvas, trocas de faixa e ultrapassagens calculadas fisicamente.</p><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button><button id="quality">NORMAL</button><button id="mute">SOM OFF</button></div><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor">Os botões simulam interações de LIVE; não há conexão TikTok real. A pista e os carros são malhas WebGL, não sprites sobrepostos.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
+<div class="footer">NEON RUSH V14 · Corrida WebGL com modelos e pinturas 3D originais · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
 <div id="picker" hidden><div class="inside"><button id="pickerClose" style="float:right">✕ FECHAR</button><h2>Escolher piloto</h2><div id="pickerList"></div></div></div>
 <script>const TAU=Math.PI*2;
 const CL=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -33,9 +36,9 @@ function mul(a,b){const o=new Array(16);for(let j=0;j<4;j++)for(let i=0;i<4;i++)
 // V10: intentionally designed S-sections, 55-90 m radius, not a nearly straight sine road.
 // 3D terrain mesh, race physics, minimap, and compatibility canvas sample the SAME centerline.
 class Mesh{
-  constructor(){this.data=[];this.n=0;this.buf=null;}
-  tri(a,b,c,col,mask=0){const n=norm(cross(sub(b,a),sub(c,a)));const co=H(col);for(const p of [a,b,c])this.data.push(...p,...n,...co,mask);this.n+=3;}
-  quad(a,b,c,d,col,mask=0){this.tri(a,b,c,col,mask);this.tri(a,c,d,col,mask);}
+  constructor(){this.data=[];this.n=0;this.buf=null;this.texture=null;}
+  tri(a,b,c,col,mask=0,uv=[[0,0],[1,0],[0,1]]){const n=norm(cross(sub(b,a),sub(c,a)));const co=H(col);for(const [i,p] of [a,b,c].entries())this.data.push(...p,...n,...co,mask,...uv[i]);this.n+=3;}
+  quad(a,b,c,d,col,mask=0,uv=[[0,0],[1,0],[1,1],[0,1]]){this.tri(a,b,c,col,mask,[uv[0],uv[1],uv[2]]);this.tri(a,c,d,col,mask,[uv[0],uv[2],uv[3]]);}
   box(x,y,z,w,h,d,col,mask=0){const a=x-w/2,b=x+w/2,lo=y,hi=y+h,front=z-d/2,back=z+d/2;
     this.quad(V(a,hi,front),V(b,hi,front),V(b,hi,back),V(a,hi,back),col,mask);
     this.quad(V(a,lo,back),V(b,lo,back),V(b,lo,front),V(a,lo,front),col,mask);
@@ -52,16 +55,16 @@ class Mesh{
 function shader(gl,type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
 function createEngine(canvas){const gl=canvas.getContext('webgl',{alpha:true,antialias:true,depth:true,premultipliedAlpha:false,powerPreference:'low-power',stencil:false})||canvas.getContext('experimental-webgl',{alpha:true,antialias:true,depth:true,premultipliedAlpha:false});
   if(!gl)throw Error('WebGL não disponível neste navegador');
-  const vert=`attribute vec3 position; attribute vec3 normal; attribute vec4 color; uniform mat4 proj;uniform mat4 view;uniform mat4 model;uniform vec3 tint; varying vec3 vColor;varying float vFog;varying float vGlow;
-  void main(){vec4 world=model*vec4(position,1.);vec4 eye=view*world;gl_Position=proj*eye;vec3 N=normalize(mat3(model)*normal);float light=.94+.30*max(0.,dot(N,normalize(vec3(-.28,.85,-.47))));vGlow=color.a>1.5?1.:0.;vColor=mix(color.rgb,color.rgb*tint,step(.5,color.a))*mix(light,1.0,vGlow);vFog=clamp((length(eye.xyz)-48.)/160.,0.,.52);}`;
-  const frag=`precision mediump float;varying vec3 vColor; varying float vFog;varying float vGlow;uniform float alphaCar;void main(){vec3 col=mix(vColor,vec3(.31,.49,.64),vFog);col=pow(max(col,vec3(0.)),vec3(.77))*1.24;col+=vec3(.17,.22,.23)*vGlow;gl_FragColor=vec4(min(col,vec3(1.0)),alphaCar);}`;
+  const vert=`attribute vec3 position; attribute vec3 normal; attribute vec4 color; attribute vec2 uv; uniform mat4 proj;uniform mat4 view;uniform mat4 model;uniform vec3 tint; varying vec3 vColor;varying float vFog;varying float vGlow;varying vec2 vUv;
+  void main(){vUv=uv;vec4 world=model*vec4(position,1.);vec4 eye=view*world;gl_Position=proj*eye;vec3 N=normalize(mat3(model)*normal);float light=.94+.30*max(0.,dot(N,normalize(vec3(-.28,.85,-.47))));vGlow=color.a>1.5?1.:0.;vColor=mix(color.rgb,color.rgb*tint,step(.5,color.a))*mix(light,1.0,vGlow);vFog=clamp((length(eye.xyz)-48.)/160.,0.,.52);}`;
+  const frag=`precision mediump float;varying vec3 vColor; varying float vFog;varying float vGlow;varying vec2 vUv;uniform float alphaCar;uniform float useTexture;uniform sampler2D carPaint;void main(){vec4 texel=texture2D(carPaint,vUv);vec3 pigment=mix(vColor,texel.rgb*vColor,useTexture);vec3 col=mix(pigment,vec3(.31,.49,.64),vFog);col=pow(max(col,vec3(0.)),vec3(.77))*1.24;col+=vec3(.17,.22,.23)*vGlow;gl_FragColor=vec4(min(col,vec3(1.0)),alphaCar);}`;
   const prog=gl.createProgram();gl.attachShader(prog,shader(gl,gl.VERTEX_SHADER,vert));gl.attachShader(prog,shader(gl,gl.FRAGMENT_SHADER,frag));gl.linkProgram(prog);if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(prog));gl.useProgram(prog);
-  const attr={pos:gl.getAttribLocation(prog,'position'),normal:gl.getAttribLocation(prog,'normal'),color:gl.getAttribLocation(prog,'color')};
-  const uni={proj:gl.getUniformLocation(prog,'proj'),view:gl.getUniformLocation(prog,'view'),model:gl.getUniformLocation(prog,'model'),tint:gl.getUniformLocation(prog,'tint'),alphaCar:gl.getUniformLocation(prog,'alphaCar')};
+  const attr={pos:gl.getAttribLocation(prog,'position'),normal:gl.getAttribLocation(prog,'normal'),color:gl.getAttribLocation(prog,'color'),uv:gl.getAttribLocation(prog,'uv')};
+  const uni={proj:gl.getUniformLocation(prog,'proj'),view:gl.getUniformLocation(prog,'view'),model:gl.getUniformLocation(prog,'model'),tint:gl.getUniformLocation(prog,'tint'),alphaCar:gl.getUniformLocation(prog,'alphaCar'),useTexture:gl.getUniformLocation(prog,'useTexture'),carPaint:gl.getUniformLocation(prog,'carPaint')};
   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
   let lastCanvasW=0,lastCanvasH=0,lastFov=PI/3.5,projectionDirty=true;
   function dimensions(){const ratio=Math.min(1.5,window.devicePixelRatio||1);let w=Math.max(240,Math.round(canvas.clientWidth*ratio)),h=Math.max(425,Math.round(canvas.clientHeight*ratio));if(w!==lastCanvasW||h!==lastCanvasH){canvas.width=w;canvas.height=h;lastCanvasW=w;lastCanvasH=h;gl.viewport(0,0,w,h);projectionDirty=true;}if(projectionDirty){gl.uniformMatrix4fv(uni.proj,false,new Float32Array(perspective(lastFov,w/h,.1,190)));projectionDirty=false;}}
-  function draw(mesh,model=ID(),tint=[1,1,1],opacity=1){gl.uniform1f(uni.alphaCar,opacity);if(opacity<.999){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);}gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);const stride=40;gl.enableVertexAttribArray(attr.pos);gl.vertexAttribPointer(attr.pos,3,gl.FLOAT,false,stride,0);gl.enableVertexAttribArray(attr.normal);gl.vertexAttribPointer(attr.normal,3,gl.FLOAT,false,stride,12);gl.enableVertexAttribArray(attr.color);gl.vertexAttribPointer(attr.color,4,gl.FLOAT,false,stride,24);gl.uniformMatrix4fv(uni.model,false,new Float32Array(model));gl.uniform3fv(uni.tint,new Float32Array(tint));gl.drawArrays(gl.TRIANGLES,0,mesh.n);if(opacity<.999){gl.depthMask(true);gl.disable(gl.BLEND);}}
+  function draw(mesh,model=ID(),tint=[1,1,1],opacity=1){gl.uniform1f(uni.alphaCar,opacity);if(opacity<.999){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);}gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);const stride=48;gl.enableVertexAttribArray(attr.pos);gl.vertexAttribPointer(attr.pos,3,gl.FLOAT,false,stride,0);gl.enableVertexAttribArray(attr.normal);gl.vertexAttribPointer(attr.normal,3,gl.FLOAT,false,stride,12);gl.enableVertexAttribArray(attr.color);gl.vertexAttribPointer(attr.color,4,gl.FLOAT,false,stride,24);gl.enableVertexAttribArray(attr.uv);gl.vertexAttribPointer(attr.uv,2,gl.FLOAT,false,stride,40);gl.uniform1f(uni.useTexture,mesh.texture?1:0);if(mesh.texture){gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,mesh.texture);gl.uniform1i(uni.carPaint,0);}gl.uniformMatrix4fv(uni.model,false,new Float32Array(model));gl.uniform3fv(uni.tint,new Float32Array(tint));gl.drawArrays(gl.TRIANGLES,0,mesh.n);if(opacity<.999){gl.depthMask(true);gl.disable(gl.BLEND);}}
   return {gl,dimensions,setFov:(radians)=>{if(Math.abs(radians-lastFov)>.003){lastFov=radians;projectionDirty=true;}},getFov:()=>lastFov,draw,view:(camera,target,up=[0,1,0])=>gl.uniformMatrix4fv(uni.view,false,new Float32Array(lookAt(camera,target,up))),start(){gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}};
 }
 
@@ -222,43 +225,106 @@ function makeScenery(){const m=new Mesh();
  }
  return m;
 }
-function makeCar(){const m=new Mesh();
- // Body is a true solid 3D car — no PNG billboards with independent orientation.
- m.box(0,.38,0,2.08,.38,4.28,'#e0e9f0',1);
- m.box(0,.73,.18,2.02,.33,3.78,'#a8b5c1',1);
- m.box(0,.98,-.26,1.53,.44,2.04,'#e4edf5',1);
- m.box(0,1.22,-.38,1.38,.13,1.52,'#e1f0f6',1);
- m.box(0,1.13,.45,1.42,.075,.76,'#173d4e');
- m.box(0,1.1,-1.13,1.42,.075,.47,'#163548');
- m.box(0,.93,1.76,1.77,.20,.65,'#f2f3ee',1);
- m.box(0,.67,-1.98,1.86,.17,.34,'#25303c');
- // Spoiler and supports.
- m.box(0,1.39,-1.91,2.32,.14,.46,'#1d2635');for(const side of [-1,1])m.box(side*.71,.83,-1.88,.12,.6,.18,'#101e31');
- // Headlights and tail lamps.
+// V14 real geometry: ten different sedan/hatch silhouettes with actual livery surfaces.
+// Source PNGs remain in the gallery; they are NOT floating sprites on top of 3D cars.
+const MODEL_STYLES={
+ '04':{brand:'CHEVROLET',model:'CRUZE',primary:'#1261d2',accent:'#ffd23c',secondary:'#ffffff',L:4.40,W:2.06,H:1.33,roofBack:-1.08,roofFront:.55,hood:.77,kind:'sedan'},
+ '11':{brand:'TOYOTA',model:'COROLLA',primary:'#f1f2ec',accent:'#e92e35',secondary:'#151b2a',L:4.48,W:2.02,H:1.36,roofBack:-1.22,roofFront:.51,hood:.76,kind:'sedan'},
+ '18':{brand:'HONDA',model:'CIVIC',primary:'#df2a37',accent:'#ffffff',secondary:'#191c27',L:4.36,W:2.11,H:1.23,roofBack:-1.14,roofFront:.48,hood:.73,kind:'fastback'},
+ '27':{brand:'MITSUBISHI',model:'LANCER',primary:'#eec629',accent:'#ee3033',secondary:'#101f38',L:4.39,W:2.08,H:1.34,roofBack:-1.19,roofFront:.50,hood:.75,kind:'sedan'},
+ '33':{brand:'VOLKSWAGEN',model:'JETTA',primary:'#176bcf',accent:'#f5f5fb',secondary:'#2bc7f7',L:4.52,W:2.03,H:1.38,roofBack:-1.32,roofFront:.53,hood:.78,kind:'sedan'},
+ '07':{brand:'PEUGEOT',model:'408',primary:'#171d27',accent:'#e24849',secondary:'#f1eff1',L:4.33,W:2.08,H:1.28,roofBack:-1.09,roofFront:.62,hood:.74,kind:'fastback'},
+ '19':{brand:'RENAULT',model:'MEGANE',primary:'#f3841e',accent:'#0d1927',secondary:'#ffffff',L:4.20,W:2.09,H:1.28,roofBack:-1.02,roofFront:.48,hood:.75,kind:'hatch'},
+ '23':{brand:'NISSAN',model:'SENTRA',primary:'#f0f1ed',accent:'#e12d3e',secondary:'#11162b',L:4.43,W:2.05,H:1.36,roofBack:-1.21,roofFront:.55,hood:.76,kind:'sedan'},
+ '90':{brand:'FORD',model:'FUSION',primary:'#1d5ed0',accent:'#f1f2f3',secondary:'#42a8e7',L:4.61,W:2.12,H:1.29,roofBack:-1.32,roofFront:.58,hood:.76,kind:'fastback'},
+ '64':{brand:'FIAT',model:'CRONOS',primary:'#d52737',accent:'#ffffff',secondary:'#f5c64e',L:4.31,W:2.05,H:1.36,roofBack:-1.15,roofFront:.45,hood:.74,kind:'sedan'}
+};
+const CAR_DRAW_STATS={meshes:0,decals:0,paintings:0,uniqueModels:10,textureErrors:0};
+function lighten(hex,amount){let v=H(hex);return '#'+v.map(x=>Math.max(0,Math.min(255,Math.round((x+(1-x)*amount)*255))).toString(16).padStart(2,'0')).join('');}
+function makePaintCanvas(n,style,where){
+ const c=document.createElement('canvas');c.width=512;c.height=256;const a=c.getContext('2d');const W=c.width,H=c.height;
+ a.fillStyle=style.primary;a.fillRect(0,0,W,H);
+ // Angular contrasting racing stripes and real car identity applied to solid meshes.
+ a.fillStyle=style.secondary;a.beginPath();a.moveTo(-W*.22,0);a.lineTo(W*.22,0);a.lineTo(W*.73,H);a.lineTo(W*.39,H);a.closePath();a.fill();
+ a.fillStyle=style.accent;a.beginPath();a.moveTo(W*.25,0);a.lineTo(W*.40,0);a.lineTo(W*.93,H);a.lineTo(W*.79,H);a.closePath();a.fill();
+ a.fillStyle='#111c28';a.fillRect(0,H*.84,W,H*.16);
+ a.fillStyle='rgba(255,255,255,.18)';for(let i=0;i<4;i++)a.fillRect(6+i*7,8,3,H*.58);
+ a.textAlign='center';a.textBaseline='middle';a.lineJoin='round';a.lineWidth=9;
+ const label=where==='hood'?style.model:style.brand;
+ a.font=where==='side'?'900 43px Arial, sans-serif':'900 36px Arial, sans-serif';a.strokeStyle='#07101b';a.strokeText(label,W*.51,H*.21);a.fillStyle='#ffffff';a.fillText(label,W*.51,H*.21);
+ a.font=where==='side'?'1000 117px Arial, sans-serif':'1000 144px Arial, sans-serif';a.strokeStyle='#07101b';a.lineWidth=16;a.strokeText(n,W*.48,H*.60);a.fillStyle=style.accent;a.fillText(n,W*.48,H*.60);
+ a.font='900 23px Arial, sans-serif';a.fillStyle='#ffffff';a.fillText('STOCK CAR  •  NEON RUSH',W*.5,H*.94);
+ return c;
+}
+function uploadPaint(gl,canvas){const tex=gl.createTexture();if(!tex)throw Error('GPU texture allocation failed');
+ gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,1);
+ gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+ gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,canvas);gl.generateMipmap(gl.TEXTURE_2D);
+ gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,0);CAR_DRAW_STATS.paintings++;return tex;}
+function carShell(style){const m=new Mesh(),L=style.L/2,W=style.W/2,hood=style.hood;
+ // Lower body loft: flared wheel arches, rounded bumpers, model-dependent proportions.
+ const sections=[[-L,W*.76,.33,.58],[-L+.32,W*.91,.29,.70],[-.83,W,.30,.85],[.78,W,.30,hood+.12],[L-.35,W*.95,.31,hood],[L,W*.76,.33,.61]];
+ for(let i=0;i<sections.length-1;i++){
+  const a=sections[i],b=sections[i+1];
+  m.quad([-a[1],a[3],a[0]],[a[1],a[3],a[0]],[b[1],b[3],b[0]],[-b[1],b[3],b[0]],'#ffffff',1);
+  for(const side of [-1,1]){m.quad([side*a[1],a[2],a[0]],[side*b[1],b[2],b[0]],[side*b[1],b[3],b[0]],[side*a[1],a[3],a[0]],'#ffffff',1);}
+ }
+ const back=style.roofBack,front=style.roofFront,roofY=style.H,roofW=W*.73;
+ // Raked cabin glass and tapered roof, unlike V13's cube stacked on a cube.
+ m.quad([-W*.92,.82,back-.54],[W*.92,.82,back-.54],[roofW,roofY,back],[-roofW,roofY,back],'#15394c');
+ m.quad([-roofW,roofY,front],[roofW,roofY,front],[W*.88,hood+.08,front+.73],[-W*.88,hood+.08,front+.73],'#193f54');
+ m.quad([-roofW,roofY,back],[roofW,roofY,back],[roofW,roofY,front],[-roofW,roofY,front],'#f5f7fa',1);
  for(const side of [-1,1]){
-  m.box(side*.74,.74,2.105,.48,.10,.09,'#dbffff');
-  m.box(side*.73,.78,-2.1,.55,.13,.1,'#ff2849',2);
-  m.box(side*.94,.39,.93,.08,.33,1.8,'#101d2b');
-  m.box(side*.74,1.01,-.30,.07,.21,1.3,'#f8faf7',1);
+  const x=side*roofW;
+  m.quad([x,roofY,back],[x,roofY,front],[side*W*.93,hood+.08,front+.73],[side*W*.90,.82,back-.54],'#1b4253');
+  // Side window two-pane split (sedan/fastback proportions differ).
+  m.quad([x*1.014,roofY-.055,back+.07],[x*1.014,roofY-.055,(back+front)*.18],[side*W*.926,.84,(back+front)*.15],[side*W*.92,.85,back-.41],'#153045');
+  m.quad([x*1.014,roofY-.055,(back+front)*.23],[x*1.014,roofY-.055,front-.06],[side*W*.921,.85,front+.53],[side*W*.921,.85,(back+front)*.17],'#2b5f71');
+  // Mirror, door seam, handle, flared wheel arches, rocker and side markers.
+  m.box(side*(W+.095),.83,front+.61,.22,.14,.31,'#172737');
+  m.box(side*(W+.019),.68,0,.027,.042,2.64,'#b3d9e5');
+  for(const z of [-.42,.71])m.box(side*(W+.035),.81,z,.048,.045,.29,'#c6d4db');
+  m.box(side*(W+.035),.36,0,.048,.10,L*1.52,'#111b28');
+  m.box(side*(W*.87),.41,L*.60,.12,.12,.42,'#192a3a');
  }
- // Racing livery — roof stripe, windshield and sponsor panels.
- m.box(0,1.28,-.35,.34,.03,1.33,'#f5d14b');
- m.box(0,.92,1.92,.42,.07,.35,'#faf9f2');
- m.box(0,.46,-2.125,1.86,.06,.10,'#fd5866',2);
- return m;
-}
-function makeCarNumber(number){const m=new Mesh();
- const set={0:[0,1,2,4,5,6],1:[2,5],2:[0,2,3,4,6],3:[0,2,3,5,6],4:[1,2,3,5],5:[0,1,3,5,6],6:[0,1,3,4,5,6],7:[0,2,5],8:[0,1,2,3,4,5,6],9:[0,1,2,3,5,6]};
- const chars=String(number).padStart(2,'0').split('');
- for(let n=0;n<2;n++){const x=(n-.5)*.45,segments=set[Number(chars[n])]||[];
-  for(const t of segments){let dx=0,dz=0,w=.26,d=.05;
-   if(t===0)dz=-.46;if(t===3)dz=-.17;if(t===6)dz=.12;
-   if([1,2,4,5].includes(t)){w=.051;d=.22;dx=([1,4].includes(t))?-.14:.14;dz=([1,2].includes(t))?-.33:-.035;}
-   m.box(x+dx,1.325,dz,w,.019,d,'#ffffff');
+ // Bumpers, grille, lights and diffusers remain fully 3D.
+ m.box(0,.44,L-.03,W*1.52,.30,.18,'#111c2b');
+ m.box(0,.46,-L+.03,W*1.58,.26,.19,'#101e2c');
+ m.box(0,.54,L+.02,W*.91,.20,.05,'#07131e');
+ for(const side of [-1,1]){
+  m.box(side*W*.71,.65,L+.02,W*.44,.105,.06,'#e2ffff');
+  m.box(side*W*.71,.65,-L-.03,W*.41,.108,.07,'#ff3358',2);
+ }
+ // Rear wing/roof aerodynamic shapes depend on model type.
+ const wingY=style.kind==='hatch'?1.28:style.kind==='fastback'?1.16:1.32;
+ for(const side of [-1,1])m.box(side*W*.70,.77,-L+.10,.115,wingY-.69,.14,'#162838');
+ m.box(0,wingY,-L+.07,W*2.17,.14,.40,'#101b29');
+ m.box(0,wingY+.073,-L+.08,W*1.72,.023,.30,'#e7f0ef');
+ return m;}
+function makePanel(gl,spec,kind,coords){const m=new Mesh();m.quad(...coords,'#ffffff');m.texture=uploadPaint(gl,makePaintCanvas(spec.id,spec,kind));m.upload(gl);return m;}
+function createCarModels(gl){const models={};for(const [id,manufacturer,color] of CAR_DATA){
+  const base=MODEL_STYLES[id],S={...base,id},W=S.W/2,L=S.L/2,roofW=W*.73;
+  const body=carShell(S).upload(gl),panels=[];
+  const white='#ffffff';
+  // Roof: printed racing number and manufacturer integrated into 3D car.
+  const roof=new Mesh();roof.quad([-roofW*.91,S.H+.017,S.roofBack+.07],[roofW*.91,S.H+.017,S.roofBack+.07],[roofW*.91,S.H+.017,S.roofFront-.04],[-roofW*.91,S.H+.017,S.roofFront-.04],white);
+  roof.texture=uploadPaint(gl,makePaintCanvas(id,S,'roof'));panels.push(roof.upload(gl));
+  // Hood livery follows actual slope, not a floating screen-space overlay.
+  const hood=new Mesh(),frontZ=S.roofFront+.79;
+  hood.quad([-W*.77,S.hood+.105,S.roofFront+.77],[W*.77,S.hood+.105,S.roofFront+.77],[W*.72,S.hood+.008,L-.24],[-W*.72,S.hood+.008,L-.24],white);
+  hood.texture=uploadPaint(gl,makePaintCanvas(id,S,'hood'));panels.push(hood.upload(gl));
+  // Door plates are affixed to the 3D mesh; each side has correct UV orientation.
+  for(const side of [-1,1]){
+    const x=side*(W+.031),y0=.49,y1=.80,z0=-.63,z1=.80,door=new Mesh();
+    const a=[x,y0,side>0?z1:z0],b=[x,y0,side>0?z0:z1],c=[x,y1,side>0?z0:z1],d=[x,y1,side>0?z1:z0];
+    door.quad(a,b,c,d,white);door.texture=uploadPaint(gl,makePaintCanvas(id,S,'side'));panels.push(door.upload(gl));
   }
- }
- return m;
-}
+  // Rear trunk plate / sponsor strip.
+  const rear=new Mesh();rear.quad([-W*.71,.81,-L+.23],[W*.71,.81,-L+.23],[W*.71,.81,S.roofBack-.62],[-W*.71,.81,S.roofBack-.62],white);
+  rear.texture=uploadPaint(gl,makePaintCanvas(id,S,'rear'));panels.push(rear.upload(gl));
+  models[id]={body,panels,spec:S};CAR_DRAW_STATS.meshes++;CAR_DRAW_STATS.decals+=panels.length;
+ }return models;}
 function makeWheel(){const m=new Mesh();const R=.43,half=.23,N=16;
  for(let i=0;i<N;i++){
   const a=i*2*Math.PI/N,b=(i+1)*2*Math.PI/N;
@@ -276,8 +342,7 @@ const rotateX=r=>{let c=Math.cos(r),s=Math.sin(r);return [1,0,0,0,0,c,s,0,0,-s,c
 let camType='chase';
 function init3D(){const cvs=q('#world');try{
  engine=createEngine(cvs);gl=engine.gl;
- meshes={road:makeRoad().upload(gl),scenery:makeScenery().upload(gl),car:makeCar().upload(gl),wheel:makeWheel().upload(gl),numbers:{}};
- for(const d of CAR_DATA)meshes.numbers[d[0]]=makeCarNumber(d[0]).upload(gl);
+ meshes={road:makeRoad().upload(gl),scenery:makeScenery().upload(gl),cars:createCarModels(gl),wheel:makeWheel().upload(gl)};
  q('#webglFail').hidden=true;return true;
  }catch(e){q('#webglFail').hidden=false;q('#webglFail').textContent='O WebGL não iniciou neste navegador: '+e.message+' · Este jogo precisa de renderização 3D, por isso não será substituído por uma corrida falsa em 2D.';return false;}}
 function lerp(a,b,v){return a+(b-a)*v;}
@@ -293,7 +358,7 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
  if(cameraFocus){eye=point(z2-7.7,lane2+7.5);eye[1]+=3.4;target=point(z2+3,lane2);target[1]+=.9;}
  else if(mode==='tv'){eye=point(z2+8,clamp(lane2+17,-19,19));eye[1]+=5.2;target=point(z2,lane2);target[1]+=1.0;}
  else if(mode==='drone'){eye=point(z2-2,lane2);eye[1]+=35;target=point(z2+20,lane2);target[1]+=1.1;}
- else {eye=behind;eye[1]+=4.7;target=point(z2+23,lane2*.50);target[1]+=1.1;}
+ else {eye=behind;eye[1]+=3.25;target=point(z2+27,lane2*.58);target[1]+=1.35;}
  const k=1-Math.exp(-dt*3.7);cameraPos=smoothVec(cameraPos,eye,k);cameraLook=smoothVec(cameraLook,target,k);
  engine.setFov((mode==='drone'?55:58+Math.min(9,shown.speed*.23))*Math.PI/180);
  engine.dimensions();engine.view(cameraPos,cameraLook);
@@ -305,7 +370,8 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
   const yaw=angle(START+Math.max(0,d.progress))+clamp(d.steering*.16,-.045,.045);
   if(!Number.isFinite(yaw)){orientationIssues++;continue;}
   const model=mul(M(at[0],at[1],at[2],yaw,1),[Math.cos(d.roll),Math.sin(d.roll),0,0,-Math.sin(d.roll),Math.cos(d.roll),0,0,0,0,1,0,0,0,0,1]);
-  engine.draw(meshes.car,model,H(d.color));engine.draw(meshes.numbers[d.id],model);
+  const shape=meshes.cars[d.id];if(!shape){orientationIssues++;continue;}
+  engine.draw(shape.body,model,H(d.color));for(const panel of shape.panels)engine.draw(panel,model);
   const turning=clamp(d.steering,-.3,.3);
   for(const side of [-1,1])for(const front of [false,true]){
    const wheelLocal=mul(M(side*1.05,.47,front?1.41:-1.35,front?turning:0,1),rotateX(-d.wheelRoll));
@@ -313,8 +379,8 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
   }
   visible++;
  }
- window.NEON_V13_METRICS={visibleVehicles:visible,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
- camera:mode,focus:focus!==-1?players[focus].id:null,elapsed:timer,drivers:players.map(d=>({id:d.id,meters:d.progress,lane:d.lateral,angle:angle(START+Math.max(0,d.progress)),wheelRotation:d.wheelRoll}))};
+ window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
+ camera:mode,focus:focus!==-1?players[focus].id:null,elapsed:timer,carModels:CAR_DRAW_STATS,drivers:players.map(d=>({id:d.id,meters:d.progress,lane:d.lateral,angle:angle(START+Math.max(0,d.progress)),wheelRotation:d.wheelRoll}))};
 }
 
 function drawMap(){const el=q('#minimap'),c=el.getContext('2d');const w=el.width,h=el.height;c.clearRect(0,0,w,h);
@@ -324,16 +390,39 @@ function drawMap(){const el=q('#minimap'),c=el.getContext('2d');const w=el.width
  for(const [i,d] of players.entries()){const z=clamp(d.progress,0,DISTANCE),p=point(z+START,d.lateral);let x=xScale(p[0]),y=yScale(z);c.beginPath();c.arc(x,y,i===selected?4.2:2.65,0,Math.PI*2);c.fillStyle=d.color;c.fill();c.strokeStyle=i===selected?'white':'#121b2a';c.lineWidth=i===selected?1.3:.7;c.stroke();}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;hud();}
-function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{const b=document.createElement('button');b.textContent=p.id+'  ·  '+p.model;b.style.borderLeft='5px solid '+p.color;b.onclick=()=>selectDriver(i);return b;}));}
+function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
+ const b=document.createElement('button'),im=document.createElement('img'),label=document.createElement('span'),name=document.createElement('strong'),detail=document.createElement('small');
+ im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.png';im.alt='Skin original '+p.id;im.loading='lazy';
+ name.textContent=p.id+'  ·  '+p.model;detail.textContent='Pintura e modelo 3D do veículo nº '+p.id;
+ label.append(name,detail);b.append(im,label);b.style.borderLeft='5px solid '+p.color;b.setAttribute('aria-pressed',i===selected?'true':'false');
+ b.onclick=()=>selectDriver(i);return b;}));}
+// Original synthesized engine audio. User gesture is required on mobile browsers.
+let engineAudio=null;
+function initEngineAudio(){
+ if(engineAudio){engineAudio.ctx.resume().catch(()=>{});return;}
+ const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+ try{const ctx=new AC(),a=ctx.createOscillator(),b=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter();
+  a.type='sawtooth';b.type='triangle';filter.type='lowpass';filter.frequency.value=430;gain.gain.value=0;
+  a.connect(filter);b.connect(filter);filter.connect(gain);gain.connect(ctx.destination);a.start();b.start();engineAudio={ctx,a,b,gain,filter};ctx.resume().catch(()=>{});
+ }catch(e){console.warn('Audio not available:',e.message);muted=true;}
+}
+function updateEngineAudio(){if(!engineAudio)return;const {ctx,a,b,gain,filter}=engineAudio;
+ const speed=(players[selected]?.speed||0)*3.6,t=ctx.currentTime;
+ const base=65+speed*1.42;a.frequency.setTargetAtTime(base,t,.065);b.frequency.setTargetAtTime(base*.51,t,.09);
+ filter.frequency.setTargetAtTime(270+speed*11,t,.1);
+ gain.gain.setTargetAtTime(!muted&&gamePhase==='race'?.035:0,t,.13);
+}
 function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hidden=false;};q('#pickerClose').onclick=()=>q('#picker').hidden=true;
  q('#camera').onclick=()=>{const modes=['chase','tv','drone'];mode=modes[(modes.indexOf(mode)+1)%modes.length];q('#activity').textContent='📷 '+(mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'TV':'AÉREA');};
  q('#boost').onclick=addBoost;q('#gift').onclick=addGift;q('#close').onclick=closeNow;
  q('#restart').onclick=()=>{gridCars();q('#activity').textContent='🚦 Preparando nova corrida';};
  q('#full').onclick=()=>{const el=q('#frame');if(el.requestFullscreen)el.requestFullscreen().catch(()=>{});};
  q('#quality').onclick=()=>{gameOptions.quality=gameOptions.quality==='normal'?'eco':'normal';q('#quality').textContent=gameOptions.quality==='eco'?'ECO':'NORMAL';};
- q('#mute').onclick=()=>{muted=!muted;q('#mute').textContent=muted?'SOM OFF':'SOM ON';};
+ q('#mute').onclick=()=>{muted=!muted;if(!muted)initEngineAudio();q('#mute').textContent=muted?'SOM OFF':'SOM ON';};
 }
-let lastRender=0;
+let lastRender=0,perSecond=performance.now(),countedFrames=0,measuredFps=0;
+const debugEnabled=new URLSearchParams(location.search).has('debug');
+q('#debugHUD').hidden=!debugEnabled;
 function drawFrame(ts){requestAnimationFrame(drawFrame);
  if(!lastFrame)lastFrame=ts;
  let rawdt=Math.min(.11,(ts-lastFrame)/1000);lastFrame=ts;
@@ -344,9 +433,12 @@ function drawFrame(ts){requestAnimationFrame(drawFrame);
  if(lastRender&&ts-lastRender<interval)return;
  const renderDt=lastRender?Math.min(.1,(ts-lastRender)/1000):rawdt;
  lastRender=ts;
+ countedFrames++;if(ts-perSecond>1100){measuredFps=+(countedFrames*1000/(ts-perSecond)).toFixed(1);perSecond=ts;countedFrames=0;}
  if(engine)try{render3D(renderDt);}catch(e){q('#webglFail').hidden=false;q('#webglFail').textContent='Falha ao renderizar 3D: '+String(e.message||e);engine=null;console.error(e);}
- hud();drawMap();
+ hud();drawMap();updateEngineAudio();
+ if(debugEnabled){const diag=q('#debugHUD');diag.textContent='FPS '+measuredFps+' · 3D '+(!!engine)+'\nCARROS '+players.length+' / 10 · SOBREPOSIÇÕES '+checkPhysics().length+'\nSKINS '+(window.NEON_V14_METRICS?.carModels?.paintings||0)+' · CÂMERA '+mode;}
+ window.NEON_V14_DIAGNOSTICS={fps:measuredFps,real3D:!!engine,players:players.length,models:window.NEON_V14_METRICS?.carModels?.uniqueModels||0,skins:window.NEON_V14_METRICS?.carModels?.paintings||0,invalidMatrices:orientationIssues,overlaps:checkPhysics().length};
 }
 createDrivers();setupButtons();init3D();buildPicker();q('#activity').textContent='10 PILOTOS · 3D REAL · CORRIDA AUTOMÁTICA';requestAnimationFrame(drawFrame);
-window.NEON_RUSH_V13={getState:()=>({mode:gamePhase,seconds:timer,drivers:players.map(p=>({...p})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount}),testRun(seconds=20){const before=gamePhase;gamePhase='race';for(let i=0;i<seconds*60;i++)physicsStep(1/60);return {elapsed:timer,overlaps:checkPhysics(),passes:passingEvents,drivers:rank().map(p=>({id:p.id,m:p.progress,kmh:p.speed*3.6}))};}};
+window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({mode:gamePhase,seconds:timer,drivers:players.map(p=>({...p})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount}),testRun(seconds=20){const before=gamePhase;gamePhase='race';for(let i=0;i<seconds*60;i++)physicsStep(1/60);return {elapsed:timer,overlaps:checkPhysics(),passes:passingEvents,drivers:rank().map(p=>({id:p.id,m:p.progress,kmh:p.speed*3.6}))};}};
 </script></body></html>
