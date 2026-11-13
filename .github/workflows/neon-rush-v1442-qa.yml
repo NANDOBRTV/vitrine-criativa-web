@@ -1,10 +1,11 @@
-name: NEON RUSH V14.6.1 GameDev Master Audit QA
+name: NEON RUSH V14.6.2 Starting Grid Minimap QA
 on:
   push:
     branches:
       - neon-rush-stockcar-v1442-gamedev-qa-20261112
       - neon-rush-v146-nitro-minimap-chat-20261112
       - neon-rush-v1461-gamedev-audit-minimap-20261113
+      - neon-rush-v1462-grid-minimap-20261113
     paths:
       - neon-rush-v1/**
       - .github/workflows/neon-rush-v1442-qa.yml
@@ -26,7 +27,7 @@ jobs:
         with:
           node-version: '22'
       - name: Audit ten independent badges and zero connecting lines
-        run: node --test neon-rush-v1/qa-v1461-audit.test.cjs
+        run: node --test neon-rush-v1/qa-v1461-audit.test.cjs neon-rush-v1/qa-v1462-grid.test.cjs
 
   node-physics-regression:
     runs-on: ubuntu-latest
@@ -37,7 +38,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check WebGL, 10 km physics, nitro gifting and ten minimap markers
-        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs neon-rush-v1/qa-v1461-audit.test.cjs
+        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs neon-rush-v1/qa-v1461-audit.test.cjs neon-rush-v1/qa-v1462-grid.test.cjs
 
   browser-android-webgl:
     runs-on: ubuntu-latest
@@ -55,12 +56,14 @@ jobs:
         run: |
           node neon-rush-v1/browser-smoke-v1450.cjs
           node neon-rush-v1/browser-smoke-v1460.cjs
+          node neon-rush-v1/browser-smoke-v1462.cjs
       - name: Preserve Android screenshot
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: neon-rush-v1461-audit-android-screenshots
+          name: neon-rush-v1462-grid-android-screenshots
           path: |
             neon-rush-v1450-android-smoke.png
             neon-rush-v1460-nitro-android.png
+            neon-rush-v1462-grid-android.png
           if-no-files-found: ignore
