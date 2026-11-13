@@ -17,6 +17,17 @@ on:
 permissions:
   contents: read
 jobs:
+  map-free-marker-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit ten independent badges and zero connecting lines
+        run: node --test neon-rush-v1/qa-v1461-audit.test.cjs
+
   node-physics-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 10
