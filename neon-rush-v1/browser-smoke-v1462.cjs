@@ -8,7 +8,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_METRICS?.carModels?.uniqueModels===10,{timeout:25000});
   const state=await page.evaluate(()=>{
    const markers=window.NEON_RUSH_V16.getState().mapMarkers;
    const a=mapTrack.atMeters(-10),b=mapTrack.atMeters(10),len=Math.hypot(b.x-a.x,b.y-a.y);
