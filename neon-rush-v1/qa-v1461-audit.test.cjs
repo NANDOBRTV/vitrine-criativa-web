@@ -68,7 +68,7 @@ test('20 pelotões: nenhum conector e nenhum marcador sobreposto',()=>{
  assert.equal(log.filter(x=>x[0]==='closePath').length,20);
 });
 test('mantém nitro, configurações e mini chat, sem recursos removidos',()=>{
- assert.match(html,/NEON RUSH V14\.6\.1/);
+ assert.match(html,/NEON RUSH V14\.6\.2/);
  assert.match(html,/id="giftFeed"/);
  assert.match(html,/id="botGifts"/);
  assert.match(html,/id="nitroBadge"/);
