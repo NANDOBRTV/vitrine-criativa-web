@@ -35,6 +35,7 @@ function setup(){
   'const RaceNarrator={reset(){},finish(){},overtake(){},tick(){},turbo(){}};',
   source.slice(physicsStart,physicsEnd),
   'const q=s=>document.querySelector(s);',
+  'let mapTrack=null,mapPoints=0,mapUnique=0,mapFrames=0;',
   source.slice(mapStart,mapEnd)
  ].join('\n'),env,{timeout:4000});
  return {env,log,elements};
