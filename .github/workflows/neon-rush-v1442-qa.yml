@@ -1,9 +1,10 @@
-name: NEON RUSH V14.6.0 QA
+name: NEON RUSH V14.6.1 GameDev Master Audit QA
 on:
   push:
     branches:
       - neon-rush-stockcar-v1442-gamedev-qa-20261112
       - neon-rush-v146-nitro-minimap-chat-20261112
+      - neon-rush-v1461-gamedev-audit-minimap-20261113
     paths:
       - neon-rush-v1/**
       - .github/workflows/neon-rush-v1442-qa.yml
@@ -25,7 +26,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check WebGL, 10 km physics, nitro gifting and ten minimap markers
-        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs
+        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs neon-rush-v1/qa-v1461-audit.test.cjs
 
   browser-android-webgl:
     runs-on: ubuntu-latest
@@ -47,7 +48,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: neon-rush-v1460-android-screenshots
+          name: neon-rush-v1461-audit-android-screenshots
           path: |
             neon-rush-v1450-android-smoke.png
             neon-rush-v1460-nitro-android.png
