@@ -19,7 +19,7 @@ function env(){
  return {c,els};
 }
 test('V14.6.0 mantém os modelos e nitro real em WebGL',()=>{
- assert.match(html,/V14\.6\.1/);
+ assert.match(html,/V14\.6\.2/);
  assert.doesNotThrow(()=>new vm.Script(source));
  assert.match(source,/function makeNitroFlames\(\)/);
  assert.match(source,/nitro:makeNitroFlames\(\)\.upload\(gl\)/);
@@ -60,7 +60,7 @@ test('nome malicioso em presente não injeta HTML e não trava a física',()=>{
  assert.ok(els['#giftFeed'].children.length);
 });
 test('etiquetas mostram posições reais ligadas e o mapa é transparente',()=>{
- assert.match(source,/function layoutMinimapMarkers\(cars,track,minSpacing=19\)/);
+ assert.match(source,/function layoutMinimapMarkers\(cars,track,minSpacing=17\)/);
  assert.doesNotMatch(source,/const actual=\{x:t\.X\(o\.pos\),y:t\.Y\(o\.pos\)\}/);
  assert.doesNotMatch(source,/if\(displaced>5\)/);
  assert.match(source,/mapMarkerState=arranged\.map/);
