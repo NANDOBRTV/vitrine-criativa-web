@@ -694,7 +694,8 @@ function layoutMinimapMarkers(cars,track,minSpacing=17){
   // Column = the actual racing lane. Cars in the same lane occupy successive rows.
   const byLane=new Map();
   for(const o of cluster){
-   const laneIndex=LANES.reduce((best,lane,i)=>Math.abs(lane-o.driver.lateral)<Math.abs(LANES[best]-o.driver.lateral)?i:best,0);
+   const lateral=Number.isFinite(o.driver.lateral)?o.driver.lateral:LANES[o.i%LANES.length];
+   const laneIndex=LANES.reduce((best,lane,i)=>Math.abs(lane-lateral)<Math.abs(LANES[best]-lateral)?i:best,0);
    o.laneIndex=laneIndex;
    o.cross=(laneIndex-(LANES.length-1)/2)*minSpacing;
    o.along=(o.unwrapped-latest)*scale;
@@ -774,7 +775,7 @@ function drawMap(){
   x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8)
  }));
  c.restore();mapPoints=used.length;mapUnique=new Set(used.map(v=>v.id)).size;mapFrames++;
- if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' carros · grid em pelotão';}
+ if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' marcadores independentes · grid 4 faixas';}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;q('#nameInput').value=players[selected].name;hud();}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
