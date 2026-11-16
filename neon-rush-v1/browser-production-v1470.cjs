@@ -9,7 +9,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.7.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_DIAGNOSTICS?.mapPoints===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.8.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_DIAGNOSTICS?.mapPoints===10,{timeout:25000});
   const initial=await page.evaluate(()=>({
    release:window.NEON_RUSH_RELEASE,
    state:window.NEON_RUSH_V16.getState(),
@@ -40,7 +40,7 @@ const {chromium}=require('playwright');
   await page.fill('#nameInput','Piloto Produção');
   await page.click('#nameSave');
   await page.reload({waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.7.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.8.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
   assert.equal(await page.locator('#lapSelect').inputValue(),'3');
   assert.equal(await page.evaluate(()=>window.NEON_RUSH_V16.getState().drivers[8].name),'Piloto Produção');
   await page.screenshot({path:'neon-rush-v1470-production-mobile.png',fullPage:true});
