@@ -419,11 +419,43 @@ const RaceNarrator=(()=>{
 function addBoost(){if(!activateNitro(players[selected],3.8)){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}q('#activity').textContent='⚡ NITRO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
 function addGift(){if(!receiveGift({sender:'Você · TESTE',recipientId:players[selected].id,gift:'Presente',source:'demo'}))q('#activity').textContent='Aguarde a largada e o modo 3D';}
 function closeNow(){focus=selected;focusUntil=timer+5;manual=true;q('#activity').textContent='🎥 CLOSE · '+players[selected].name;}
+let lastLeaderboardPaint=0;
+function drawRankRows(selector,items,format,limit=3,compact=true,empty='Sem dados'){
+ const parent=q(selector);if(!parent)return;
+ if(items.length===0){
+  const el=document.createElement('div');el.className=compact?'liveRankEmpty':'minor';
+  el.textContent=empty;parent.replaceChildren(el);return;
+ }
+ parent.replaceChildren(...items.slice(0,limit).map((item,i)=>{
+  if(compact){
+   const el=document.createElement('div'),pos=document.createElement('span'),name=document.createElement('span'),score=document.createElement('strong');
+   el.className='liveRankRow';pos.textContent=String(i+1)+'º';name.textContent=item.name||'Piloto';
+   score.textContent=format(item);el.append(pos,name,score);return el;
+  }
+  const el=document.createElement('div');
+  el.textContent=(i+1)+'º '+(item.name||'Piloto')+' · '+format(item);
+  return el;
+ }));
+}
+function updateLiveLeaderboards(force=false){
+ const now=performance.now();
+ if(!force&&lastLeaderboardPaint&&now-lastLeaderboardPaint<450)return;
+ lastLeaderboardPaint=now;
+ const race=rank(),tap=tapRanking('taps'),likes=tapRanking('likes').filter(v=>v.likes>0);
+ const raceMini=d=>currentLap(d.progress)+'v · '+Math.round(Math.max(0,d.progress)/1000)+'km';
+ const raceFull=d=>'VOLTA '+currentLap(d.progress)+'/'+raceLaps+' · '+completedMeters(d.progress).toLocaleString('pt-BR')+'m';
+ drawRankRows('#liveRaceRank',race,raceMini,3,true);
+ drawRankRows('#liveTapRank',tap,d=>d.taps.toLocaleString('pt-BR'),3,true,'Aguardando taps');
+ drawRankRows('#liveLikesRank',likes,d=>'❤️'+d.likes,3,true,'Aguardando curtidas');
+ drawRankRows('#rank',race,raceFull,10,false);
+ drawRankRows('#tapRankPanel',tap,d=>d.taps.toLocaleString('pt-BR')+' taps · carro '+d.carId,10,false,'Nenhum tap tap registrado.');
+ drawRankRows('#likesRankPanel',likes,d=>d.likes+' curtida(s) · '+d.nitros+' nitro(s)',10,false,'A cada 250 taps: 1 curtida.');
+}
 function hud(){const sorted=rank(),leader=sorted[0],me=players[selected],i=sorted.indexOf(me);
  q('#speed').textContent=String(Math.round(me.speed*3.6)).padStart(3,'0');q('#position').textContent=(i+1)+'/10';q('#meter').textContent=completedMeters(me.progress).toLocaleString('pt-BR')+' / '+(DISTANCE*raceLaps).toLocaleString('pt-BR')+' m';q('#lapHud').textContent='VOLTA '+currentLap(me.progress)+'/'+raceLaps;
  q('#elapsed').textContent=String(Math.floor(timer/60)).padStart(2,'0')+':'+String(Math.floor(timer%60)).padStart(2,'0');
  q('#pilotName').textContent=me.name;q('#phase').textContent=gamePhase==='countdown'?'LARGADA EM '+Math.max(0,Math.ceil(countDown)):gamePhase==='race'?'CORRIDA · '+raceLaps+' VOLTA(S)':gamePhase==='gpu-error'?'3D INDISPONÍVEL':'🏆 PÓDIO';
- q('#rank').replaceChildren(...sorted.slice(0,3).map((d,i)=>{const el=document.createElement('div');el.textContent=(i+1)+'º '+d.name+' · '+currentLap(d.progress)+'/'+raceLaps+' · '+completedMeters(d.progress).toLocaleString('pt-BR')+'m';return el;}));
+ updateLiveLeaderboards();
  q('#cameraMode').textContent=focus!==-1?'CLOSE · '+players[focus].name:watchOvertake&&timer<watchUntil?'ULTRAPASSAGEM':mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'CÂMERA TV':'AÉREA';
  const nitro=q('#nitroBadge');nitro.hidden=gamePhase!=='race'||me.boost<=.04;if(!nitro.hidden)nitro.textContent='⚡ NITRO '+me.boost.toFixed(1)+'s';renderGiftFeed();
  q('#finishOverlay').hidden=gamePhase!=='podium';if(gamePhase==='podium'){q('#winner').textContent=leader.name;q('#finishOverlay p').textContent='Nova corrida em '+Math.max(0,Math.ceil(9-podiumElapsed))+' s · ou toque em reiniciar.';}
@@ -913,6 +945,16 @@ function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hid
  q('#narrator').onclick=()=>{RaceNarrator.toggle();settingNote(RaceNarrator.enabled()?'Narração ativada.':'Narração desativada.');};
  q('#settingsJump').onclick=()=>{q('#gameSettings').open=true;q('#settingsPanel').scrollIntoView({behavior:'smooth',block:'start'});};
  q('#nameInput').value=players[selected].name;
+ function sendDemoTaps(count){
+  const name=cleanGiftText(q('#tapUserInput').value)||'Você TESTE';
+  const result=receiveTap({sender:name,viewerId:'demo:'+name.toLocaleLowerCase('pt-BR'),count,recipientId:players[selected].id,source:'demo'});
+  if(!result.accepted){settingNote('Tap tap inválido: '+result.reason);return;}
+  updateLiveLeaderboards(true);
+  settingNote(name+' · '+result.taps+' tap taps · '+result.likes+' curtidas · Nitro por cada 250.');
+ }
+ q('#tapOne').onclick=()=>sendDemoTaps(1);
+ q('#tapFifty').onclick=()=>sendDemoTaps(50);
+ q('#tapTwoFifty').onclick=()=>sendDemoTaps(250);
  document.addEventListener('visibilitychange',()=>{
   // Prevent a stale delta or accumulated physics backlog when Android returns to foreground.
   if(!document.hidden){lastFrame=0;lastRender=0;physicsAccumulator=0;}
