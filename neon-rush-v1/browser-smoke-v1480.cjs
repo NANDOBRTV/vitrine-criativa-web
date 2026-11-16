@@ -28,6 +28,8 @@ const {chromium}=require('playwright');
   assert.match(await page.locator('#liveTapRank').textContent(),/Lia Teste/);
   assert.match(await page.locator('#liveLikesRank').textContent(),/Lia Teste/);
   assert.match(await page.locator('#giftFeed').textContent(),/TAP TAPS/);
+  const splitHud=await page.evaluate(()=>({rank:document.querySelector('#liveRanks').getBoundingClientRect().toJSON(),feed:document.querySelector('#giftFeed').getBoundingClientRect().toJSON()}));
+  assert.ok(splitHud.rank.right+5<=splitHud.feed.left,'Gift chat must not obscure the race/taps/likes ranking');
   const spectator=await page.evaluate(()=>window.NEON_RUSH_V16.receiveTap({sender:'Bruno',viewerId:'viewer-b',count:500,recipientId:'11',source:'external'}));
   assert.equal(spectator.accepted,true);assert.equal(spectator.likes,2);assert.equal(spectator.nitros,2);
   await page.waitForTimeout(600);
