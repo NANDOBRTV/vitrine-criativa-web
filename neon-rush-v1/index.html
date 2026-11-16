@@ -165,8 +165,10 @@ function renderGiftFeed(){
  el.dataset.signature=signature;
  el.replaceChildren(...active.slice(-3).map(evt=>{
   const box=document.createElement('div'),title=document.createElement('div'),effect=document.createElement('strong'),source=document.createElement('small');
-  box.className='giftMsg';title.textContent='🎁 '+evt.sender+' enviou '+evt.gift;
-  effect.textContent='⚡ NITRO · '+evt.driverName;source.textContent=evt.source==='bot'?'BOT DE TESTE':evt.source==='demo'?'SIMULADOR':'EVENTO EXTERNO';
+  box.className='giftMsg';
+  title.textContent=evt.kind==='tap'?'👆 '+evt.sender+' · '+evt.count+' TAP TAPS':'🎁 '+evt.sender+' enviou '+evt.gift;
+  effect.textContent=evt.kind==='tap'?'❤️ +'+evt.nitros+' CURTIDA(S) · ⚡ NITRO '+(evt.nitros>1?'x'+evt.nitros:'')+' · '+evt.driverName:'⚡ NITRO · '+evt.driverName;
+  source.textContent=evt.source==='bot'?'BOT DE TESTE':evt.source==='demo'?'SIMULADOR':'EVENTO EXTERNO (NÃO VERIFICADO)';
   box.append(title,effect,source);return box;
  }));
 }
@@ -195,6 +197,58 @@ function botGiftTick(){
 }
 let players=[];
 let inDiagnosticRun=false;
+// A tap tap is one individual engagement. Only each FULL batch of 250 creates
+// one equivalent like in the "Curtidas" leaderboard and triggers one Nitro.
+// This is a local game-event API, NOT an authenticated TikTok LIVE connector.
+const TAP_THRESHOLD=250,MAX_TAP_BATCH=10000,MAX_TAP_VIEWERS=1000;
+const tapViewers=new Map();let totalTaps=0,totalLikes=0,totalTapNitros=0,tapFeedId=0;
+function tapRanking(type='taps'){
+ const primary=type==='likes'?'likes':'taps',secondary=primary==='taps'?'likes':'taps';
+ return [...tapViewers.values()].sort((a,b)=>b[primary]-a[primary]||b[secondary]-a[secondary]||a.name.localeCompare(b.name,'pt-BR'));
+}
+function triggerTapNitro(row,count=1){
+ if(!row||!count)return false;
+ const d=players.find(p=>p.id===row.carId)||players[selected];
+ if(!d||gamePhase!=='race'){row.pending=(row.pending||0)+count;return false;}
+ // Consecutive milestones extend Nitro instead of silently discarding each trigger.
+ d.boost=Math.min(12,Math.max(0,d.boost)+5*count);
+ if(!inDiagnosticRun&&typeof RaceNarrator!=='undefined'&&RaceNarrator.tapNitro)RaceNarrator.tapNitro(row.name,d,count);
+ return true;
+}
+function flushPendingTapNitro(){
+ for(const row of tapViewers.values())if(row.pending>0){
+  const count=row.pending;row.pending=0;triggerTapNitro(row,count);
+ }
+}
+function receiveTap({sender,viewerId,userId,count=1,recipientId,source='external'}={}){
+ const value=Number(count);
+ if(!Number.isSafeInteger(value)||value<1||value>MAX_TAP_BATCH)return {accepted:false,reason:'invalid-tap-count'};
+ const name=cleanGiftText(sender)||'Convidado';
+ const key=(cleanGiftText(viewerId||userId||name)||'Convidado').toLocaleLowerCase('pt-BR');
+ if(!tapViewers.has(key)&&tapViewers.size>=MAX_TAP_VIEWERS)return {accepted:false,reason:'viewer-limit'};
+ const car=players.find(p=>p.id===String(recipientId))||players[selected];
+ let row=tapViewers.get(key);
+ if(!row){row={id:key,name,taps:0,likes:0,nitros:0,pending:0,carId:car?.id||'',source};tapViewers.set(key,row);}
+ row.name=name;
+ if(recipientId&&players.some(p=>p.id===String(recipientId)))row.carId=String(recipientId);
+ const before=Math.floor(row.taps/TAP_THRESHOLD);
+ row.taps+=value;totalTaps+=value;
+ const milestones=Math.floor(row.taps/TAP_THRESHOLD)-before;
+ if(milestones>0){
+  row.likes+=milestones;row.nitros+=milestones;
+  totalLikes+=milestones;totalTapNitros+=milestones;
+  triggerTapNitro(row,milestones);
+  const d=players.find(p=>p.id===row.carId)||players[selected];
+  giftFeed.push({id:'tap-'+(++tapFeedId),kind:'tap',sender:name,driverName:d?.name||'Piloto',count:milestones*TAP_THRESHOLD,nitros:milestones,source:source==='demo'?'demo':'external',at:timer});
+  giftFeed=giftFeed.slice(-3);
+  if(typeof document!=='undefined'&&q('#giftFeed'))renderGiftFeed();
+  if(typeof document!=='undefined'&&q('#activity'))q('#activity').textContent='⚡ '+name+' completou '+milestones*250+' tap taps · +'+milestones+' curtida(s) e Nitro';
+ }
+ if(typeof document!=='undefined'&&q('#tapProgress')){
+  q('#tapProgress').textContent=name+' · '+row.taps.toLocaleString('pt-BR')+' taps · '+row.likes+' curtida(s) · faltam '+(TAP_THRESHOLD-row.taps%TAP_THRESHOLD)+' taps para o próximo nitro';
+ }
+ return {accepted:true,userId:row.id,name:row.name,taps:row.taps,likes:row.likes,nitros:milestones,pending:row.pending,carId:row.carId};
+}
 const SETTINGS_KEY='neon-stockcar-v143';
 function readSettings(){try{const x=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}}
 const savedSettings=readSettings();
@@ -873,7 +927,7 @@ q('#debugHUD').hidden=!debugEnabled;
 function drawFrame(ts){requestAnimationFrame(drawFrame);
  if(!lastFrame)lastFrame=ts;
  let rawdt=Math.max(0,Math.min(.11,(ts-lastFrame)/1000));lastFrame=ts;
- if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0&&engine){gamePhase='race';timer=0;physicsStep.previousOrder=null;RaceNarrator.start();}else if(countDown<=0&&!engine){gamePhase='gpu-error';}}
+ if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0&&engine){gamePhase='race';timer=0;physicsStep.previousOrder=null;flushPendingTapNitro();RaceNarrator.start();}else if(countDown<=0&&!engine){gamePhase='gpu-error';}}
  if(gamePhase==='podium'){podiumElapsed+=rawdt;if(podiumElapsed>=9&&engine)gridCars();}
  if(gamePhase==='race'){physicsAccumulator=Math.min(.25,physicsAccumulator+rawdt);let i=0;while(physicsAccumulator>=1/60&&i++<12){physicsStep(1/60);physicsAccumulator-=1/60;}}
  // Fixed rendering budget: 30 FPS normal, 24 FPS ECO; physics always runs at 60 Hz.
@@ -898,8 +952,8 @@ function drawFrame(ts){requestAnimationFrame(drawFrame);
  window.NEON_V14_DIAGNOSTICS={fps:measuredFps,real3D:!!engine,players:players.length,mapPoints,mapUnique,trackSamples:mapTrack?.center.length||0,quality:gameOptions.quality,mapVisible:gameOptions.showMap,cpuRenderMs:renderHistory.length?+(renderHistory.reduce((a,b)=>a+b,0)/renderHistory.length).toFixed(2):null,models:window.NEON_V14_METRICS?.carModels?.uniqueModels||0,skins:window.NEON_V14_METRICS?.carModels?.paintings||0,invalidMatrices:orientationIssues,overlaps:checkPhysics().length};
 }
 createDrivers();setupButtons();setupWebGLRecovery();init3D();buildPicker();drawMap();hud();q('#activity').textContent='10 PILOTOS · 3D REAL · CORRIDA AUTOMÁTICA';requestAnimationFrame(drawFrame);
-window.NEON_RUSH_RELEASE=Object.freeze({version:'14.8.0',trackMeters:DISTANCE,vehicles:CAR_DATA.length,kind:'stockcar-webgl',giftMode:'simulated'});
-window.NEON_RUSH_V16=window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount,gifts:giftEvents,nitroActive:players.filter(p=>p.boost>.04).map(p=>({id:p.id,remaining:p.boost})),mapMarkers:mapMarkerState.map(m=>({...m}))}),receiveGift,testRun(seconds=20){
+window.NEON_RUSH_RELEASE=Object.freeze({version:'14.8.0',trackMeters:DISTANCE,vehicles:CAR_DATA.length,kind:'stockcar-webgl',giftMode:'simulated',tapThreshold:TAP_THRESHOLD,tikTokConnected:false});
+window.NEON_RUSH_V16=window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount,gifts:giftEvents,nitroActive:players.filter(p=>p.boost>.04).map(p=>({id:p.id,remaining:p.boost})),mapMarkers:mapMarkerState.map(m=>({...m}))}),receiveGift,receiveTap,getTapRankings:()=>({taps:tapRanking('taps').map(x=>({...x})),likes:tapRanking('likes').filter(x=>x.likes>0).map(x=>({...x})),totalTaps,totalLikes,totalNitros:totalTapNitros}),testRun(seconds=20){
  // Run diagnostics on cloned state. Never change the player's race, podium, camera or narration.
  const requested=Number(seconds);
  if(!Number.isFinite(requested)||requested<0||requested>90)throw new RangeError('Duração de teste inválida (0 a 90 segundos)');
