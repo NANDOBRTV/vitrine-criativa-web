@@ -19,7 +19,7 @@ function env(){
  return {c,els};
 }
 test('V14.6.0 mantém os modelos e nitro real em WebGL',()=>{
- assert.match(html,/V14\.6\.2/);
+ assert.match(html,/V14\.7\.0/);
  assert.doesNotThrow(()=>new vm.Script(source));
  assert.match(source,/function makeNitroFlames\(\)/);
  assert.match(source,/nitro:makeNitroFlames\(\)\.upload\(gl\)/);
