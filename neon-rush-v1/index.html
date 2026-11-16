@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.7.0 | Corrida Stock Car 3D</title><meta name="description" content="Corrida 3D automática de Stock Car com dez pilotos, circuito de 10 km, grid de largada, nitro e classificação em tempo real."><meta name="robots" content="index,follow"><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.headerActions{display:flex;align-items:center;gap:5px;flex-shrink:0}.headerActions button{padding:9px 7px;font-size:10px}.panelSection{border-top:1px solid #ffffff25;margin-top:12px;padding-top:12px}.panelSection .minor{margin:3px 0}.settingsDetails{margin:12px 0;border:1px solid #46738a;border-radius:12px;background:#0b1c30;overflow:hidden}.settingsDetails summary{cursor:pointer;padding:12px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:#e8f8ff;font-weight:900}.settingsDetails summary span{font-size:10px;color:#a2e6cd}.settingsBody{padding:0 10px 10px}.settingsBody .minor{margin:6px 0 12px}.settingsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.settingsGrid button{min-height:50px;font-size:11px;padding:9px 4px}.settingsGrid button[aria-pressed="true"]{border-color:#5bd4ce;background:#163c4b}.panelSection .actions{margin:8px 0}.panel .status{margin-top:10px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}.mapShell{width:156px;flex-shrink:0;border-radius:12px;background:transparent;border:0;padding:4px 5px 3px;box-shadow:none}.mapShell[hidden]{display:none!important}.mapTitle{display:flex;justify-content:space-between;gap:5px;color:#bddeeb;font-size:9px;font-weight:850}.mapTitle b{color:#ffffff;font-size:10px}.mapLegend{font-size:9px;font-weight:700;color:#a1e3ed;text-align:center;padding-top:3px}#minimap{width:144px;height:170px;max-width:100%;display:block;border-radius:8px;background:transparent}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06101d"><title>NEON RUSH V14.8.0 | Corrida Stock Car 3D</title><meta name="description" content="Corrida 3D automática de Stock Car com dez pilotos, circuito de 10 km, grid de largada, nitro e classificação em tempo real."><meta name="robots" content="index,follow"><style>:root{color-scheme:dark;--txt:#f1f7ff;--muted:#adc5d8;--cyan:#69f1eb}*{box-sizing:border-box}html,body{height:100%;margin:0;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden}body{background:radial-gradient(ellipse at 20% 10%,#1e4167 0,#0a1425 40%,#070e1a 80%)}button{cursor:pointer;border:1px solid #ffffff26;color:#fff;background:#101f37;font-weight:800;font-size:12px;border-radius:11px;padding:11px 12px}button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--cyan)}main{max-width:1180px;margin:0 auto;padding:14px 12px 25px}.heading{display:flex;justify-content:space-between;align-items:center;gap:9px;margin:0 0 10px}.heading strong{font-size:18px;letter-spacing:-.4px;font-weight:1000}.heading strong span{color:var(--cyan)}.heading small{color:#8dbad0;font-size:10px;font-weight:700;letter-spacing:.7px}.heading button{background:#143653;font-size:11px}.headerActions{display:flex;align-items:center;gap:5px;flex-shrink:0}.headerActions button{padding:9px 7px;font-size:10px}.panelSection{border-top:1px solid #ffffff25;margin-top:12px;padding-top:12px}.panelSection .minor{margin:3px 0}.settingsDetails{margin:12px 0;border:1px solid #46738a;border-radius:12px;background:#0b1c30;overflow:hidden}.settingsDetails summary{cursor:pointer;padding:12px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:#e8f8ff;font-weight:900}.settingsDetails summary span{font-size:10px;color:#a2e6cd}.settingsBody{padding:0 10px 10px}.settingsBody .minor{margin:6px 0 12px}.settingsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.settingsGrid button{min-height:50px;font-size:11px;padding:9px 4px}.settingsGrid button[aria-pressed="true"]{border-color:#5bd4ce;background:#163c4b}.panelSection .actions{margin:8px 0}.panel .status{margin-top:10px}.layout{display:flex;gap:14px;justify-content:center;align-items:flex-start}.gamebox{max-width:440px;width:100%;flex:0 0 min(100%,440px)}#frame{width:100%;position:relative;aspect-ratio:9/16;max-height:92dvh;overflow:hidden;border-radius:18px;border:1px solid #45698b;background:linear-gradient(180deg,#7bbce8 0%,#abd1e5 40%,#a8c5ae 54%,#67834d 80%,#424e3f 100%);box-shadow:0 15px 60px #000a}#world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.film{position:absolute;inset:0;background:linear-gradient(180deg,#07172fc9,transparent 24%,transparent 70%,#041022f2 97%);pointer-events:none}.topHud{position:absolute;top:12px;left:11px;right:11px;display:flex;gap:8px;justify-content:space-between;align-items:flex-start;pointer-events:none}.topHud>div{padding:8px 10px;border-radius:12px;background:#06152db0;border:1px solid #ffffff26;backdrop-filter:blur(8px)}.topHud b{display:block;font-size:21px;line-height:1}.topHud span{display:block;color:#b2d7e9;font-size:9px;letter-spacing:.6px;font-weight:800;margin-top:4px}#cameraMode{position:absolute;top:89px;left:12px;right:12px;text-align:center;color:#f0fafb;font-size:11px;font-weight:950;letter-spacing:2px;text-shadow:0 2px 5px #000,0 0 12px #000}.bottomHud{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:end;justify-content:space-between;gap:6px;pointer-events:none}.speed{text-shadow:0 2px 8px #000;min-width:155px}.speed b{font-size:53px;font-style:italic;font-weight:1000;line-height:.85;letter-spacing:-3px}.speed small{font-weight:1000;font-size:12px;color:#9cfbf6}.speed label{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;margin:6px 0 1px;color:#f9d1a0}.mapShell{width:156px;flex-shrink:0;border-radius:12px;background:transparent;border:0;padding:4px 5px 3px;box-shadow:none}.mapShell[hidden]{display:none!important}.mapTitle{display:flex;justify-content:space-between;gap:5px;color:#bddeeb;font-size:9px;font-weight:850}.mapTitle b{color:#ffffff;font-size:10px}.mapLegend{font-size:9px;font-weight:700;color:#a1e3ed;text-align:center;padding-top:3px}#minimap{width:144px;height:170px;max-width:100%;display:block;border-radius:8px;background:transparent}#debugHUD{position:absolute;left:11px;top:130px;z-index:5;pointer-events:none;background:#061521cb;color:#aefbdf;padding:8px 10px;border:1px solid #55cab57a;border-radius:8px;font:700 11px ui-monospace,monospace;white-space:pre-line}#webglFail{position:absolute;top:30%;left:14px;right:14px;background:#071b37ed;border:1px solid #90d7ec;border-radius:14px;padding:24px 17px;text-align:center;color:white;font-size:14px;line-height:1.6;z-index:4}#finishOverlay{position:absolute;z-index:6;top:32%;left:14px;right:14px;text-align:center;padding:20px;background:#081b38e9;border:2px solid #ffd88c;border-radius:15px}#finishOverlay h2{margin:0 0 10px;color:#ffda82}#winner{font-size:21px;font-weight:1000}.controls{margin:10px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.controls button{padding:12px 4px;background:#172a42;color:#e9f5fd;font-size:11px}.controls button.hot{background:linear-gradient(125deg,#2baff0,#19c6bb);color:#052232;border:0}.panel{flex:1;min-width:230px;max-width:320px;border:1px solid #304863;border-radius:17px;padding:18px;background:#111f35}.panel h1{font-size:24px;margin:5px 0 10px;line-height:1.15}.panel p{color:#a9bdd0;line-height:1.55;font-size:13px}.label{color:#69e9ea;font-size:10px;font-weight:950;letter-spacing:1.6px}.ranks div{font-weight:800;font-size:13px;padding:9px 0;border-bottom:1px solid #ffffff15}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button{min-height:43px}.minor{color:#9cb7d0;font-size:11px;line-height:1.5}.status{border-top:1px solid #ffffff24;margin-top:15px;padding-top:12px;color:#bbcedb;font-size:12px;min-height:30px}#picker:not([hidden]){position:fixed;inset:0;z-index:20;background:#060d18dd;display:flex;align-items:center;justify-content:center;padding:20px}#picker .inside{width:min(400px,100%);max-height:85dvh;overflow:auto;background:#0d1a2d;border:1px solid #5bb9cf;border-radius:16px;padding:18px}#pickerList{display:grid;gap:8px;margin-top:12px}#pickerList button{text-align:left;padding:9px 12px;font-size:13px;display:flex;align-items:center;gap:12px;min-height:72px}
 #pickerList button img{width:100px;height:59px;object-fit:contain;border-radius:7px;background:linear-gradient(135deg,#142b42,#101b29);flex-shrink:0}
 #pickerList button strong{font-size:13px;color:#fff;display:block}#pickerList button small{display:block;color:#b5d5eb;font-size:10px;margin-top:5px}
 #pickerList button[aria-pressed="true"]{border-color:#6cf7e8;background:#1c4050}
@@ -7,18 +7,52 @@
 .giftMsg strong{display:block;color:#5efff5;font-size:11px}.giftMsg small{font-size:9px;color:#c6e2f2;letter-spacing:.5px}
 .nitroBadge{position:absolute;top:14%;right:12px;z-index:5;pointer-events:none;padding:5px 9px;border:1px solid #33eaf9;background:#052a46d8;color:#97fcff;border-radius:12px;font-size:11px;font-weight:1000;box-shadow:0 0 15px #00cbff7a}
 .nitroBadge[hidden]{display:none!important}
+
+/* Compact always-visible live leaderboards inside the 9:16 race viewport */
+.giftFeed{top:25%;left:auto;right:9px;width:min(47%,183px);max-width:47%;max-height:38%;overflow:hidden}.giftMsg{font-size:10px;padding:6px 8px}.giftMsg strong{font-size:10px}
+.liveRanks{position:absolute;top:28%;left:8px;z-index:4;pointer-events:none;width:min(44%,177px);max-height:47%;overflow:hidden;display:grid;gap:5px;font-variant-numeric:tabular-nums;text-shadow:0 1px 4px #000}
+.liveRankGroup{background:#06182ccc;border:1px solid #4dd6e366;border-radius:9px;padding:5px 6px 4px;backdrop-filter:blur(4px)}
+.liveRankTitle{font-size:10px;font-weight:1000;letter-spacing:.6px;color:#83f5f7;margin-bottom:3px}
+.liveRankRow{display:grid;grid-template-columns:15px minmax(0,1fr) auto;align-items:center;gap:4px;font-size:9px;min-height:17px;font-weight:750}
+.liveRankRow>span:nth-child(1){color:#ffdc8b}
+.liveRankRow>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.liveRankRow>strong{color:#ffffff;font-size:9px;font-weight:900}
+.liveRankEmpty{font-size:9px;color:#a9bed1;padding:3px 0}
+.tapDemo{display:grid;gap:7px;margin:8px 0}
+.tapDemo label{font-size:11px;font-weight:850;color:#bce9f2}
+.tapDemo input{width:100%;min-height:39px;padding:7px 10px;border:1px solid #4788a2;border-radius:9px;background:#071e33;color:#fff}
+.tapDemo .tapButtons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.tapDemo .tapButtons button{font-size:10px;padding:8px 3px;min-height:40px}
+.rankPanel{margin-top:10px;border-top:1px solid #ffffff22;padding-top:9px}
+.rankPanel h3{font-size:11px;color:#8ef0ed;margin:0 0 5px;letter-spacing:.4px}
+.rankPanel .ranks>div{font-size:11px;padding:5px 0}
+@media(max-width:410px){.liveRanks{left:5px;top:29%;width:min(42%,160px)}.liveRankGroup{padding:4px 5px}.liveRankTitle{font-size:9px}.liveRankRow{font-size:8px;min-height:16px}}
 .narrationCaption{padding:9px 12px;margin:8px 1px 0;border-radius:10px;border:1px solid #5ec8d36a;background:#10283c;color:#e0f8ff;text-align:center;font-weight:700;font-size:12px;line-height:1.35}.narrationCaption[hidden]{display:none!important}.footer{font-size:10px;color:#7897ad;text-align:center;margin:12px 4px 0}@media(max-width:730px){.layout{display:block}.gamebox{margin:auto}.panel{max-width:440px;margin:11px auto 0}.panel h1{display:none}.panel p{margin:3px 0}.heading strong{font-size:16px}.controls button{font-size:11px;padding:12px 3px}}@media(min-width:731px){#frame{max-height:810px}.panel{position:sticky;top:15px}}@media(max-width:410px){main{padding:8px 5px 22px}#frame{border-radius:9px}.heading{padding:0 5px}.heading strong{font-size:14px}.headerActions button{font-size:9px;padding:8px 5px}.bottomHud{bottom:8px;gap:3px}.speed{min-width:105px}.speed b{font-size:42px}.mapShell{width:135px}#minimap{width:123px;height:148px}}
 .raceSetup{margin-top:11px;display:grid;gap:6px}.raceSetup label{color:#bce9f2;font-weight:800;font-size:11px}.raceSetup select,.raceSetup input{width:100%;min-height:41px;color:#fff;background:#091f33;border:1px solid #5098a5;border-radius:9px;padding:8px 9px;font-size:13px}.raceSetup button{min-height:42px}.raceSetup .help{font-size:10px;color:#a7c7da}</style></head><body>
-<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.7.0 · GAMEDEV QA · COLISÕES</small></div><div class="headerActions"><button id="settingsJump" type="button" title="Abrir painel de configurações">⚙️ AJUSTES</button><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div></div>
+<main><div class="heading"><div><strong>🏁 NEON <span>RUSH</span> · STOCK CAR</strong><small> V14.8.0 · GAMEDEV QA · COLISÕES</small></div><div class="headerActions"><button id="settingsJump" type="button" title="Abrir painel de configurações">⚙️ AJUSTES</button><button id="full" title="Expandir o jogo">⛶ TELA CHEIA</button></div></div>
 <div class="layout"><div class="gamebox"><div id="frame" aria-label="Corrida de carros 3D">
 <canvas id="world" width="390" height="693" aria-label="Pista e carros em 3D"></canvas><div class="film"></div>
 <div class="topHud"><div><b id="position">01/10</b><span>POSIÇÃO</span></div><div style="text-align:right"><b id="elapsed">00:00</b><span id="phase">LARGADA</span></div></div>
-<div id="cameraMode">PERSEGUIÇÃO</div><div id="giftFeed" class="giftFeed" aria-live="polite" aria-label="Mini chat de presentes simulados"></div><div id="nitroBadge" class="nitroBadge" hidden>⚡ NITRO 0.0s</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
+<div id="cameraMode">PERSEGUIÇÃO</div><div id="liveRanks" class="liveRanks" aria-label="Rankings atualizados da corrida, tap taps e curtidas">
+<div class="liveRankGroup"><div class="liveRankTitle">🏁 CORRIDA</div><div id="liveRaceRank"></div></div>
+<div class="liveRankGroup"><div class="liveRankTitle">👆 TAP TAP</div><div id="liveTapRank"></div></div>
+<div class="liveRankGroup"><div class="liveRankTitle">❤️ CURTIDAS</div><div id="liveLikesRank"></div></div>
+</div><div id="giftFeed" class="giftFeed" aria-live="polite" aria-label="Mini chat de presentes simulados"></div><div id="nitroBadge" class="nitroBadge" hidden>⚡ NITRO 0.0s</div><div id="debugHUD" hidden></div><div id="webglFail" hidden></div>
 <div class="bottomHud"><div class="speed"><b id="speed">000</b> <small>KM/H</small><label id="pilotName">CRUZE 04</label><small id="meter">000 / 10.000 m</small><label id="lapHud">VOLTA 1/1</label></div><div id="mapShell" class="mapShell"><div class="mapTitle">CIRCUITO · 10 km <b id="mapCount">10/10</b></div><canvas id="minimap" width="164" height="194" role="img" aria-label="Circuito fechado de 10 quilômetros com dez marcadores dos pilotos e linha de largada e chegada"></canvas><div id="mapLegend" class="mapLegend">10 pontos · 10 carros</div></div></div>
 <div id="finishOverlay" hidden><h2>🏆 BANDEIRA QUADRICULADA</h2><div id="winner"></div><p>Nova corrida em 9 s · ou toque em reiniciar.</p></div></div>
 <div class="controls"><button id="choose">🚗 PILOTO</button><button id="camera">📷 CÂMERA</button><button id="close">🎥 CLOSE</button><button id="restart" class="hot">↻ REINICIAR</button></div><div id="narrationCaption" class="narrationCaption" role="status" aria-live="polite" hidden></div></div>
-<aside class="panel" id="settingsPanel"><div class="label">CENTRAL DA CORRIDA</div><h1>Dez pilotos.<br>Uma disputa.</h1><div class="label">AO VIVO · TOP 3</div><div class="ranks" id="rank"></div><section class="panelSection" aria-label="Simulação de presentes"><div class="label">SIMULADOR DE LIVE</div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button></div><p class="minor">Interações de demonstração. Ainda não conectadas ao TikTok LIVE.</p></section><details id="gameSettings" class="settingsDetails" open><summary>⚙️ CONFIGURAÇÕES <span id="settingsStatus">NORMAL</span></summary><div class="settingsBody"><p class="minor">Ajuste o visual e o áudio sem reiniciar sua corrida. Voltas escolhidas valem na próxima largada.</p><div class="settingsGrid"><button type="button" id="quality" aria-pressed="false">✨ QUALIDADE: NORMAL</button><button type="button" id="mapToggle" aria-pressed="true">🗺️ MAPA: LIGADO</button><button type="button" id="mute" aria-pressed="false">🔇 MOTOR: OFF</button><button type="button" id="narrator" aria-pressed="false">🎙️ NARRADOR: OFF</button><button type="button" id="botGifts" aria-pressed="true">🎁 PRESENTES BOTS: ON</button></div><div class="raceSetup"><label for="lapSelect">🏁 QUANTIDADE DE VOLTAS</label><select id="lapSelect" aria-label="Escolher número de voltas"><option value="1">1 volta · 10 km</option><option value="2">2 voltas · 20 km</option><option value="3">3 voltas · 30 km</option><option value="5">5 voltas · 50 km</option><option value="10">10 voltas · 100 km</option></select><label for="nameInput">🏷️ NOME DA PESSOA NO TETO DO CARRO</label><input id="nameInput" type="text" maxlength="18" placeholder="Nome ou usuário" autocomplete="off"><button id="nameSave" type="button">SALVAR NOME NA PLACA</button><span class="help">Escolha um piloto, digite o nome e salve. Funciona na simulação, sem conexão automática ao TikTok.</span></div><p id="settingsFeedback" role="status" class="minor" aria-live="polite">Configurações prontas.</p></div></details><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
-<div class="footer">NEON RUSH V14.7.0 · GameDev Master QA: colisões, câmera, desempenho, minimapa e narração · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
+<aside class="panel" id="settingsPanel"><div class="label">CENTRAL DA CORRIDA</div><h1>Dez pilotos.<br>Uma disputa.</h1><div class="label">AO VIVO · CLASSIFICAÇÃO</div><div class="ranks" id="rank"></div>
+<div class="rankPanel"><h3>👆 TOP TAP TAP</h3><div class="ranks" id="tapRankPanel"></div></div>
+<div class="rankPanel"><h3>❤️ TOP CURTIDAS (1 A CADA 250 TAPS)</h3><div class="ranks" id="likesRankPanel"></div></div><section class="panelSection" aria-label="Simulação de presentes"><div class="label">SIMULADOR DE LIVE</div><div class="actions"><button class="hot" id="boost">⚡ TURBO</button><button id="gift">🎁 PRESENTE</button></div><div class="tapDemo"><label for="tapUserInput">👆 TAP TAP · USUÁRIO DE TESTE</label>
+<input type="text" id="tapUserInput" maxlength="24" value="Você TESTE" autocomplete="off" aria-label="Nome do usuário de tap tap">
+<div class="tapButtons"><button type="button" id="tapOne">👆 +1 TAP</button><button type="button" id="tapFifty">👆 +50</button><button type="button" id="tapTwoFifty" class="hot">⚡ +250</button></div>
+<div class="minor" id="tapProgress">250 taps = 1 curtida no rank + nitro no carro selecionado.</div></div>
+<p class="minor">Interações de demonstração. Ainda não conectadas ao TikTok LIVE. Cada 250 taps contam como 1 curtida equivalente e ativam um nitro.</p></section><details id="gameSettings" class="settingsDetails" open><summary>⚙️ CONFIGURAÇÕES <span id="settingsStatus">NORMAL</span></summary><div class="settingsBody"><p class="minor">Ajuste o visual e o áudio sem reiniciar sua corrida. Voltas escolhidas valem na próxima largada.</p><div class="settingsGrid"><button type="button" id="quality" aria-pressed="false">✨ QUALIDADE: NORMAL</button><button type="button" id="mapToggle" aria-pressed="true">🗺️ MAPA: LIGADO</button><button type="button" id="mute" aria-pressed="false">🔇 MOTOR: OFF</button><button type="button" id="narrator" aria-pressed="false">🎙️ NARRADOR: OFF</button><button type="button" id="botGifts" aria-pressed="true">🎁 PRESENTES BOTS: ON</button></div><div class="raceSetup"><label for="voiceSelect">🎙️ VOZ DO NARRADOR (PT-BR)</label>
+<select id="voiceSelect" aria-label="Escolher voz do narrador"><option value="auto">Automática · voz em português</option></select>
+<button type="button" id="voiceTest">▶ TESTAR VOZ E PRONÚNCIA</button>
+<span class="help">A naturalidade depende das vozes instaladas no navegador Android. A narração fala só em momentos importantes, sem interromper o jogo.</span>
+<label for="lapSelect">🏁 QUANTIDADE DE VOLTAS</label><select id="lapSelect" aria-label="Escolher número de voltas"><option value="1">1 volta · 10 km</option><option value="2">2 voltas · 20 km</option><option value="3">3 voltas · 30 km</option><option value="5">5 voltas · 50 km</option><option value="10">10 voltas · 100 km</option></select><label for="nameInput">🏷️ NOME DA PESSOA NO TETO DO CARRO</label><input id="nameInput" type="text" maxlength="18" placeholder="Nome ou usuário" autocomplete="off"><button id="nameSave" type="button">SALVAR NOME NA PLACA</button><span class="help">Escolha um piloto, digite o nome e salve. Funciona na simulação, sem conexão automática ao TikTok.</span></div><p id="settingsFeedback" role="status" class="minor" aria-live="polite">Configurações prontas.</p></div></details><div id="activity" class="status" role="status"></div><p class="minor" id="skinStatus">10 carrocerias 3D · 10 pinturas aplicadas · rodas independentes.</p><p class="minor"><a href="stockcar-viewer.html" style="color:#92eaf2">Ver galeria das pinturas originais</a></p></aside></div>
+<div class="footer">NEON RUSH V14.8.0 · GameDev Master QA: colisões, câmera, desempenho, minimapa e narração · Não afiliado a fabricantes de veículos ou ao TikTok</div></main>
 <div id="picker" hidden><div class="inside"><button id="pickerClose" style="float:right">✕ FECHAR</button><h2>Escolher piloto</h2><div id="pickerList"></div></div></div>
 <script>const TAU=Math.PI*2;
 const CL=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -132,8 +166,10 @@ function renderGiftFeed(){
  el.dataset.signature=signature;
  el.replaceChildren(...active.slice(-3).map(evt=>{
   const box=document.createElement('div'),title=document.createElement('div'),effect=document.createElement('strong'),source=document.createElement('small');
-  box.className='giftMsg';title.textContent='🎁 '+evt.sender+' enviou '+evt.gift;
-  effect.textContent='⚡ NITRO · '+evt.driverName;source.textContent=evt.source==='bot'?'BOT DE TESTE':evt.source==='demo'?'SIMULADOR':'EVENTO EXTERNO';
+  box.className='giftMsg';
+  title.textContent=evt.kind==='tap'?'👆 '+evt.sender+' · '+evt.count+' TAP TAPS':'🎁 '+evt.sender+' enviou '+evt.gift;
+  effect.textContent=evt.kind==='tap'?'❤️ +'+evt.nitros+' CURTIDA(S) · ⚡ NITRO '+(evt.nitros>1?'x'+evt.nitros:'')+' · '+evt.driverName:'⚡ NITRO · '+evt.driverName;
+  source.textContent=evt.source==='bot'?'BOT DE TESTE':evt.source==='demo'?'SIMULADOR':'EVENTO EXTERNO (NÃO VERIFICADO)';
   box.append(title,effect,source);return box;
  }));
 }
@@ -162,6 +198,58 @@ function botGiftTick(){
 }
 let players=[];
 let inDiagnosticRun=false;
+// A tap tap is one individual engagement. Only each FULL batch of 250 creates
+// one equivalent like in the "Curtidas" leaderboard and triggers one Nitro.
+// This is a local game-event API, NOT an authenticated TikTok LIVE connector.
+const TAP_THRESHOLD=250,MAX_TAP_BATCH=10000,MAX_TAP_VIEWERS=1000;
+const tapViewers=new Map();let totalTaps=0,totalLikes=0,totalTapNitros=0,tapFeedId=0;
+function tapRanking(type='taps'){
+ const primary=type==='likes'?'likes':'taps',secondary=primary==='taps'?'likes':'taps';
+ return [...tapViewers.values()].sort((a,b)=>b[primary]-a[primary]||b[secondary]-a[secondary]||a.name.localeCompare(b.name,'pt-BR'));
+}
+function triggerTapNitro(row,count=1){
+ if(!row||!count)return false;
+ const d=players.find(p=>p.id===row.carId)||players[selected];
+ if(!d||gamePhase!=='race'){row.pending=(row.pending||0)+count;return false;}
+ // Consecutive milestones extend Nitro instead of silently discarding each trigger.
+ d.boost=Math.min(12,Math.max(0,d.boost)+5*count);
+ if(!inDiagnosticRun&&typeof RaceNarrator!=='undefined'&&RaceNarrator.tapNitro)RaceNarrator.tapNitro(row.name,d,count);
+ return true;
+}
+function flushPendingTapNitro(){
+ for(const row of tapViewers.values())if(row.pending>0){
+  const count=row.pending;row.pending=0;triggerTapNitro(row,count);
+ }
+}
+function receiveTap({sender,viewerId,userId,count=1,recipientId,source='external'}={}){
+ const value=Number(count);
+ if(!Number.isSafeInteger(value)||value<1||value>MAX_TAP_BATCH)return {accepted:false,reason:'invalid-tap-count'};
+ const name=cleanGiftText(sender)||'Convidado';
+ const key=(cleanGiftText(viewerId||userId||name)||'Convidado').toLocaleLowerCase('pt-BR');
+ if(!tapViewers.has(key)&&tapViewers.size>=MAX_TAP_VIEWERS)return {accepted:false,reason:'viewer-limit'};
+ const car=players.find(p=>p.id===String(recipientId))||players[selected];
+ let row=tapViewers.get(key);
+ if(!row){row={id:key,name,taps:0,likes:0,nitros:0,pending:0,carId:car?.id||'',source};tapViewers.set(key,row);}
+ row.name=name;
+ if(recipientId&&players.some(p=>p.id===String(recipientId)))row.carId=String(recipientId);
+ const before=Math.floor(row.taps/TAP_THRESHOLD);
+ row.taps+=value;totalTaps+=value;
+ const milestones=Math.floor(row.taps/TAP_THRESHOLD)-before;
+ if(milestones>0){
+  row.likes+=milestones;row.nitros+=milestones;
+  totalLikes+=milestones;totalTapNitros+=milestones;
+  triggerTapNitro(row,milestones);
+  const d=players.find(p=>p.id===row.carId)||players[selected];
+  giftFeed.push({id:'tap-'+(++tapFeedId),kind:'tap',sender:name,driverName:d?.name||'Piloto',count:milestones*TAP_THRESHOLD,nitros:milestones,source:source==='demo'?'demo':'external',at:timer});
+  giftFeed=giftFeed.slice(-3);
+  if(typeof document!=='undefined'&&q('#giftFeed'))renderGiftFeed();
+  if(typeof document!=='undefined'&&q('#activity'))q('#activity').textContent='⚡ '+name+' completou '+milestones*250+' tap taps · +'+milestones+' curtida(s) e Nitro';
+ }
+ if(typeof document!=='undefined'&&q('#tapProgress')){
+  q('#tapProgress').textContent=name+' · '+row.taps.toLocaleString('pt-BR')+' taps · '+row.likes+' curtida(s) · faltam '+(TAP_THRESHOLD-row.taps%TAP_THRESHOLD)+' taps para o próximo nitro';
+ }
+ return {accepted:true,userId:row.id,name:row.name,taps:row.taps,likes:row.likes,nitros:milestones,pending:row.pending,carId:row.carId};
+}
 const SETTINGS_KEY='neon-stockcar-v143';
 function readSettings(){try{const x=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}}
 const savedSettings=readSettings();
@@ -169,9 +257,9 @@ const ALLOWED_LAPS=[1,2,3,5,10],DEMO_NAMES=['Ana','Bruno','Carla','Diego','Elisa
 const cleanName=value=>String(value||'').replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,18);
 const driverNames=savedSettings.names&&typeof savedSettings.names==='object'?{...savedSettings.names}:{};
 function driverName(id,i){return cleanName(driverNames[id])||DEMO_NAMES[i];}
-const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,botGifts:savedSettings.botGifts!==false,laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
+const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,botGifts:savedSettings.botGifts!==false,narratorVoice:typeof savedSettings.narratorVoice==='string'?savedSettings.narratorVoice:'auto',laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
 let raceLaps=gameOptions.laps;
-function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,botGifts:gameOptions.botGifts,laps:gameOptions.laps,names:driverNames}))}catch{}}
+function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,botGifts:gameOptions.botGifts,narratorVoice:gameOptions.narratorVoice,laps:gameOptions.laps,names:driverNames}))}catch{}}
 function syncSettings(){
  q('#quality').textContent=gameOptions.quality==='eco'?'⚡ QUALIDADE: ECO':'✨ QUALIDADE: NORMAL';
  q('#quality').setAttribute('aria-pressed',String(gameOptions.quality==='eco'));
@@ -273,70 +361,139 @@ const q=s=>document.querySelector(s);
 const rank=()=>[...players].sort((a,b)=>b.progress-a.progress);
 
 /* V14.2 — narration is driven by actual race events, not an unrelated timer. */
+// A calmer, event-driven Portuguese-BR narrator with selectable browser voices.
+// Web Speech quality depends on the Android installed voice engine; no studio-quality audio is claimed.
 const RaceNarrator=(()=>{
- let enabled=false,spoken=0,lastSpeech=-Infinity,lastEvent="",lastLead="",checkpoint=0,seq=0;
+ let enabled=false,spoken=0,lastSpeech=-Infinity,lastEvent='',lastLead='',lastLap=1,nextCommentAt=17,seq=0,lastLine='';
  const caption=()=>document.querySelector('#narrationCaption');
  const available=()=>('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+ const voices=()=>available()?(window.speechSynthesis.getVoices()||[]).filter(v=>/^pt(?:[-_]BR)?/i.test(v.lang)):[];
+ function voiceKey(v){return v.name+'|'+v.lang;}
  function chooseVoice(){
-  const voices=window.speechSynthesis.getVoices()||[];
-  const br=voices.filter(v=>/^pt[-_]BR$/i.test(v.lang));
-  const pt=br.length?br:voices.filter(v=>/^pt/i.test(v.lang));
-  const male=/\b(antonio|ant[oô]nio|ricardo|daniel|felipe|paulo|eduardo|marcelo|male)\b/i;
-  return pt.find(v=>male.test(v.name))||pt[0]||null;
+  const list=voices();
+  const selected=list.find(v=>voiceKey(v)===gameOptions.narratorVoice);
+  if(selected)return selected;
+  const score=v=>{
+   const label=v.name.toLocaleLowerCase('pt-BR'),lang=v.lang.toLocaleLowerCase();
+   return (lang==='pt-br'?30:0)+(/neural|premium|enhanced|natural/.test(label)?25:0)+
+    (/google|microsoft/.test(label)?12:0)+
+    (/antonio|antônio|ricardo|daniel|felipe|paulo|male/.test(label)?6:0);
+  };
+  return list.sort((a,b)=>score(b)-score(a))[0]||null;
  }
- function say(message,{urgent=false,cooldown=3600,key="generic"}={}){
-  if(!enabled)return false;
+ function refreshVoices(){
+  const select=document.querySelector('#voiceSelect');if(!select)return;
+  const current=gameOptions.narratorVoice;
+  const first=document.createElement('option');first.value='auto';first.textContent='Automática · voz PT-BR';
+  select.replaceChildren(first,...voices().map(v=>{const o=document.createElement('option');o.value=voiceKey(v);o.textContent=v.name+' · '+v.lang;return o;}));
+  select.value=[...select.options].some(o=>o.value===current)?current:'auto';
+  if(current!=='auto'&&select.value==='auto'){gameOptions.narratorVoice='auto';saveSettings();}
+ }
+ function say(message,{urgent=false,cooldown=7200,key='generic',preview=false}={}){
+  if(!enabled&&!preview)return false;
   const now=performance.now(),synth=available()?window.speechSynthesis:null;
   if(!urgent&&(now-lastSpeech<cooldown||(synth&&(synth.speaking||synth.pending))))return false;
-  lastSpeech=now;lastEvent=key;spoken++;const ticket=++seq;
-  const c=caption();if(c){c.textContent='🎙️ '+message;c.hidden=false;}
-  setTimeout(()=>{if(ticket===seq&&c)c.hidden=true;},6500);
-  if(synth){
-   try{
-    if(urgent)synth.cancel();
-    const u=new SpeechSynthesisUtterance(message);
-    u.lang='pt-BR';u.rate=1.14;u.pitch=.83;u.volume=.96;
-    const voice=chooseVoice();if(voice)u.voice=voice;
-    synth.speak(u);
-   }catch(e){console.warn('Narração de voz não disponível:',e);}
-  }
+  const line=String(message||'').replace(/\s+/g,' ').trim();
+  if(!line||(!urgent&&!preview&&line===lastLine))return false;
+  lastSpeech=now;lastEvent=key;lastLine=line;spoken++;const ticket=++seq;
+  const c=caption();if(c){c.textContent='🎙️ '+line;c.hidden=false;}
+  setTimeout(()=>{if(ticket===seq&&c)c.hidden=true;},Math.max(4200,Math.min(9800,2200+line.length*83)));
+  if(synth)try{
+   if(urgent)synth.cancel();
+   const u=new SpeechSynthesisUtterance(line);
+   u.lang='pt-BR';u.rate=1.01;u.pitch=1.00;u.volume=.93;
+   const voice=chooseVoice();if(voice)u.voice=voice;
+   synth.speak(u);
+  }catch(e){console.warn('Narração de voz indisponível:',e);}
   return true;
  }
  function toggle(){
-  enabled=!enabled;
-  const b=document.querySelector('#narrator');
-  if(b){b.textContent=enabled?'🎙️ NARRADOR ON':'🎙️ NARRADOR OFF';b.setAttribute('aria-pressed',String(enabled));}
+  enabled=!enabled;const b=document.querySelector('#narrator');
+  if(b){b.textContent=enabled?'🎙️ NARRADOR: ON':'🎙️ NARRADOR: OFF';b.setAttribute('aria-pressed',String(enabled));}
   if(!enabled){if(available())window.speechSynthesis.cancel();const c=caption();if(c)c.hidden=true;return;}
-  const msg=available()?'Atenção! Narrador da corrida ativado. Prepare-se para muita velocidade!':'Legendas de narração ativadas. A voz não está disponível neste navegador.';
-  say(msg,{urgent:true,key:'activated'});
+  say('Narração ativada. Acompanhe a largada e as ultrapassagens.',{urgent:true,key:'activated'});
  }
- function reset(){lastLead='';checkpoint=0;lastEvent='';if(enabled&&available())window.speechSynthesis.cancel();}
- function start(){lastLead='';checkpoint=0;say('Largaram! Dez pilotos aceleram em busca da vitória!',{urgent:true,key:'start'});}
+ function selectVoice(key){
+  gameOptions.narratorVoice=String(key||'auto').slice(0,170);
+  saveSettings();refreshVoices();
+ }
+ function sample(){return say('Atenção, pilotos! O grid está formado. A próxima volta promete uma grande disputa.',{urgent:true,preview:true,key:'sample'});}
+ function reset(){lastLead='';lastLap=1;nextCommentAt=17;lastEvent='';lastLine='';if(enabled&&available())window.speechSynthesis.cancel();}
+ function start(){lastLead='';lastLap=1;nextCommentAt=17;say('Luzes apagadas. Largaram! Dez carros aceleram no circuito de dez quilômetros.',{urgent:true,key:'start'});}
  function overtake(driver,place){
-  const pos=place===1?'assume a liderança!':'ganha a posição número '+place+'!';
-  say('Olha a ultrapassagem! '+driver.name+' '+pos,{key:'pass',cooldown:3500});
+  const phrases=[driver.name+' encontrou espaço e fez a ultrapassagem. Agora é o número '+place+'.',
+   'Que manobra! '+driver.name+' ganhou posição e segue na briga.',
+   driver.name+' passou o adversário e sobe para a posição '+place+'.'];
+  say(phrases[(spoken+place)%phrases.length],{key:'pass',cooldown:6500});
  }
- function turbo(driver){say('Turbo ativado para '+driver.name+'! Agora vem velocidade!',{key:'turbo',cooldown:2500});}
+ function turbo(driver){say('Nitro ativado para '+driver.name+'. O carro ganhou velocidade!',{key:'nitro',cooldown:8200});}
+ function tapNitro(viewer,driver,count=1){
+  say(viewer+' completou '+(count===1?'duzentos e cinquenta':String(count*250))+' tap taps. Nitro para '+driver.name+'!',{key:'tap-nitro',cooldown:8000});
+ }
  function tick(){
   if(!enabled||gamePhase!=='race')return;
-  const leaders=rank(),leader=leaders[0];if(!leader)return;
+  const leaders=rank(),leader=leaders[0],runner=leaders[1];if(!leader)return;
   if(!lastLead)lastLead=leader.id;
-  if(lastLead!==leader.id){lastLead=leader.id;say('Mudança na ponta! '+leader.name+' é o novo líder da corrida!',{key:'leader',cooldown:2000});}
-  if(checkpoint===0&&timer>=9){if(say('A disputa está acirrada! '+leader.name+' puxa o pelotão!',{key:'midrace',cooldown:2700}))checkpoint=1;}
-  if(checkpoint<2&&leader.progress>=DISTANCE*raceLaps*.75){if(say('Reta final! '+leader.name+' se aproxima da bandeirada!',{key:'finalstretch',cooldown:2300}))checkpoint=2;}
+  if(lastLead!==leader.id){
+   lastLead=leader.id;
+   say('Mudou o líder! '+leader.name+' assume a primeira posição.',{key:'leader',cooldown:7500});
+  }
+  const lap=currentLap(leader.progress);
+  if(lap>lastLap){lastLap=lap;say('Começou a volta número '+lap+'. '+leader.name+' lidera a corrida.',{key:'lap',cooldown:7500});}
+  if(timer<nextCommentAt)return;
+  nextCommentAt=timer+19+(spoken%4)*3;
+  const remaining=Math.max(0,DISTANCE*raceLaps-leader.progress);
+  if(remaining<1700){say('Reta final para '+leader.name+'. A bandeirada está chegando!',{key:'final',cooldown:9000});return;}
+  const gap=runner?Math.max(0,leader.progress-runner.progress):0;
+  const templates=gap<60?
+   ['A disputa pela liderança segue apertada. Ninguém quer ceder espaço.','O pelotão está junto. A próxima curva pode decidir posições.']:
+   [leader.name+' mantém a liderança. Os demais tentam diminuir a diferença.','A corrida segue forte. '+leader.name+' dita o ritmo na frente.'];
+  say(templates[spoken%templates.length],{key:'race-brief',cooldown:10000});
  }
- function finish(winner){if(!winner)return;say('Bandeira quadriculada! '+winner.name+' vence a corrida! Que chegada!',{urgent:true,key:'finish'});}
- return {toggle,reset,start,overtake,turbo,tick,finish,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,checkpoint})};
+ function finish(winner){if(winner)say('Bandeira quadriculada! '+winner.name+' vence a prova. Que grande corrida!',{urgent:true,key:'finish'});}
+ return {toggle,reset,start,overtake,turbo,tapNitro,tick,finish,refreshVoices,selectVoice,sample,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,voice:chooseVoice()?.name||null,choice:gameOptions.narratorVoice})};
 })();
 
 function addBoost(){if(!activateNitro(players[selected],3.8)){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}q('#activity').textContent='⚡ NITRO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
 function addGift(){if(!receiveGift({sender:'Você · TESTE',recipientId:players[selected].id,gift:'Presente',source:'demo'}))q('#activity').textContent='Aguarde a largada e o modo 3D';}
 function closeNow(){focus=selected;focusUntil=timer+5;manual=true;q('#activity').textContent='🎥 CLOSE · '+players[selected].name;}
+let lastLeaderboardPaint=0;
+function drawRankRows(selector,items,format,limit=3,compact=true,empty='Sem dados'){
+ const parent=q(selector);if(!parent)return;
+ if(items.length===0){
+  const el=document.createElement('div');el.className=compact?'liveRankEmpty':'minor';
+  el.textContent=empty;parent.replaceChildren(el);return;
+ }
+ parent.replaceChildren(...items.slice(0,limit).map((item,i)=>{
+  if(compact){
+   const el=document.createElement('div'),pos=document.createElement('span'),name=document.createElement('span'),score=document.createElement('strong');
+   el.className='liveRankRow';pos.textContent=String(i+1)+'º';name.textContent=item.name||'Piloto';
+   score.textContent=format(item);el.append(pos,name,score);return el;
+  }
+  const el=document.createElement('div');
+  el.textContent=(i+1)+'º '+(item.name||'Piloto')+' · '+format(item);
+  return el;
+ }));
+}
+function updateLiveLeaderboards(force=false){
+ const now=performance.now();
+ if(!force&&lastLeaderboardPaint&&now-lastLeaderboardPaint<450)return;
+ lastLeaderboardPaint=now;
+ const race=rank(),tap=tapRanking('taps'),likes=tapRanking('likes').filter(v=>v.likes>0);
+ const raceMini=d=>currentLap(d.progress)+'v · '+Math.round(Math.max(0,d.progress)/1000)+'km';
+ const raceFull=d=>'VOLTA '+currentLap(d.progress)+'/'+raceLaps+' · '+completedMeters(d.progress).toLocaleString('pt-BR')+'m';
+ drawRankRows('#liveRaceRank',race,raceMini,3,true);
+ drawRankRows('#liveTapRank',tap,d=>d.taps.toLocaleString('pt-BR'),3,true,'Aguardando taps');
+ drawRankRows('#liveLikesRank',likes,d=>'❤️'+d.likes,3,true,'Aguardando curtidas');
+ drawRankRows('#rank',race,raceFull,10,false);
+ drawRankRows('#tapRankPanel',tap,d=>d.taps.toLocaleString('pt-BR')+' taps · carro '+d.carId,10,false,'Nenhum tap tap registrado.');
+ drawRankRows('#likesRankPanel',likes,d=>d.likes+' curtida(s) · '+d.nitros+' nitro(s)',10,false,'A cada 250 taps: 1 curtida.');
+}
 function hud(){const sorted=rank(),leader=sorted[0],me=players[selected],i=sorted.indexOf(me);
  q('#speed').textContent=String(Math.round(me.speed*3.6)).padStart(3,'0');q('#position').textContent=(i+1)+'/10';q('#meter').textContent=completedMeters(me.progress).toLocaleString('pt-BR')+' / '+(DISTANCE*raceLaps).toLocaleString('pt-BR')+' m';q('#lapHud').textContent='VOLTA '+currentLap(me.progress)+'/'+raceLaps;
  q('#elapsed').textContent=String(Math.floor(timer/60)).padStart(2,'0')+':'+String(Math.floor(timer%60)).padStart(2,'0');
  q('#pilotName').textContent=me.name;q('#phase').textContent=gamePhase==='countdown'?'LARGADA EM '+Math.max(0,Math.ceil(countDown)):gamePhase==='race'?'CORRIDA · '+raceLaps+' VOLTA(S)':gamePhase==='gpu-error'?'3D INDISPONÍVEL':'🏆 PÓDIO';
- q('#rank').replaceChildren(...sorted.slice(0,3).map((d,i)=>{const el=document.createElement('div');el.textContent=(i+1)+'º '+d.name+' · '+currentLap(d.progress)+'/'+raceLaps+' · '+completedMeters(d.progress).toLocaleString('pt-BR')+'m';return el;}));
+ updateLiveLeaderboards();
  q('#cameraMode').textContent=focus!==-1?'CLOSE · '+players[focus].name:watchOvertake&&timer<watchUntil?'ULTRAPASSAGEM':mode==='chase'?'PERSEGUIÇÃO':mode==='tv'?'CÂMERA TV':'AÉREA';
  const nitro=q('#nitroBadge');nitro.hidden=gamePhase!=='race'||me.boost<=.04;if(!nitro.hidden)nitro.textContent='⚡ NITRO '+me.boost.toFixed(1)+'s';renderGiftFeed();
  q('#finishOverlay').hidden=gamePhase!=='podium';if(gamePhase==='podium'){q('#winner').textContent=leader.name;q('#finishOverlay p').textContent='Nova corrida em '+Math.max(0,Math.ceil(9-podiumElapsed))+' s · ou toque em reiniciar.';}
@@ -825,7 +982,21 @@ function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hid
  q('#mute').onclick=()=>{muted=!muted;if(!muted)initEngineAudio();syncSettings();settingNote(muted?'Motor silenciado.':'Som de motor ativado; será ouvido quando a corrida 3D começar.');};
  q('#narrator').onclick=()=>{RaceNarrator.toggle();settingNote(RaceNarrator.enabled()?'Narração ativada.':'Narração desativada.');};
  q('#settingsJump').onclick=()=>{q('#gameSettings').open=true;q('#settingsPanel').scrollIntoView({behavior:'smooth',block:'start'});};
+ RaceNarrator.refreshVoices();
+ if('speechSynthesis' in window&&window.speechSynthesis.addEventListener)window.speechSynthesis.addEventListener('voiceschanged',()=>RaceNarrator.refreshVoices());
+ q('#voiceSelect').onchange=()=>{RaceNarrator.selectVoice(q('#voiceSelect').value);settingNote('Voz selecionada. Use TESTAR VOZ para ouvir.');};
+ q('#voiceTest').onclick=()=>{RaceNarrator.sample();settingNote('Prévia de voz iniciada. A qualidade depende do sistema de fala do celular.');};
  q('#nameInput').value=players[selected].name;
+ function sendDemoTaps(count){
+  const name=cleanGiftText(q('#tapUserInput').value)||'Você TESTE';
+  const result=receiveTap({sender:name,viewerId:'demo:'+name.toLocaleLowerCase('pt-BR'),count,recipientId:players[selected].id,source:'demo'});
+  if(!result.accepted){settingNote('Tap tap inválido: '+result.reason);return;}
+  updateLiveLeaderboards(true);
+  settingNote(name+' · '+result.taps+' tap taps · '+result.likes+' curtidas · Nitro por cada 250.');
+ }
+ q('#tapOne').onclick=()=>sendDemoTaps(1);
+ q('#tapFifty').onclick=()=>sendDemoTaps(50);
+ q('#tapTwoFifty').onclick=()=>sendDemoTaps(250);
  document.addEventListener('visibilitychange',()=>{
   // Prevent a stale delta or accumulated physics backlog when Android returns to foreground.
   if(!document.hidden){lastFrame=0;lastRender=0;physicsAccumulator=0;}
@@ -840,7 +1011,7 @@ q('#debugHUD').hidden=!debugEnabled;
 function drawFrame(ts){requestAnimationFrame(drawFrame);
  if(!lastFrame)lastFrame=ts;
  let rawdt=Math.max(0,Math.min(.11,(ts-lastFrame)/1000));lastFrame=ts;
- if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0&&engine){gamePhase='race';timer=0;physicsStep.previousOrder=null;RaceNarrator.start();}else if(countDown<=0&&!engine){gamePhase='gpu-error';}}
+ if(gamePhase==='countdown'){countDown-=rawdt;if(countDown<=0&&engine){gamePhase='race';timer=0;physicsStep.previousOrder=null;flushPendingTapNitro();RaceNarrator.start();}else if(countDown<=0&&!engine){gamePhase='gpu-error';}}
  if(gamePhase==='podium'){podiumElapsed+=rawdt;if(podiumElapsed>=9&&engine)gridCars();}
  if(gamePhase==='race'){physicsAccumulator=Math.min(.25,physicsAccumulator+rawdt);let i=0;while(physicsAccumulator>=1/60&&i++<12){physicsStep(1/60);physicsAccumulator-=1/60;}}
  // Fixed rendering budget: 30 FPS normal, 24 FPS ECO; physics always runs at 60 Hz.
@@ -865,8 +1036,8 @@ function drawFrame(ts){requestAnimationFrame(drawFrame);
  window.NEON_V14_DIAGNOSTICS={fps:measuredFps,real3D:!!engine,players:players.length,mapPoints,mapUnique,trackSamples:mapTrack?.center.length||0,quality:gameOptions.quality,mapVisible:gameOptions.showMap,cpuRenderMs:renderHistory.length?+(renderHistory.reduce((a,b)=>a+b,0)/renderHistory.length).toFixed(2):null,models:window.NEON_V14_METRICS?.carModels?.uniqueModels||0,skins:window.NEON_V14_METRICS?.carModels?.paintings||0,invalidMatrices:orientationIssues,overlaps:checkPhysics().length};
 }
 createDrivers();setupButtons();setupWebGLRecovery();init3D();buildPicker();drawMap();hud();q('#activity').textContent='10 PILOTOS · 3D REAL · CORRIDA AUTOMÁTICA';requestAnimationFrame(drawFrame);
-window.NEON_RUSH_RELEASE=Object.freeze({version:'14.7.0',trackMeters:DISTANCE,vehicles:CAR_DATA.length,kind:'stockcar-webgl',giftMode:'simulated'});
-window.NEON_RUSH_V16=window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount,gifts:giftEvents,nitroActive:players.filter(p=>p.boost>.04).map(p=>({id:p.id,remaining:p.boost})),mapMarkers:mapMarkerState.map(m=>({...m}))}),receiveGift,testRun(seconds=20){
+window.NEON_RUSH_RELEASE=Object.freeze({version:'14.8.0',trackMeters:DISTANCE,vehicles:CAR_DATA.length,kind:'stockcar-webgl',giftMode:'simulated',tapThreshold:TAP_THRESHOLD,tikTokConnected:false});
+window.NEON_RUSH_V16=window.NEON_RUSH_V15=window.NEON_RUSH_V14=window.NEON_RUSH_V13={getState:()=>({narrator:RaceNarrator.getState(),mode:gamePhase,seconds:timer,lapDistance:DISTANCE,laps:raceLaps,drivers:players.map(p=>({...p,lap:currentLap(p.progress)})),camera:mode,rendering:!!engine,collisions:collisionEvents,overlaps:checkPhysics(),passes:passingEvents,closeEvents:closeEventCount,gifts:giftEvents,nitroActive:players.filter(p=>p.boost>.04).map(p=>({id:p.id,remaining:p.boost})),mapMarkers:mapMarkerState.map(m=>({...m}))}),receiveGift,receiveTap,getTapRankings:()=>({taps:tapRanking('taps').map(x=>({...x})),likes:tapRanking('likes').filter(x=>x.likes>0).map(x=>({...x})),totalTaps,totalLikes,totalNitros:totalTapNitros}),testRun(seconds=20){
  // Run diagnostics on cloned state. Never change the player's race, podium, camera or narration.
  const requested=Number(seconds);
  if(!Number.isFinite(requested)||requested<0||requested>90)throw new RangeError('Duração de teste inválida (0 a 90 segundos)');
