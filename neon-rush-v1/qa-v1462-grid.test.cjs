@@ -85,7 +85,7 @@ test('80 pelotões alternando curva e volta não perdem marcadores ou invadem a 
  assert.equal(result.invalid,0,'track layout errors, minimum='+result.min);
 });
 test('grid altera somente minimapa e mantém nitro, carros, 10 km, voltas e mini chat',()=>{
- assert.match(html,/NEON RUSH V14\.6\.2/);
+ assert.match(html,/NEON RUSH V14\.7\.0/);
  assert.match(source,/function layoutMinimapMarkers\(/);
  assert.match(source,/function activateNitro\(/);
  assert.match(source,/function receiveGift\(/);
