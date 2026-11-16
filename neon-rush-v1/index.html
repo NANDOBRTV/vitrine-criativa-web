@@ -256,9 +256,9 @@ const ALLOWED_LAPS=[1,2,3,5,10],DEMO_NAMES=['Ana','Bruno','Carla','Diego','Elisa
 const cleanName=value=>String(value||'').replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,18);
 const driverNames=savedSettings.names&&typeof savedSettings.names==='object'?{...savedSettings.names}:{};
 function driverName(id,i){return cleanName(driverNames[id])||DEMO_NAMES[i];}
-const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,botGifts:savedSettings.botGifts!==false,laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
+const gameOptions={autoStart:true,quality:savedSettings.quality==='eco'?'eco':'normal',showMap:savedSettings.showMap!==false,botGifts:savedSettings.botGifts!==false,narratorVoice:typeof savedSettings.narratorVoice==='string'?savedSettings.narratorVoice:'auto',laps:ALLOWED_LAPS.includes(Number(savedSettings.laps))?Number(savedSettings.laps):1};
 let raceLaps=gameOptions.laps;
-function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,botGifts:gameOptions.botGifts,laps:gameOptions.laps,names:driverNames}))}catch{}}
+function saveSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({quality:gameOptions.quality,showMap:gameOptions.showMap,botGifts:gameOptions.botGifts,narratorVoice:gameOptions.narratorVoice,laps:gameOptions.laps,names:driverNames}))}catch{}}
 function syncSettings(){
  q('#quality').textContent=gameOptions.quality==='eco'?'⚡ QUALIDADE: ECO':'✨ QUALIDADE: NORMAL';
  q('#quality').setAttribute('aria-pressed',String(gameOptions.quality==='eco'));
@@ -360,60 +360,97 @@ const q=s=>document.querySelector(s);
 const rank=()=>[...players].sort((a,b)=>b.progress-a.progress);
 
 /* V14.2 — narration is driven by actual race events, not an unrelated timer. */
+// A calmer, event-driven Portuguese-BR narrator with selectable browser voices.
+// Web Speech quality depends on the Android installed voice engine; no studio-quality audio is claimed.
 const RaceNarrator=(()=>{
- let enabled=false,spoken=0,lastSpeech=-Infinity,lastEvent="",lastLead="",checkpoint=0,seq=0;
+ let enabled=false,spoken=0,lastSpeech=-Infinity,lastEvent='',lastLead='',lastLap=1,nextCommentAt=17,seq=0,lastLine='';
  const caption=()=>document.querySelector('#narrationCaption');
  const available=()=>('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+ const voices=()=>available()?(window.speechSynthesis.getVoices()||[]).filter(v=>/^pt(?:[-_]BR)?/i.test(v.lang)):[];
+ function voiceKey(v){return v.name+'|'+v.lang;}
  function chooseVoice(){
-  const voices=window.speechSynthesis.getVoices()||[];
-  const br=voices.filter(v=>/^pt[-_]BR$/i.test(v.lang));
-  const pt=br.length?br:voices.filter(v=>/^pt/i.test(v.lang));
-  const male=/\b(antonio|ant[oô]nio|ricardo|daniel|felipe|paulo|eduardo|marcelo|male)\b/i;
-  return pt.find(v=>male.test(v.name))||pt[0]||null;
+  const list=voices();
+  const selected=list.find(v=>voiceKey(v)===gameOptions.narratorVoice);
+  if(selected)return selected;
+  const score=v=>{
+   const label=v.name.toLocaleLowerCase('pt-BR'),lang=v.lang.toLocaleLowerCase();
+   return (lang==='pt-br'?30:0)+(/neural|premium|enhanced|natural/.test(label)?25:0)+
+    (/google|microsoft/.test(label)?12:0)+
+    (/antonio|antônio|ricardo|daniel|felipe|paulo|male/.test(label)?6:0);
+  };
+  return list.sort((a,b)=>score(b)-score(a))[0]||null;
  }
- function say(message,{urgent=false,cooldown=3600,key="generic"}={}){
-  if(!enabled)return false;
+ function refreshVoices(){
+  const select=document.querySelector('#voiceSelect');if(!select)return;
+  const current=gameOptions.narratorVoice;
+  const first=document.createElement('option');first.value='auto';first.textContent='Automática · voz PT-BR';
+  select.replaceChildren(first,...voices().map(v=>{const o=document.createElement('option');o.value=voiceKey(v);o.textContent=v.name+' · '+v.lang;return o;}));
+  select.value=[...select.options].some(o=>o.value===current)?current:'auto';
+  if(current!=='auto'&&select.value==='auto'){gameOptions.narratorVoice='auto';saveSettings();}
+ }
+ function say(message,{urgent=false,cooldown=7200,key='generic',preview=false}={}){
+  if(!enabled&&!preview)return false;
   const now=performance.now(),synth=available()?window.speechSynthesis:null;
   if(!urgent&&(now-lastSpeech<cooldown||(synth&&(synth.speaking||synth.pending))))return false;
-  lastSpeech=now;lastEvent=key;spoken++;const ticket=++seq;
-  const c=caption();if(c){c.textContent='🎙️ '+message;c.hidden=false;}
-  setTimeout(()=>{if(ticket===seq&&c)c.hidden=true;},6500);
-  if(synth){
-   try{
-    if(urgent)synth.cancel();
-    const u=new SpeechSynthesisUtterance(message);
-    u.lang='pt-BR';u.rate=1.14;u.pitch=.83;u.volume=.96;
-    const voice=chooseVoice();if(voice)u.voice=voice;
-    synth.speak(u);
-   }catch(e){console.warn('Narração de voz não disponível:',e);}
-  }
+  const line=String(message||'').replace(/\s+/g,' ').trim();
+  if(!line||(!urgent&&!preview&&line===lastLine))return false;
+  lastSpeech=now;lastEvent=key;lastLine=line;spoken++;const ticket=++seq;
+  const c=caption();if(c){c.textContent='🎙️ '+line;c.hidden=false;}
+  setTimeout(()=>{if(ticket===seq&&c)c.hidden=true;},Math.max(4200,Math.min(9800,2200+line.length*83)));
+  if(synth)try{
+   if(urgent)synth.cancel();
+   const u=new SpeechSynthesisUtterance(line);
+   u.lang='pt-BR';u.rate=1.01;u.pitch=1.00;u.volume=.93;
+   const voice=chooseVoice();if(voice)u.voice=voice;
+   synth.speak(u);
+  }catch(e){console.warn('Narração de voz indisponível:',e);}
   return true;
  }
  function toggle(){
-  enabled=!enabled;
-  const b=document.querySelector('#narrator');
-  if(b){b.textContent=enabled?'🎙️ NARRADOR ON':'🎙️ NARRADOR OFF';b.setAttribute('aria-pressed',String(enabled));}
+  enabled=!enabled;const b=document.querySelector('#narrator');
+  if(b){b.textContent=enabled?'🎙️ NARRADOR: ON':'🎙️ NARRADOR: OFF';b.setAttribute('aria-pressed',String(enabled));}
   if(!enabled){if(available())window.speechSynthesis.cancel();const c=caption();if(c)c.hidden=true;return;}
-  const msg=available()?'Atenção! Narrador da corrida ativado. Prepare-se para muita velocidade!':'Legendas de narração ativadas. A voz não está disponível neste navegador.';
-  say(msg,{urgent:true,key:'activated'});
+  say('Narração ativada. Acompanhe a largada e as ultrapassagens.',{urgent:true,key:'activated'});
  }
- function reset(){lastLead='';checkpoint=0;lastEvent='';if(enabled&&available())window.speechSynthesis.cancel();}
- function start(){lastLead='';checkpoint=0;say('Largaram! Dez pilotos aceleram em busca da vitória!',{urgent:true,key:'start'});}
+ function selectVoice(key){
+  gameOptions.narratorVoice=String(key||'auto').slice(0,170);
+  saveSettings();refreshVoices();
+ }
+ function sample(){return say('Atenção, pilotos! O grid está formado. A próxima volta promete uma grande disputa.',{urgent:true,preview:true,key:'sample'});}
+ function reset(){lastLead='';lastLap=1;nextCommentAt=17;lastEvent='';lastLine='';if(enabled&&available())window.speechSynthesis.cancel();}
+ function start(){lastLead='';lastLap=1;nextCommentAt=17;say('Luzes apagadas. Largaram! Dez carros aceleram no circuito de dez quilômetros.',{urgent:true,key:'start'});}
  function overtake(driver,place){
-  const pos=place===1?'assume a liderança!':'ganha a posição número '+place+'!';
-  say('Olha a ultrapassagem! '+driver.name+' '+pos,{key:'pass',cooldown:3500});
+  const phrases=[driver.name+' encontrou espaço e fez a ultrapassagem. Agora é o número '+place+'.',
+   'Que manobra! '+driver.name+' ganhou posição e segue na briga.',
+   driver.name+' passou o adversário e sobe para a posição '+place+'.'];
+  say(phrases[(spoken+place)%phrases.length],{key:'pass',cooldown:6500});
  }
- function turbo(driver){say('Turbo ativado para '+driver.name+'! Agora vem velocidade!',{key:'turbo',cooldown:2500});}
+ function turbo(driver){say('Nitro ativado para '+driver.name+'. O carro ganhou velocidade!',{key:'nitro',cooldown:8200});}
+ function tapNitro(viewer,driver,count=1){
+  say(viewer+' completou '+(count===1?'duzentos e cinquenta':String(count*250))+' tap taps. Nitro para '+driver.name+'!',{key:'tap-nitro',cooldown:8000});
+ }
  function tick(){
   if(!enabled||gamePhase!=='race')return;
-  const leaders=rank(),leader=leaders[0];if(!leader)return;
+  const leaders=rank(),leader=leaders[0],runner=leaders[1];if(!leader)return;
   if(!lastLead)lastLead=leader.id;
-  if(lastLead!==leader.id){lastLead=leader.id;say('Mudança na ponta! '+leader.name+' é o novo líder da corrida!',{key:'leader',cooldown:2000});}
-  if(checkpoint===0&&timer>=9){if(say('A disputa está acirrada! '+leader.name+' puxa o pelotão!',{key:'midrace',cooldown:2700}))checkpoint=1;}
-  if(checkpoint<2&&leader.progress>=DISTANCE*raceLaps*.75){if(say('Reta final! '+leader.name+' se aproxima da bandeirada!',{key:'finalstretch',cooldown:2300}))checkpoint=2;}
+  if(lastLead!==leader.id){
+   lastLead=leader.id;
+   say('Mudou o líder! '+leader.name+' assume a primeira posição.',{key:'leader',cooldown:7500});
+  }
+  const lap=currentLap(leader.progress);
+  if(lap>lastLap){lastLap=lap;say('Começou a volta número '+lap+'. '+leader.name+' lidera a corrida.',{key:'lap',cooldown:7500});}
+  if(timer<nextCommentAt)return;
+  nextCommentAt=timer+19+(spoken%4)*3;
+  const remaining=Math.max(0,DISTANCE*raceLaps-leader.progress);
+  if(remaining<1700){say('Reta final para '+leader.name+'. A bandeirada está chegando!',{key:'final',cooldown:9000});return;}
+  const gap=runner?Math.max(0,leader.progress-runner.progress):0;
+  const templates=gap<60?
+   ['A disputa pela liderança segue apertada. Ninguém quer ceder espaço.','O pelotão está junto. A próxima curva pode decidir posições.']:
+   [leader.name+' mantém a liderança. Os demais tentam diminuir a diferença.','A corrida segue forte. '+leader.name+' dita o ritmo na frente.'];
+  say(templates[spoken%templates.length],{key:'race-brief',cooldown:10000});
  }
- function finish(winner){if(!winner)return;say('Bandeira quadriculada! '+winner.name+' vence a corrida! Que chegada!',{urgent:true,key:'finish'});}
- return {toggle,reset,start,overtake,turbo,tick,finish,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,checkpoint})};
+ function finish(winner){if(winner)say('Bandeira quadriculada! '+winner.name+' vence a prova. Que grande corrida!',{urgent:true,key:'finish'});}
+ return {toggle,reset,start,overtake,turbo,tapNitro,tick,finish,refreshVoices,selectVoice,sample,enabled:()=>enabled,getState:()=>({enabled,speechSupported:available(),spoken,lastEvent,voice:chooseVoice()?.name||null,choice:gameOptions.narratorVoice})};
 })();
 
 function addBoost(){if(!activateNitro(players[selected],3.8)){q('#activity').textContent='Aguarde a largada e o modo 3D';return;}q('#activity').textContent='⚡ NITRO · '+players[selected].name;RaceNarrator.turbo(players[selected]);}
@@ -944,6 +981,10 @@ function setupButtons(){q('#choose').onclick=()=>{buildPicker();q('#picker').hid
  q('#mute').onclick=()=>{muted=!muted;if(!muted)initEngineAudio();syncSettings();settingNote(muted?'Motor silenciado.':'Som de motor ativado; será ouvido quando a corrida 3D começar.');};
  q('#narrator').onclick=()=>{RaceNarrator.toggle();settingNote(RaceNarrator.enabled()?'Narração ativada.':'Narração desativada.');};
  q('#settingsJump').onclick=()=>{q('#gameSettings').open=true;q('#settingsPanel').scrollIntoView({behavior:'smooth',block:'start'});};
+ RaceNarrator.refreshVoices();
+ if('speechSynthesis' in window&&window.speechSynthesis.addEventListener)window.speechSynthesis.addEventListener('voiceschanged',()=>RaceNarrator.refreshVoices());
+ q('#voiceSelect').onchange=()=>{RaceNarrator.selectVoice(q('#voiceSelect').value);settingNote('Voz selecionada. Use TESTAR VOZ para ouvir.');};
+ q('#voiceTest').onclick=()=>{RaceNarrator.sample();settingNote('Prévia de voz iniciada. A qualidade depende do sistema de fala do celular.');};
  q('#nameInput').value=players[selected].name;
  function sendDemoTaps(count){
   const name=cleanGiftText(q('#tapUserInput').value)||'Você TESTE';
