@@ -8,7 +8,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.8.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.9.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10,{timeout:25000});
   assert.equal(await page.locator('#liveRaceRank .liveRankRow').count(),3);
   assert.equal(await page.locator('#rank').locator('div').count(),10);
   assert.match(await page.locator('#liveTapRank').textContent(),/Aguardando taps/);
