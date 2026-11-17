@@ -17,7 +17,7 @@ function physics(){
  return ctx;
 }
 test('release metadata, recuperação WebGL, isolamento de erros e features',()=>{
- assert.match(html,/NEON RUSH V14\.8\.0/);
+ assert.match(html,/NEON RUSH V14\.9\.0/);
  assert.doesNotThrow(()=>new vm.Script(source));
  assert.match(source,/window\.NEON_RUSH_RELEASE=Object\.freeze/);
  assert.match(source,/webglcontextlost/);

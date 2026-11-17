@@ -1,4 +1,4 @@
-name: NEON RUSH V14.8.0 LIVE RANKS + 250-TAP NITRO QA
+name: NEON RUSH V14.9.0 Autonomous Demo Bot Likes QA
 on:
   push:
     branches:
@@ -8,6 +8,7 @@ on:
       - neon-rush-v1462-grid-minimap-20261113
       - neon-rush-v1470-release-hardening-20261115
       - neon-rush-v148-live-ranks-taps-narration-20261116
+      - neon-rush-v149-bot-test-likes-20261117
       - neon-rush-stockcar-v11
     paths:
       - neon-rush-v1/**
@@ -30,7 +31,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check every 250 taps grants exactly one like and one Nitro
-        run: node --test neon-rush-v1/qa-v1480-taps-ranks-narrator.test.cjs
+        run: node --test neon-rush-v1/qa-v1480-taps-ranks-narrator.test.cjs neon-rush-v1/qa-v1490-auto-bot-likes.test.cjs
 
   release-build-integrity:
     runs-on: ubuntu-latest
@@ -48,7 +49,7 @@ jobs:
           unzip -tq /tmp/neon-stockcar-assets.zip
           unzip -q -o /tmp/neon-stockcar-assets.zip -d stockcar-public
           test -s stockcar-public/index.html
-          grep -q 'NEON RUSH V14.8.0' stockcar-public/index.html
+          grep -q 'NEON RUSH V14.9.0' stockcar-public/index.html
           echo "Package OK: $(du -sh stockcar-public | awk '{print $1}')"
   map-free-marker-audit:
     runs-on: ubuntu-latest
@@ -70,7 +71,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check WebGL, 10 km physics, nitro gifting and ten minimap markers
-        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs neon-rush-v1/qa-v1461-audit.test.cjs neon-rush-v1/qa-v1462-grid.test.cjs neon-rush-v1/qa-v1470-release.test.cjs neon-rush-v1/qa-v1480-taps-ranks-narrator.test.cjs
+        run: node --test neon-rush-v1/qa-v1442.test.cjs neon-rush-v1/qa-v1450.test.cjs neon-rush-v1/qa-v1460.test.cjs neon-rush-v1/qa-v1461-audit.test.cjs neon-rush-v1/qa-v1462-grid.test.cjs neon-rush-v1/qa-v1470-release.test.cjs neon-rush-v1/qa-v1480-taps-ranks-narrator.test.cjs neon-rush-v1/qa-v1490-auto-bot-likes.test.cjs
 
   browser-android-webgl:
     runs-on: ubuntu-latest
@@ -91,15 +92,17 @@ jobs:
           node neon-rush-v1/browser-smoke-v1462.cjs
           node neon-rush-v1/browser-production-v1470.cjs
           node neon-rush-v1/browser-smoke-v1480.cjs
+          node neon-rush-v1/browser-smoke-v1490.cjs
       - name: Preserve Android screenshot
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: neon-rush-v1480-ranking-android-screenshots
+          name: neon-rush-v1490-auto-bot-android-screenshots
           path: |
             neon-rush-v1450-android-smoke.png
             neon-rush-v1460-nitro-android.png
             neon-rush-v1462-grid-android.png
             neon-rush-v1470-production-mobile.png
             neon-rush-v1480-taps-ranks-mobile.png
+            neon-rush-v1490-auto-bot-likes-android.png
           if-no-files-found: ignore
