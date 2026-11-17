@@ -41,6 +41,7 @@ const {chromium}=require('playwright');
   assert.equal(joined.accepted,true);
   assert.ok(joined.likes>=1);
   await page.waitForFunction(()=>window.NEON_V14_METRICS?.nitroRendered>0,{timeout:7000});
+  await page.waitForFunction(()=>document.querySelector('#liveLikesRank')?.textContent?.includes('João BOT'),{timeout:4000});
   assert.match(await page.locator('#liveLikesRank').textContent(),/João BOT/);
   assert.match(await page.locator('#giftFeed').textContent(),/BOT DE TESTE/);
   await page.screenshot({path:'neon-rush-v1490-auto-bot-likes-android.png',fullPage:true});
