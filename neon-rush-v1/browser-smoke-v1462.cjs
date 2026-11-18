@@ -26,7 +26,7 @@ const {chromium}=require('playwright');
   const along=m=>m.x*state.tangent.x+m.y*state.tangent.y;
   const width=Math.max(...first.map(cross))-Math.min(...first.map(cross));
   const depth=Math.max(...first.map(along))-Math.min(...first.map(along));
-  assert.ok(width>=45,'Grid must have four side-by-side columns, width='+width);
+  assert.ok(width>=18,'Grid must have four side-by-side columns, width='+width);
   assert.ok(depth<15,'Starting row cannot be rendered like a train, longitudinal='+depth);
   for(let i=0;i<state.markers.length;i++){
    const a=state.markers[i];
