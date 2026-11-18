@@ -7,7 +7,7 @@ const vm=require('node:vm');
 const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).join('\n');
 const a=source.indexOf('const TAU=Math.PI*2;'),b=source.indexOf('function createEngine(canvas)',a);
-const c=source.indexOf('const CAR_DATA='),d=source.indexOf('const q=s=>document.querySelector(s);',c);
+const c=source.indexOf('const ORIGINAL_CAR_DATA='),d=source.indexOf('const q=s=>document.querySelector(s);',c);
 function fixture(){
  assert.ok(a>=0&&b>a&&c>=0&&d>c);
  const elements=new Map(),store=new Map();
@@ -28,7 +28,7 @@ function fixture(){
  return {get,store,elements};
 }
 test('botões, nomes de 10 bots, configuração persistente e classificação separada',()=>{
- assert.match(html,/NEON RUSH V14\.9\.0/);
+ assert.match(html,/NEON RUSH V15\.0\.0/);
  for(const id of ['botLikes','botGifts','liveTapRank','liveLikesRank','liveRaceRank'])assert.match(html,new RegExp('id="'+id+'"'));
  assert.match(source,/function botLikeTick\(\)/);
  assert.match(source,/if\(!inDiagnosticRun\)\{botGiftTick\(\);botLikeTick\(\);\}/);

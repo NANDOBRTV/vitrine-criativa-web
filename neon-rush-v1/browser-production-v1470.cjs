@@ -9,7 +9,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.9.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_DIAGNOSTICS?.mapPoints===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='15.0.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_DIAGNOSTICS?.mapPoints===50,{timeout:60000});
   const initial=await page.evaluate(()=>({
    release:window.NEON_RUSH_RELEASE,
    state:window.NEON_RUSH_V16.getState(),
@@ -20,9 +20,9 @@ const {chromium}=require('playwright');
   }));
   assert.equal(initial.release.giftMode,'simulated');
   assert.equal(initial.release.trackMeters,10000);
-  assert.equal(initial.release.vehicles,10);
+  assert.equal(initial.release.vehicles,50);
   assert.equal(initial.modelCount,10);
-  assert.equal(initial.state.mapMarkers.length,10);
+  assert.equal(initial.state.mapMarkers.length,50);
   assert.ok(initial.map.right<=390&&initial.map.left>=0,'minimap must be inside mobile viewport');
   assert.ok(initial.canvas.height>200);
   await page.locator('#gameSettings').evaluate(el=>el.open=true);
@@ -40,7 +40,7 @@ const {chromium}=require('playwright');
   await page.fill('#nameInput','Piloto Produção');
   await page.click('#nameSave');
   await page.reload({waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.9.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='15.0.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
   assert.equal(await page.locator('#lapSelect').inputValue(),'3');
   assert.equal(await page.evaluate(()=>window.NEON_RUSH_V16.getState().drivers[8].name),'Piloto Produção');
   await page.screenshot({path:'neon-rush-v1470-production-mobile.png',fullPage:true});

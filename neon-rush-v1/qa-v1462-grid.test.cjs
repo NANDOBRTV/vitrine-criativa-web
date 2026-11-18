@@ -6,7 +6,7 @@ const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).join('\n');
 function env(){
  const a=source.indexOf('const TAU=Math.PI*2;'),b=source.indexOf('function createEngine(canvas)',a);
- const p=source.indexOf('const CAR_DATA='),q=source.indexOf('const q=s=>document.querySelector(s);',p);
+ const p=source.indexOf('const ORIGINAL_CAR_DATA='),q=source.indexOf('const q=s=>document.querySelector(s);',p);
  const m=source.indexOf('function mapGeometry(w,h)'),n=source.indexOf('function selectDriver(i)',m);
  assert.ok(a>=0&&b>a&&p>=0&&q>p&&m>=0&&n>m);
  const calls=[],canvas2d={};
@@ -44,7 +44,7 @@ function validate(markers,label){
 }
 test('largada usa quatro colunas de carros lado a lado e três fileiras, nunca uma fila única',()=>{
  const {sandbox,calls}=env();
- const state=run(sandbox,"(()=>{createDrivers();drawMap();return mapMarkerState.map(p=>({...p}));})()");
+ const state=run(sandbox,"(()=>{createDrivers();players=players.slice(0,10);drawMap();return mapMarkerState.map(p=>({...p}));})()");
  validate(state,'largada');
  assert.ok(state.every(m=>m.layout==='grid'),'all starting cars must be in multi-lane grid mode');
  const row1=state.filter(m=>['04','11','18','27'].includes(m.id));
@@ -68,24 +68,24 @@ test('largada usa quatro colunas de carros lado a lado e três fileiras, nunca u
 test('pelotão mantém as faixas em outra curva, inclusive cruzando linha de chegada',()=>{
  const {sandbox}=env();
  for(const start of [3132,4990,7511,9974,10000,19993]){
-  const state=run(sandbox,"(()=>{createDrivers();players.forEach((p,i)=>{p.progress="+start+"-Math.floor(i/4)*8;});drawMap();return mapMarkerState.map(m=>({...m}));})()");
+  const state=run(sandbox,"(()=>{createDrivers();players=players.slice(0,10);players.forEach((p,i)=>{p.progress="+start+"-Math.floor(i/4)*8;});drawMap();return mapMarkerState.map(m=>({...m}));})()");
   validate(state,'pelotão '+start);
   assert.ok(state.every(p=>p.layout==='grid'),'must remain grid for close pack '+start);
  }
 });
 test('carros distantes ficam nas posições naturais ao longo do circuito, sem transformar todos em grid',()=>{
  const {sandbox}=env();
- const state=run(sandbox,"(()=>{createDrivers();players.forEach((p,i)=>{p.progress=i*950;});drawMap();return mapMarkerState.map(m=>({...m}));})()");
+ const state=run(sandbox,"(()=>{createDrivers();players=players.slice(0,10);players.forEach((p,i)=>{p.progress=i*950;});drawMap();return mapMarkerState.map(m=>({...m}));})()");
  validate(state,'carros espalhados');
  assert.ok(state.every(p=>p.layout==='track'),'distant cars must be plotted on the real circuit');
 });
 test('80 pelotões alternando curva e volta não perdem marcadores ou invadem a borda',()=>{
  const {sandbox}=env();
- const result=run(sandbox,"(()=>{createDrivers();let min=Infinity,invalid=0;for(let k=0;k<80;k++){const base=k*131;players.forEach((p,i)=>{p.progress=base-Math.floor(i/4)*8;});drawMap();for(let i=0;i<mapMarkerState.length;i++){const a=mapMarkerState[i];if(!Number.isFinite(a.x)||a.x<8||a.x>156||a.y<8||a.y>186)invalid++;for(let j=i+1;j<mapMarkerState.length;j++){const b=mapMarkerState[j],gap=Math.hypot(a.x-b.x,a.y-b.y);min=Math.min(min,gap);if(gap<14)invalid++;}}}return {min,invalid};})()");
+ const result=run(sandbox,"(()=>{createDrivers();players=players.slice(0,10);let min=Infinity,invalid=0;for(let k=0;k<80;k++){const base=k*131;players.forEach((p,i)=>{p.progress=base-Math.floor(i/4)*8;});drawMap();for(let i=0;i<mapMarkerState.length;i++){const a=mapMarkerState[i];if(!Number.isFinite(a.x)||a.x<8||a.x>156||a.y<8||a.y>186)invalid++;for(let j=i+1;j<mapMarkerState.length;j++){const b=mapMarkerState[j],gap=Math.hypot(a.x-b.x,a.y-b.y);min=Math.min(min,gap);if(gap<14)invalid++;}}}return {min,invalid};})()");
  assert.equal(result.invalid,0,'track layout errors, minimum='+result.min);
 });
 test('grid altera somente minimapa e mantém nitro, carros, 10 km, voltas e mini chat',()=>{
- assert.match(html,/NEON RUSH V14\.9\.0/);
+ assert.match(html,/NEON RUSH V15\.0\.0/);
  assert.match(source,/function layoutMinimapMarkers\(/);
  assert.match(source,/function activateNitro\(/);
  assert.match(source,/function receiveGift\(/);

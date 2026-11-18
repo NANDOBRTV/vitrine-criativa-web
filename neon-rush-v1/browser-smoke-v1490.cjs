@@ -9,7 +9,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.9.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='15.0.0'&&window.NEON_RUSH_V16?.getState()?.rendering,{timeout:25000});
   assert.equal(await page.locator('#botLikes').getAttribute('aria-pressed'),'true');
   await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.mode==='race',{timeout:12000});
   await page.waitForFunction(()=>window.NEON_RUSH_V16?.getBotLikeStatus()?.eventsSent>=2,{timeout:12000});
@@ -21,7 +21,7 @@ const {chromium}=require('playwright');
   assert.ok(ongoing.taps.taps.length>=2,'two bots should populate tap leaderboard');
   assert.ok(ongoing.taps.taps.every(x=>x.name.endsWith(' BOT')));
   assert.match(await page.locator('#liveTapRank').textContent(),/BOT/);
-  assert.equal(await page.locator('#liveRaceRank .liveRankRow').count(),3);
+  assert.equal(await page.locator('#liveRaceRank .liveRankRow').count(),5);
   await page.locator('#botLikes').click();
   assert.equal(await page.locator('#botLikes').getAttribute('aria-pressed'),'false');
   const stopped=await page.evaluate(()=>window.NEON_RUSH_V16.getBotLikeStatus().eventsSent);
