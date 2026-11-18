@@ -8,9 +8,9 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='14.9.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10,{timeout:25000});
-  assert.equal(await page.locator('#liveRaceRank .liveRankRow').count(),3);
-  assert.equal(await page.locator('#rank').locator('div').count(),10);
+  await page.waitForFunction(()=>window.NEON_RUSH_RELEASE?.version==='15.0.0'&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===50,{timeout:25000});
+  assert.equal(await page.locator('#liveRaceRank .liveRankRow').count(),5);
+  assert.equal(await page.locator('#rank').locator('div').count(),50);
   assert.match(await page.locator('#liveTapRank').textContent(),/Aguardando taps/);
   assert.match(await page.locator('#liveLikesRank').textContent(),/Aguardando curtidas/);
   await page.waitForFunction(()=>window.NEON_RUSH_V16.getState().mode==='race',{timeout:12000});
@@ -50,6 +50,6 @@ const {chromium}=require('playwright');
    assert.ok(box.y>=frame.y&&box.y+box.height<=frame.y+frame.height+1);
   }
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({result:'PASS',rankGroups:3,raceRows:10,viewerTaps:350,viewerLikes:1,secondViewerLikes:2,voiceTest:true,models:10,errors},null,2));
+  console.log(JSON.stringify({result:'PASS',rankGroups:3,raceRows:50,viewerTaps:350,viewerLikes:1,secondViewerLikes:2,voiceTest:true,models:10,errors},null,2));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});
