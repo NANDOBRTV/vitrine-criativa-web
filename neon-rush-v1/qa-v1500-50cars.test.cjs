@@ -40,7 +40,7 @@ test('grid real de largada: 4 faixas e 13 fileiras, espaçamento físico consist
  assert.equal(result.n,50);assert.equal(result.overlaps.length,0);
  assert.equal(new Set(result.lanes).size,4);
  assert.equal(new Set(result.progress).size,13);
- for(let i=0;i<50;i++){assert.equal(result.progress[i],-Math.floor(i/4)*8);assert.equal(result.lanes[i],[-6,-2,2,6][i%4]);}
+ for(let i=0;i<50;i++){assert.equal(result.progress[i],(-Math.floor(i/4)*8)||0);assert.equal(result.lanes[i],[-6,-2,2,6][i%4]);}
 });
 test('50 bolinhas livres, sem conector, dentro do minimapa em quatro faixas',()=>{
  const {ctx,calls}=sim(true);
