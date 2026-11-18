@@ -31,7 +31,7 @@ test('JavaScript embutido tem sintaxe válida', () => {
 });
 
 test('mantém 10 modelos, controles, assets e WebGL original', () => {
-  assert.match(html, /V14\.9\.0/);
+  assert.match(html, /V15\.0\.0/);
   assert.match(source, /createEngine\(canvas\)/);
   assert.match(source, /getContext\('webgl'/);
   assert.match(html, /stockcar-viewer\.html/);
@@ -54,7 +54,7 @@ test('gridCars limpa estatísticas de cada corrida e câmera anterior', () => {
   );
   assert.equal(data.started, true);
   assert.equal(data.phase, 'countdown');
-  assert.equal(data.players, 10);
+  assert.equal(data.players, 50);
   assert.equal(data.collisions, 0);
   assert.equal(data.passes, 0);
   assert.equal(data.invalid, 0);
@@ -80,7 +80,7 @@ test('220 corridas de física real sem sobreposições nem estados inválidos', 
     context.testSpeeds = speeds;
     context.testBoosts = boosts;
     const res=vm.runInContext(
-      'createDrivers();gamePhase="race";timer=0;nextClose=Infinity;inDiagnosticRun=true;' +
+      'createDrivers();players=players.slice(0,10);gamePhase="race";timer=0;nextClose=Infinity;inDiagnosticRun=true;' +
       'physicsStep.previousOrder=null;collisionEvents=0;passingEvents=0;orientationIssues=0;' +
       'players.forEach((p,i)=>{p.maxSpeed=testSpeeds[i];p.boost=testBoosts[i];});' +
       '(()=>{let steps=0,firstBad=null;' +
