@@ -7,7 +7,7 @@ const vm=require('node:vm');
 const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).join('\n');
 const worldStart=source.indexOf('const TAU=Math.PI*2;'),worldEnd=source.indexOf('function createEngine(canvas)',worldStart);
-const physicsStart=source.indexOf('const CAR_DATA='),physicsEnd=source.indexOf('const q=s=>document.querySelector(s);',physicsStart);
+const physicsStart=source.indexOf('const ORIGINAL_CAR_DATA='),physicsEnd=source.indexOf('const q=s=>document.querySelector(s);',physicsStart);
 function env(){
  assert.ok(worldStart>=0&&worldEnd>worldStart&&physicsStart>=0&&physicsEnd>physicsStart);
  const nodes=new Map();
