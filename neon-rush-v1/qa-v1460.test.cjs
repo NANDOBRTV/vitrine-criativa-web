@@ -19,7 +19,7 @@ function env(){
  return {c,els};
 }
 test('V14.6.0 mantém os modelos e nitro real em WebGL',()=>{
- assert.match(html,/V14\.9\.0/);
+ assert.match(html,/V15\.0\.0/);
  assert.doesNotThrow(()=>new vm.Script(source));
  assert.match(source,/function makeNitroFlames\(\)/);
  assert.match(source,/nitro:makeNitroFlames\(\)\.upload\(gl\)/);
@@ -41,7 +41,7 @@ test('diferentes posições de corrida e travessia da linha de chegada não sobr
 });
 test('presente do bot aumenta nitro e registra mini chat, com emissor identificado',()=>{
  const {c,els}=env();
- const r=vm.runInContext("(()=>{createDrivers();gamePhase='race';timer=3;gameOptions.botGifts=false;const ok=receiveGift({sender:'João BOT',recipientId:'04',gift:'Presente',source:'bot'});const first={ok,boost:players[0].boost,feed:giftFeed[0].sender,source:giftFeed[0].source,count:giftEvents};gameOptions.botGifts=true;nextBotGift=5;timer=6;botGiftTick();return {first,count:giftEvents,next:nextBotGift};})()",c);
+ const r=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);gamePhase='race';timer=3;gameOptions.botGifts=false;const ok=receiveGift({sender:'João BOT',recipientId:'04',gift:'Presente',source:'bot'});const first={ok,boost:players[0].boost,feed:giftFeed[0].sender,source:giftFeed[0].source,count:giftEvents};gameOptions.botGifts=true;nextBotGift=5;timer=6;botGiftTick();return {first,count:giftEvents,next:nextBotGift};})()",c);
  assert.equal(r.first.ok,true);
  assert.equal(r.first.boost,6.2);
  assert.equal(r.first.feed,'João BOT');
@@ -53,7 +53,7 @@ test('presente do bot aumenta nitro e registra mini chat, com emissor identifica
 });
 test('nome malicioso em presente não injeta HTML e não trava a física',()=>{
  const {c,els}=env();
- const r=vm.runInContext("(()=>{createDrivers();gamePhase='race';timer=1;gameOptions.botGifts=false;const ok=receiveGift({sender:'<img src=x onerror=alert(1)>',recipientId:'18',gift:'<svg onload=1>',source:'external'});physicsStep(1/60);return {ok,sender:giftFeed[0].sender,gift:giftFeed[0].gift,boost:players.find(p=>p.id==='18').boost};})()",c);
+ const r=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);gamePhase='race';timer=1;gameOptions.botGifts=false;const ok=receiveGift({sender:'<img src=x onerror=alert(1)>',recipientId:'18',gift:'<svg onload=1>',source:'external'});physicsStep(1/60);return {ok,sender:giftFeed[0].sender,gift:giftFeed[0].gift,boost:players.find(p=>p.id==='18').boost};})()",c);
  assert.equal(r.ok,true);
  assert.ok(!r.sender.includes('<')&&!r.gift.includes('<'));
  assert.ok(r.boost>0);
