@@ -54,7 +54,7 @@ test('cenário dividido em trechos para Android',()=>{
 });
 test('escolha de 1,2,3,5,10 voltas e nomes persistidos',()=>{
  const c=context();
- const r=vm.runInContext("(()=>{gameOptions.laps=5;driverNames['04']='Maria';saveSettings();createDrivers();return {laps:gameOptions.laps,name:players[0].name,valid:ALLOWED_LAPS.join(',')};})()",c);
+ const r=vm.runInContext("(()=>{gameOptions.laps=5;driverNames['04']='Maria';saveSettings();createDrivers();players=players.slice(0,10);return {laps:gameOptions.laps,name:players[0].name,valid:ALLOWED_LAPS.join(',')};})()",c);
  assert.equal(r.laps,5);
  assert.equal(r.name,'Maria');
  assert.equal(r.valid,'1,2,3,5,10');
@@ -65,20 +65,20 @@ test('escolha de 1,2,3,5,10 voltas e nomes persistidos',()=>{
 });
 test('10 km completados avançam para a segunda volta de três',()=>{
  const c=context();
- const r=vm.runInContext("(()=>{createDrivers();gamePhase='race';raceLaps=3;timer=0;inDiagnosticRun=true;nextClose=Infinity;physicsStep.previousOrder=null;players[0].progress=9999.9;players[0].speed=31;for(let i=1;i<players.length;i++){players[i].progress=-100-i*25;}for(let i=0;i<4;i++)physicsStep(1/60);return {phase:gamePhase,lap:currentLap(players[0].progress),progress:players[0].progress};})()",c,{timeout:3000});
+ const r=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);gamePhase='race';raceLaps=3;timer=0;inDiagnosticRun=true;nextClose=Infinity;physicsStep.previousOrder=null;players[0].progress=9999.9;players[0].speed=31;for(let i=1;i<players.length;i++){players[i].progress=-100-i*25;}for(let i=0;i<4;i++)physicsStep(1/60);return {phase:gamePhase,lap:currentLap(players[0].progress),progress:players[0].progress};})()",c,{timeout:3000});
  assert.equal(r.phase,'race');
  assert.equal(r.lap,2);
  assert.ok(r.progress>=10000);
 });
 test('bandeirada após 3 voltas e sem antigo limite 78 segundos',()=>{
  const c=context();
- const r=vm.runInContext("(()=>{createDrivers();gamePhase='race';raceLaps=3;timer=300;inDiagnosticRun=true;nextClose=Infinity;physicsStep.previousOrder=null;players[0].progress=29999.95;players[0].speed=29;players[0].lateral=-6;players[0].target=-6;for(let i=1;i<players.length;i++)players[i].progress=-100-i*25;physicsStep(1/60);return {phase:gamePhase,progress:players[0].progress};})()",c,{timeout:3000});
+ const r=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);gamePhase='race';raceLaps=3;timer=300;inDiagnosticRun=true;nextClose=Infinity;physicsStep.previousOrder=null;players[0].progress=29999.95;players[0].speed=29;players[0].lateral=-6;players[0].target=-6;for(let i=1;i<players.length;i++)players[i].progress=-100-i*25;physicsStep(1/60);return {phase:gamePhase,progress:players[0].progress};})()",c,{timeout:3000});
  assert.equal(r.phase,'podium');
  assert.ok(r.progress>=30000);
 });
 test('encontro de carros na junção entre duas voltas não atravessa',()=>{
  const c=context();
- const r=vm.runInContext("(()=>{createDrivers();gamePhase='race';raceLaps=3;timer=100;inDiagnosticRun=true;nextClose=Infinity;players.forEach((p,i)=>{p.progress=-200-i*25;p.speed=20;});players[0].progress=9999;players[0].lateral=2;players[0].target=2;players[1].progress=1;players[1].lateral=2;players[1].target=2;const before=checkPhysics().length;physicsStep(1/60);return {before,after:checkPhysics().length};})()",c,{timeout:3000});
+ const r=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);gamePhase='race';raceLaps=3;timer=100;inDiagnosticRun=true;nextClose=Infinity;players.forEach((p,i)=>{p.progress=-200-i*25;p.speed=20;});players[0].progress=9999;players[0].lateral=2;players[0].target=2;players[1].progress=1;players[1].lateral=2;players[1].target=2;const before=checkPhysics().length;physicsStep(1/60);return {before,after:checkPhysics().length};})()",c,{timeout:3000});
  assert.ok(r.before>0);
  assert.equal(r.after,0);
 });
