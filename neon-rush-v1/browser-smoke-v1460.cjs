@@ -9,21 +9,21 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.rendering&&window.NEON_V14_DIAGNOSTICS?.mapPoints===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.rendering&&window.NEON_V14_DIAGNOSTICS?.mapPoints===50,{timeout:25000});
   function verifyMarkers(markers){
-   assert.equal(markers.length,10);
+   assert.equal(markers.length,50);
    for(let i=0;i<markers.length;i++){
     const m=markers[i];
     assert.ok(m.x>=8&&m.x<=156&&m.y>=8&&m.y<=186,'Outside minimap: '+m.id);
     for(let j=0;j<i;j++){
      const n=markers[j],d=Math.hypot(m.x-n.x,m.y-n.y);
-     assert.ok(d>14,'Badges overlap: '+m.id+' '+n.id+' '+d);
+     assert.ok(d>6.0,'Badges overlap: '+m.id+' '+n.id+' '+d);
     }
    }
   }
   let initial=await page.evaluate(()=>window.NEON_RUSH_V16.getState());
   verifyMarkers(initial.mapMarkers);
-  assert.equal(initial.drivers.length,10);
+  assert.equal(initial.drivers.length,50);
   assert.equal(initial.lapDistance,10000);
   await page.waitForFunction(()=>window.NEON_RUSH_V16.getState().mode==='race',{timeout:12000});
   const pilotId=await page.evaluate(()=>window.NEON_RUSH_V16.getState().drivers[8].id);
