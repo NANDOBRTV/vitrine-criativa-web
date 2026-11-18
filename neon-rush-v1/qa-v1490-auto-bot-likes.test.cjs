@@ -28,7 +28,7 @@ function fixture(){
  return {get,store,elements};
 }
 test('botões, nomes de 10 bots, configuração persistente e classificação separada',()=>{
- assert.match(html,/NEON RUSH V14\.9\.0/);
+ assert.match(html,/NEON RUSH V15\.0\.0/);
  for(const id of ['botLikes','botGifts','liveTapRank','liveLikesRank','liveRaceRank'])assert.match(html,new RegExp('id="'+id+'"'));
  assert.match(source,/function botLikeTick\(\)/);
  assert.match(source,/if\(!inDiagnosticRun\)\{botGiftTick\(\);botLikeTick\(\);\}/);
