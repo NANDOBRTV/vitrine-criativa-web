@@ -74,5 +74,5 @@ test('narrador usa voz opcional, cadência lenta e permite prévia manual',()=>{
  assert.match(source,/nextCommentAt=timer\+19/);
  assert.match(source,/narratorVoice:gameOptions\.narratorVoice/);
  assert.match(source,/RaceNarrator\.tapNitro/);
- assert.match(html,/NEON RUSH V14\.9\.0/);
+ assert.match(html,/NEON RUSH V15\.0\.0/);
 });
