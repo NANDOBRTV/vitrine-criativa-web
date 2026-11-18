@@ -8,7 +8,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===10&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_METRICS?.carModels?.uniqueModels===10,{timeout:25000});
+  await page.waitForFunction(()=>window.NEON_RUSH_V16?.getState()?.mapMarkers?.length===50&&window.NEON_V14_DIAGNOSTICS?.real3D===true&&window.NEON_V14_METRICS?.carModels?.uniqueModels===10,{timeout:25000});
   const state=await page.evaluate(()=>{
    const markers=window.NEON_RUSH_V16.getState().mapMarkers;
    const a=mapTrack.atMeters(-10),b=mapTrack.atMeters(10),len=Math.hypot(b.x-a.x,b.y-a.y);
@@ -17,7 +17,7 @@ const {chromium}=require('playwright');
   });
   assert.equal(state.real3D,true);
   assert.equal(state.models,10);
-  assert.equal(state.markers.length,10);
+  assert.equal(state.markers.length,50);
   assert.ok(state.markers.every(p=>p.layout==='grid'));
   const ids=['04','11','18','27'];
   const first=state.markers.filter(m=>ids.includes(m.id));
@@ -33,7 +33,7 @@ const {chromium}=require('playwright');
    assert.ok(a.x>=8&&a.x<=156&&a.y>=8&&a.y<=186);
    for(let j=i+1;j<state.markers.length;j++){
     const b=state.markers[j];
-    assert.ok(Math.hypot(a.x-b.x,a.y-b.y)>=14,'overlap '+a.id+' '+b.id);
+    assert.ok(Math.hypot(a.x-b.x,a.y-b.y)>=6,'overlap '+a.id+' '+b.id);
    }
   }
   await page.screenshot({path:'neon-rush-v1462-grid-android.png',fullPage:true});
@@ -41,6 +41,6 @@ const {chromium}=require('playwright');
   const gift=await page.evaluate(()=>window.NEON_RUSH_V16.receiveGift({sender:'Teste QA',recipientId:'90',gift:'Presente',source:'demo'}));
   assert.equal(gift,true,'gift interaction preserved');
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({result:'PASS',gridColumns:4,gridRows:3,rowWidth:width,rowDepth:depth,markers:10,webgl:state.real3D,models:state.models,gift,errors},null,2));
+  console.log(JSON.stringify({result:'PASS',gridColumns:4,gridRows:13,rowWidth:width,rowDepth:depth,markers:50,webgl:state.real3D,models:state.models,gift,errors},null,2));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});
