@@ -21,11 +21,11 @@ const {chromium}=require('playwright');
    controls:['choose','camera','close','restart','lapSelect','nameSave','nameInput'].every(k=>document.getElementById(k))
   }));
   assert.equal(initial.diagnostics.real3D,true,'WebGL real indisponível');
-  assert.equal(initial.diagnostics.players,10);
+  assert.equal(initial.diagnostics.players,50);
   assert.equal(initial.models,10);
-  assert.equal(initial.rendered,10);
-  assert.equal(initial.diagnostics.mapPoints,10);
-  assert.equal(initial.diagnostics.mapUnique,10);
+  assert.equal(initial.rendered,50);
+  assert.equal(initial.diagnostics.mapPoints,50);
+  assert.equal(initial.diagnostics.mapUnique,50);
   assert.equal(initial.mapPixel[3],0,'Minimapa deve manter píxeis externos transparentes');
   assert.match(initial.mapStyle,/rgba\(0, 0, 0, 0\)|transparent/);
   assert.ok(initial.controls);
