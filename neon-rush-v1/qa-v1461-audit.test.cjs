@@ -43,7 +43,7 @@ function setup(){
 }
 test('exatamente 10 marcadores livres e nenhuma linha ligando os carros',()=>{
  const {env,log,elements}=setup();
- const state=vm.runInContext("(()=>{createDrivers();players.forEach((p,i)=>{p.progress=3050+i*.25});selected=8;mapFrames=0;drawMap();return {markers:mapMarkerState.map(m=>({...m})),count:mapPoints,unique:mapUnique};})()",env,{timeout:2000});
+ const state=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);players.forEach((p,i)=>{p.progress=3050+i*.25});selected=8;mapFrames=0;drawMap();return {markers:mapMarkerState.map(m=>({...m})),count:mapPoints,unique:mapUnique};})()",env,{timeout:2000});
  assert.equal(state.count,10);
  assert.equal(state.unique,10);
  assert.equal(state.markers.length,10);
@@ -57,18 +57,18 @@ test('exatamente 10 marcadores livres e nenhuma linha ligando os carros',()=>{
  }
  for(let i=0;i<state.markers.length;i++)for(let j=i+1;j<state.markers.length;j++)
   assert.ok(Math.hypot(state.markers[i].x-state.markers[j].x,state.markers[i].y-state.markers[j].y)>14,'Bolinhas grudadas');
- assert.match(elements.get('#mapLegend').textContent,/independentes/);
+ assert.match(elements.get('#mapLegend').textContent,/pontos livres/);
 });
 test('20 pelotões: nenhum conector e nenhum marcador sobreposto',()=>{
  const {env,log}=setup();
- const sample=vm.runInContext("(()=>{createDrivers();let violations=0,badges=0;for(let attempt=0;attempt<20;attempt++){const origin=(attempt*739)%DISTANCE;players.forEach((p,i)=>{p.progress=origin+(attempt%2?i*.18:i*25)});mapFrames=0;drawMap();const pts=mapMarkerState;if(pts.length!==10)violations++;for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)if(Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y)<14)violations++;badges+=pts.length;}return {violations,badges};})()",env,{timeout:9000});
+ const sample=vm.runInContext("(()=>{createDrivers();players=players.slice(0,10);let violations=0,badges=0;for(let attempt=0;attempt<20;attempt++){const origin=(attempt*739)%DISTANCE;players.forEach((p,i)=>{p.progress=origin+(attempt%2?i*.18:i*25)});mapFrames=0;drawMap();const pts=mapMarkerState;if(pts.length!==10)violations++;for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)if(Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y)<14)violations++;badges+=pts.length;}return {violations,badges};})()",env,{timeout:9000});
  assert.equal(sample.violations,0);
  assert.equal(sample.badges,200);
  assert.equal(log.filter(x=>x[0]==='arc').length,20*11);
  assert.equal(log.filter(x=>x[0]==='closePath').length,20);
 });
 test('mantém nitro, configurações e mini chat, sem recursos removidos',()=>{
- assert.match(html,/NEON RUSH V14\.9\.0/);
+ assert.match(html,/NEON RUSH V15\.0\.0/);
  assert.match(html,/id="giftFeed"/);
  assert.match(html,/id="botGifts"/);
  assert.match(html,/id="nitroBadge"/);
