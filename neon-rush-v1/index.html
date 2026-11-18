@@ -983,12 +983,29 @@ function drawMap(){
  if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' pontos livres · 4 faixas';}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;q('#nameInput').value=players[selected].name;hud();}
+// Each of the 40 generated 3D team liveries gets a native preview, not a broken
+// request for an asset that only existed for the 10 original stock-car models.
+function generatedCarPreview(d){
+ const c=document.createElement('canvas');c.width=230;c.height=130;const g=c.getContext('2d');
+ g.fillStyle='#0a1b2d';g.fillRect(0,0,230,130);
+ g.fillStyle='#1b3850';g.fillRect(8,100,214,3);
+ g.fillStyle=d.color;g.beginPath();g.moveTo(16,77);g.lineTo(31,68);g.lineTo(49,64);
+ g.lineTo(74,39);g.lineTo(147,39);g.lineTo(170,64);g.lineTo(205,68);g.lineTo(216,82);
+ g.lineTo(212,94);g.lineTo(17,94);g.closePath();g.fill();
+ g.fillStyle='#bde8f7';g.beginPath();g.moveTo(82,45);g.lineTo(142,45);g.lineTo(158,62);g.lineTo(64,62);g.closePath();g.fill();
+ g.fillStyle='#0c1322';for(const x of [54,174]){g.beginPath();g.arc(x,95,14,0,Math.PI*2);g.fill();g.strokeStyle='#d9ebf6';g.lineWidth=4;g.stroke();}
+ g.fillStyle='#ffffff';g.fillRect(100,68,36,25);g.fillStyle='#081728';g.font='900 19px Arial';g.textAlign='center';g.fillText(d.id,118,86);
+ g.textAlign='left';g.font='bold 12px Arial';g.fillStyle='#f8dc95';g.fillText('NEON RUSH TEAM',11,19);
+ return c.toDataURL('image/png');
+}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
  const b=document.createElement('button'),im=document.createElement('img'),label=document.createElement('span'),name=document.createElement('strong'),detail=document.createElement('small');
- im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.webp';im.onerror=()=>{if(!im.dataset.fallback){im.dataset.fallback='1';im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.png';}};im.alt='Skin original '+p.id;im.loading='lazy';
- name.textContent=p.id+'  ·  '+p.model;detail.textContent='Pintura e modelo 3D do veículo nº '+p.id;
- label.append(name,detail);b.append(im,label);b.style.borderLeft='5px solid '+p.color;b.setAttribute('aria-pressed',i===selected?'true':'false');
- b.onclick=()=>selectDriver(i);return b;}));}
+ if(p.generated){im.src=generatedCarPreview(p);im.alt='Pintura Stock Car nº '+p.id;}
+ else {im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.webp';im.onerror=()=>{if(!im.dataset.fallback){im.dataset.fallback='1';im.src='assets/stockcar/cars/car_'+p.id+'/car_'+p.id+'_side.png';}};im.alt='Skin original '+p.id;}
+ im.loading='lazy';name.textContent=p.id+'  ·  '+p.model;
+ detail.textContent=p.generated?'Pintura exclusiva da equipe · carro nº '+p.id:'Pintura e modelo 3D original · carro nº '+p.id;
+ label.append(name,detail);b.append(im,label);b.style.borderLeft='5px solid '+p.color;b.setAttribute('aria-pressed',i===selected?'true':'false');b.onclick=()=>selectDriver(i);return b;
+}));}
 // Original synthesized engine audio. User gesture is required on mobile browsers.
 let engineAudio=null;
 function initEngineAudio(){
