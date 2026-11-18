@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).join('\n');
 const world=source.indexOf('const TAU=Math.PI*2;'),engine=source.indexOf('function createEngine(canvas)',world);
-const physical=source.indexOf('const CAR_DATA='),qAt=source.indexOf('const q=s=>document.querySelector(s);',physical);
+const physical=source.indexOf('const ORIGINAL_CAR_DATA='),qAt=source.indexOf('const q=s=>document.querySelector(s);',physical);
 const mapAt=source.indexOf('function mapGeometry(w,h)'),mapEnd=source.indexOf('function selectDriver(i)',mapAt);
 function sim(withMap=false){
  assert.ok(world>=0&&engine>world&&physical>=0&&qAt>physical&&mapAt>=0&&mapEnd>mapAt);
