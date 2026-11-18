@@ -809,15 +809,17 @@ function render3D(dt){if(!engine)return;engine.dimensions();engine.start();
   if(!Number.isFinite(yaw)){orientationIssues++;continue;}
   const model=mul(M(at[0],at[1],at[2],yaw,1),[Math.cos(d.roll),Math.sin(d.roll),0,0,-Math.sin(d.roll),Math.cos(d.roll),0,0,0,0,1,0,0,0,0,1]);
   const shape=meshes.cars[d.id];if(!shape){orientationIssues++;continue;}
-  engine.draw(shape.body,model,H(d.color));for(const panel of shape.panels)engine.draw(panel,model);
+  engine.draw(shape.body,model,H(d.color));
+  const nearDetail=circularGap(d.progress,follow.progress)<52||d===shown||d===follow;
+  if(nearDetail)for(const panel of shape.panels)engine.draw(panel,model);
   const turning=clamp(d.steering,-.3,.3);
-  for(const side of [-1,1])for(const front of [false,true]){
+  if(nearDetail)for(const side of [-1,1])for(const front of [false,true]){
    const wheelLocal=mul(M(side*1.05,.47,front?1.41:-1.35,front?turning:0,1),rotateX(-d.wheelRoll));
    engine.draw(meshes.wheel,mul(model,wheelLocal));
   }
   if(gamePhase==='race'&&d.boost>.04&&meshes.nitro){const flicker=.88+.13*Math.sin(timer*33+d.progress*.07);engine.draw(meshes.nitro,mul(model,M(0,0,-.23,0,flicker)),[1,1,1],.94);nitroRendered++;}
   const sign=meshes.nameplates[d.id];
-  if(sign){const signFacing=Math.atan2(cameraPos[0]-at[0],cameraPos[2]-at[2]);engine.draw(sign,M(at[0],at[1],at[2],signFacing,1));}
+  if(sign&&(nearDetail||d===shown)){const signFacing=Math.atan2(cameraPos[0]-at[0],cameraPos[2]-at[2]);engine.draw(sign,M(at[0],at[1],at[2],signFacing,1));}
   visible++;
  }
  window.NEON_V14_METRICS=window.NEON_V13_METRICS={visibleVehicles:visible,nitroRendered,collisionCorrections:collisionEvents,physicalOverlaps:checkPhysics().length,overtakeEvents:passingEvents,
@@ -853,7 +855,7 @@ function mapGeometry(w,h){
  }
  return {w,h,left,right,center,X,Y,scale,atMeters,atArc,perimeter};
 }
-// Ten independent numbered markers, spaced on the visible course. Exact race meters remain in the HUD/state.
+// Fifty independent car dots (selected dot numbered), spaced in the track/grid. Exact meters stay in HUD/state.
 // At dense starts the icons spread visually; we never draw extra dots, connection lines or misleading tethers.
 // World distance 10 km shrinks a 4-lane starting grid into a few pixels.
 // A local magnified pack shows the SAME lanes and starting rows, never a train of labels
@@ -959,24 +961,26 @@ function drawMap(){
  c.beginPath();c.arc(mx,my,4.5,0,TAU);c.fillStyle='#f8f9ff';c.fill();c.lineWidth=1.5;c.strokeStyle='#ffbf45';c.stroke();
  c.fillStyle='#ffffff';c.font='bold 9px sans-serif';c.fillText('L/C',mx+9,my-6);
  const leader=rank()[0],cars=players.map((driver,i)=>({driver,i,pos:point(START+driver.progress,driver.lateral)}));
- const arranged=layoutMinimapMarkers(cars,t,19);
+ const crowded=players.length>20;
+ const arranged=layoutMinimapMarkers(cars,t,crowded?7.4:19);
  const used=[];
  for(const o of arranged){
   const displayed={x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8)};
   used.push({...displayed,id:o.driver.id});
   // Only ONE independent numbered marker per car. No extra dot, tether or marker-to-marker line.
-  const selectedCar=o.i===selected,radius=selectedCar?6.6:6;
+  const selectedCar=o.i===selected,radius=crowded?(selectedCar?4.3:3.35):(selectedCar?6.6:6);
   c.beginPath();c.arc(displayed.x,displayed.y,radius,0,TAU);c.fillStyle=o.driver.color;c.fill();
   c.lineWidth=selectedCar?2:1.25;c.strokeStyle=selectedCar?'#fff5a9':o.driver===leader?'#ffffff':'#d5edf5';c.stroke();
-  c.fillStyle=/^(04|18|33|07|19|90|64)$/.test(o.driver.id)?'#ffffff':'#10202b';
-  c.font='bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,displayed.x,displayed.y+.2);
+  if(!crowded||selectedCar){c.fillStyle=/^(04|18|33|07|19|90|64)$/.test(o.driver.id)?'#ffffff':'#10202b';
+   c.font=crowded?'bold 6px sans-serif':'bold 8px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(o.driver.id,displayed.x,displayed.y+.2);}
+
  }
  mapMarkerState=arranged.map(o=>({
   id:o.driver.id,meters:o.driver.progress,lane:o.driver.lateral,layout:o.layout,
   x:clamp(o.position.x,8,w-8),y:clamp(o.position.y,8,h-8)
  }));
  c.restore();mapPoints=used.length;mapUnique=new Set(used.map(v=>v.id)).size;mapFrames++;
- if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' marcadores independentes · grid 4 faixas';}
+ if(mapFrames%20===1){q('#mapCount').textContent=mapPoints+'/'+players.length;q('#mapLegend').textContent=mapPoints+' pontos livres · 4 faixas';}
 }
 function selectDriver(i){selected=clamp(i,0,players.length-1);q('#picker').hidden=true;q('#nameInput').value=players[selected].name;hud();}
 function buildPicker(){q('#pickerList').replaceChildren(...players.map((p,i)=>{
