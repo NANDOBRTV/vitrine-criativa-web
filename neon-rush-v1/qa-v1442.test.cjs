@@ -8,7 +8,7 @@ const vm = require('node:vm');
 const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
 const matches = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
 const source = matches.map(m => m[1]).join('\n');
-const from = source.indexOf('const CAR_DATA=');
+const from = source.indexOf('const ORIGINAL_CAR_DATA=');
 const to = source.indexOf('const q=s=>document.querySelector(s);', from);
 
 function physicsEnv() {
