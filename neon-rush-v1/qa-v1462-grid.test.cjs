@@ -6,7 +6,7 @@ const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).join('\n');
 function env(){
  const a=source.indexOf('const TAU=Math.PI*2;'),b=source.indexOf('function createEngine(canvas)',a);
- const p=source.indexOf('const CAR_DATA='),q=source.indexOf('const q=s=>document.querySelector(s);',p);
+ const p=source.indexOf('const ORIGINAL_CAR_DATA='),q=source.indexOf('const q=s=>document.querySelector(s);',p);
  const m=source.indexOf('function mapGeometry(w,h)'),n=source.indexOf('function selectDriver(i)',m);
  assert.ok(a>=0&&b>a&&p>=0&&q>p&&m>=0&&n>m);
  const calls=[],canvas2d={};
