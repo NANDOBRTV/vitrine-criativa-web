@@ -9,7 +9,7 @@ const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].ma
 function setup(){
  const worldStart=source.indexOf('const TAU=Math.PI*2;');
  const worldEnd=source.indexOf('function createEngine(canvas)',worldStart);
- const physicsStart=source.indexOf('const CAR_DATA=');
+ const physicsStart=source.indexOf('const ORIGINAL_CAR_DATA=');
  const physicsEnd=source.indexOf('const q=s=>document.querySelector(s);',physicsStart);
  const mapStart=source.indexOf('function mapGeometry(w,h)');
  const mapEnd=source.indexOf('function selectDriver(i)',mapStart);
